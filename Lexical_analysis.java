@@ -6,6 +6,18 @@ static int comment=0;
 static int lineNumber = 1;
 static String s="";
 static char[] symbols = new char[] {'<','>','(',')','{','}','[',']','+','-','/','*','=',';',':',','};
+
+public static void errorMsg(String word, String type) {
+	try {
+        BufferedWriter out = new BufferedWriter(
+            new FileWriter("C:\\Users\\DELL\\OneDrive\\Desktop\\compiler\\originalfilename.outlexerrors", true));
+        out.write("Lexical error: Invalid "+ type +": "+word+": line "+lineNumber+". \n");
+        out.close();
+    }
+    catch (IOException e) {
+        System.out.println("exception occurred" + e);
+    }
+}
 public static void addReserved(String word) {
 	try {
       BufferedWriter out = new BufferedWriter(
@@ -116,19 +128,27 @@ public static String getWord() {
 				else {
 					addOperators(String.valueOf(s.charAt(i)));
 				}
-				if(i>0) s = s.substring(i-1);
-				else s = s.substring(i);
+//				if(i>0) {
+//					
+//					s = s.substring(i+1);
+//					System.out.println();
+//					System.out.println(s);
+//				}
+//				else {
+//					s = s.substring(i);
+//				}
 				x=1;
 				break;
 			}
 		}
 		if(x==1) {
+			
 			break;
 		}
 		str+=s.charAt(i);
 		i++;
 	}
-	if(s.charAt(i)=='\n' && i<s.length()-1 && s.charAt(i+1)!='\n') {
+	if(s.charAt(i)=='\n') {
 		i++;
 		try {
 			BufferedWriter out = new BufferedWriter(
@@ -136,7 +156,6 @@ public static String getWord() {
 			out.write('\n');
 			out.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		lineNumber++;
@@ -167,6 +186,7 @@ public static void nextToken() {
 				continue;
 			}
 			else {
+				System.out.println(word);
 				isToken(word);
 			}
 		}
@@ -192,15 +212,7 @@ public static void isToken(String word) {
 				i++;
 			}
 			else {
-				try {
-		            BufferedWriter out = new BufferedWriter(
-		                new FileWriter("C:\\Users\\DELL\\OneDrive\\Desktop\\compiler\\originalfilename.outlexerrors", true));
-		            out.write("Lexical error: Invalid character: "+word+": line "+lineNumber+". \n");
-		            out.close();
-		        }
-		        catch (IOException e) {
-		            System.out.println("exception occurred" + e);
-		        }
+				errorMsg(word,"id");
 				return;
 			}
 			i++;
@@ -216,16 +228,20 @@ public static void isToken(String word) {
         }
 	}
 	else if(word.charAt(i)>=48 && word.charAt(i)<59) {
-		if(word.charAt(0)=='0' && word.length()>1 && isDigit(word.charAt(1))) {
+		if(word.charAt(0)=='0' && word.length()==1) {
 			try {
 	            BufferedWriter out = new BufferedWriter(
-	                new FileWriter("C:\\Users\\DELL\\OneDrive\\Desktop\\compiler\\originalfilename.outlexerrors", true));
-	            out.write("Lexical error: Invalid Number: "+word+": line "+lineNumber+". \n");
+	                new FileWriter("C:\\Users\\DELL\\OneDrive\\Desktop\\compiler\\originalfilename.outlextokens", true));
+	            out.write("[ intNum , "+ word +" , "+ lineNumber + " ], ");
 	            out.close();
 	        }
 	        catch (IOException e) {
 	            System.out.println("exception occurred" + e);
 	        }
+			return;
+		}
+		else if(word.charAt(0)=='0' && word.length()>1 && isDigit(word.charAt(1))) {
+			errorMsg(word,"Number");
 			return;
 		}
 		int inte=0;
@@ -237,15 +253,7 @@ public static void isToken(String word) {
 				i++;
 			}
 			else {
-				try {
-		            BufferedWriter out = new BufferedWriter(
-		                new FileWriter("C:\\Users\\DELL\\OneDrive\\Desktop\\compiler\\originalfilename.outlexerrors", true));
-		            out.write("Lexical error: Invalid Number: "+word+": line "+lineNumber+". \n");
-		            out.close();
-		        }
-		        catch (IOException e) {
-		            System.out.println("exception occurred" + e);
-		        }
+				errorMsg(word,"Number");
 				return;
 			}
 		}
@@ -259,30 +267,97 @@ public static void isToken(String word) {
 	        catch (IOException e) {
 	            System.out.println("exception occurred" + e);
 	        }
+			return;
 		}
 		else {
 			
+			if((word.charAt(0)=='0' && word.charAt(1)!='.') || word.charAt(0)=='.') {
+				errorMsg(word,"Float Number");
+				return;
+			}
+			else {
+				i=0;
+				while(word.charAt(i)!='.') {
+					if(word.charAt(i)<48 || word.charAt(i)>58) {
+						errorMsg(word,"Float Number");
+						return;
+					}
+					i++;
+				}
+				if(i==word.length()-2 && word.charAt(i+1)=='0') {
+					try {
+			            BufferedWriter out = new BufferedWriter(
+			                new FileWriter("C:\\Users\\DELL\\OneDrive\\Desktop\\compiler\\originalfilename.outlextokens", true));
+			            out.write("[ Float , "+ word +" , "+ lineNumber + " ], ");
+			            out.close();
+			        }
+			        catch (IOException e) {
+			            System.out.println("exception occurred" + e);
+			        }
+					return;
+				}
+				i++;
+				while(i<word.length() && word.charAt(i)!='e') {
+					if(word.charAt(i)<48 || word.charAt(i)>58) {
+						errorMsg(word,"Float Number");
+						return;
+					}
+					i++;
+				}
+				if(i>=word.length()) {
+					if(word.charAt(i-1)=='0') {
+						errorMsg(word,"Float Number");
+						return;
+				}
+					else {
+						try {
+				            BufferedWriter out = new BufferedWriter(
+				                new FileWriter("C:\\Users\\DELL\\OneDrive\\Desktop\\compiler\\originalfilename.outlextokens", true));
+				            out.write("[ Float , "+ word +" , "+ lineNumber + " ], ");
+				            out.close();
+				        }
+				        catch (IOException e) {
+				            System.out.println("exception occurred" + e);
+				        }
+						return;
+					}
+				}
+				i++;
+				if(word.charAt(i)=='-' || word.charAt(i)=='+') {
+					i++;
+				}
+				else {
+					errorMsg(word,"Float Number");
+						return;
+				}
+				while(i<word.length()) {
+					if(word.charAt(i)<48 || word.charAt(i)>58) {
+						errorMsg(word,"Float Number");
+						return;
+					}
+					i++;
+				}
+				if(word.charAt(word.length()-1)=='0') {
+					errorMsg(word,"Float Number");
+					return;
+				}
+				else {
+					try {
+			            BufferedWriter out = new BufferedWriter(
+			                new FileWriter("C:\\Users\\DELL\\OneDrive\\Desktop\\compiler\\originalfilename.outlextokens", true));
+			            out.write("[ Float , "+ word +" , "+ lineNumber + " ], ");
+			            out.close();
+			        }
+			        catch (IOException e) {
+			            System.out.println("exception occurred" + e);
+			        }
+					return;
+				}
+			}
 		}
-//		try {
-//            BufferedWriter out = new BufferedWriter(
-//                new FileWriter("C:\\Users\\DELL\\OneDrive\\Desktop\\compiler\\originalfilename.outlextokens", true));
-//            out.write("[ num , "+ word +" , "+ lineNumber + " ], ");
-//            out.close();
-//        }
-//        catch (IOException e) {
-//            System.out.println("exception occurred" + e);
-//        }
 	}
 	else {
-		try {
-            BufferedWriter out = new BufferedWriter(
-                new FileWriter("C:\\Users\\DELL\\OneDrive\\Desktop\\compiler\\originalfilename.outlexerrors", true));
-            out.write("Lexical error: Invalid character: "+word+": line "+lineNumber+". \n");
-            out.close();
-        }
-        catch (IOException e) {
-            System.out.println("exception occurred" + e);
-        }
+		errorMsg(word,"id");
 	}
 }
 	public static void main(String[] args) {
