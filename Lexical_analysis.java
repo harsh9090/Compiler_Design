@@ -3,10 +3,22 @@ import java.util.Scanner;
 public class Lexical_analysis {
 static String[] reserved;
 static int comment=0;
-static int lineNumber = 1;
+static int lineNumber = 1,already=0;
 static String s="";
 static char[] symbols = new char[] {'<','>','(',')','{','}','[',']','+','-','/','*','=',';',':',','};
 
+public static void tokenAdd(String word, String type) {
+	try {
+        BufferedWriter out = new BufferedWriter(
+            new FileWriter("C:\\Users\\DELL\\OneDrive\\Desktop\\compiler\\originalfilename.outlextokens", true));
+        out.write("[ "+type+" , "+ word +" , "+ lineNumber + " ], ");
+        out.close();
+    }
+    catch (IOException e) {
+        System.out.println("exception occurred" + e);
+    }
+}
+//if token has error
 public static void errorMsg(String word, String type) {
 	try {
         BufferedWriter out = new BufferedWriter(
@@ -18,6 +30,8 @@ public static void errorMsg(String word, String type) {
         System.out.println("exception occurred" + e);
     }
 }
+
+//if the token is reserved
 public static void addReserved(String word) {
 	try {
       BufferedWriter out = new BufferedWriter(
@@ -30,16 +44,22 @@ public static void addReserved(String word) {
   }
 
 }
+
+//adding operators
 public static void addOperators(String word) {
 	try {
       BufferedWriter out = new BufferedWriter(
           new FileWriter("C:\\Users\\DELL\\OneDrive\\Desktop\\compiler\\originalfilename.outlextokens", true));
-      if(word.equals("=="))     	  out.write("[ eq, " + word +", "+ lineNumber + " ], ");
+      if(word.equals("=="))     	  {
+    	  out.write("[ eq, " + word +", "+ lineNumber + " ], "); s = s.substring(1);
+      }
       else if(word.equals("+"))    	  out.write("[ plus, " + word +", "+ lineNumber + " ], ");
       else if(word.equals("("))    	  out.write("[ openpar, " + word +", "+ lineNumber + " ], ");
       else if(word.equals(";"))   	  out.write("[ semi, " + word +", "+ lineNumber + " ], ");
-      else if(word.equals(":"))		  out.write("[ colon , " + word + lineNumber + " ], ");
-      else if(word.equals("<>"))	  out.write("[ noteq, " + word +", "+ lineNumber + " ], ");
+      else if(word.equals(":"))		  out.write("[ colon , " + word+", " + lineNumber + " ], ");
+      else if(word.equals("<>"))	  {
+    	  out.write("[ noteq, " + word +", "+ lineNumber + " ], "); s = s.substring(1);
+      }
       else if(word.equals("-"))	      out.write("[ minus, " + word +", "+ lineNumber + " ], ");
       else if(word.equals(")"))   	  out.write("[ closepar , "+ word +" , "+ lineNumber + " ], ");  
       else if(word.equals(","))   	  out.write("[ comma , "+ word +" , "+ lineNumber + " ], ");
@@ -50,11 +70,21 @@ public static void addOperators(String word) {
       else if(word.equals("]"))       out.write("[ closesqbr , "+ word +" , "+ lineNumber + " ], ");
       else if(word.equals("<"))    	  out.write("[ lt , "+ word +" , "+ lineNumber + " ], ");
       else if(word.equals(">")) 	  out.write("[ gt , "+ word +" , "+ lineNumber + " ], ");
-      else if(word.equals("<=")) 	  out.write("[ leq , "+ word +" , "+ lineNumber + " ], ");
-      else if(word.equals(">=")) 	  out.write("[ geq , "+ word +" , "+ lineNumber + " ], ");
-      else if(word.equals("=")) 	  out.write("[ assign , "+ word +" , "+ lineNumber + " ], ");
-      else if(word.equals("::")) 	  out.write("[ scopeop , "+ word +" , "+ lineNumber + " ], ");
-      else if(word.equals("=>")) 	  out.write("[ retruntype , "+ word +" , "+ lineNumber + " ], ");
+      else if(word.equals("<=")) 	  {
+    	  out.write("[ leq , "+ word +" , "+ lineNumber + " ], "); s = s.substring(1);
+      }
+      else if(word.equals(">=")) 	  {
+    	  out.write("[ geq , "+ word +" , "+ lineNumber + " ], "); s = s.substring(1);
+      }
+      else if(word.equals("=")) 	  {
+    	  out.write("[ assign , "+ word +" , "+ lineNumber + " ], ");
+      }
+      else if(word.equals("::")) 	  {
+    	  out.write("[ scopeop , "+ word +" , "+ lineNumber + " ], "); s = s.substring(1);
+      }
+      else if(word.equals("=>")) 	  {
+    	  out.write("[ retruntype , "+ word +" , "+ lineNumber + " ], "); s = s.substring(1);
+      }
       else if(word.equals("*"))		  out.write("[ mult , "+ word +" , "+ lineNumber + " ], ");
       else if(word.equals("/"))		  out.write("[ div , "+ word +" , "+ lineNumber + " ], ");
       else 							  out.write("[ " + word +" , "+ word +" , "+ lineNumber + " ], ");
@@ -65,7 +95,10 @@ public static void addOperators(String word) {
   }
 
 }
+
+//get the word untill space of any word breakers
 public static String getWord() {
+	already=0;
 	int i=0;
 	String str="";
 	if(s.charAt(0)=='/' && s.charAt(1)=='/') {
@@ -75,7 +108,6 @@ public static String getWord() {
 			s = s.substring(i);
 			i=0;
 		}
-		lineNumber++;
 	}
 	if(s.charAt(0)=='/' && s.charAt(1)=='*') {
 		comment++;
@@ -101,7 +133,11 @@ public static String getWord() {
 					x=0;
 					break;
 				}
-				else if(i<s.length()-1 && s.charAt(i)=='=' && s.charAt(i+1)=='=') {
+				if(str.length()>0) {
+					isToken(str);
+					already=1;
+				}
+				if(i<s.length()-1 && s.charAt(i)=='=' && s.charAt(i+1)=='=') {
 					i++;
 					addOperators("==");
 				}
@@ -128,27 +164,21 @@ public static String getWord() {
 				else {
 					addOperators(String.valueOf(s.charAt(i)));
 				}
-//				if(i>0) {
-//					
-//					s = s.substring(i+1);
-//					System.out.println();
-//					System.out.println(s);
-//				}
-//				else {
-//					s = s.substring(i);
-//				}
 				x=1;
 				break;
 			}
 		}
 		if(x==1) {
-			
 			break;
 		}
 		str+=s.charAt(i);
 		i++;
 	}
-	if(s.charAt(i)=='\n') {
+	if(already!=1 && str.length()>0) {
+		isToken(str);
+	}
+	if(s.charAt(i)=='\n') lineNumber++;
+	if(s.charAt(i)=='\n' && i<s.length()-1 && s.charAt(i+1)!='\n') {
 		i++;
 		try {
 			BufferedWriter out = new BufferedWriter(
@@ -158,7 +188,6 @@ public static String getWord() {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		lineNumber++;
 	}
 	return str;
 }
@@ -170,26 +199,6 @@ public static void nextToken() {
 		if(word.length()!=s.length())
 			s = s.substring(word.length()+1);
 		else s = "";
-		if(word.equals("") || word.equals(" ") || word.equals("\n") || word.equals("\t")) {
-			continue;
-		}
-		else {
-			int x=0;
-			for(int i=0;i<reserved.length;i++) {
-				if(reserved[i].equals(word)) {
-					addReserved(word);
-					x=1;
-					break;
-				}
-			}
-			if(x==1) {
-				continue;
-			}
-			else {
-				System.out.println(word);
-				isToken(word);
-			}
-		}
 	}
 }
 public static boolean isDigit(char x) {
@@ -203,7 +212,18 @@ public static boolean isLetter(char x) {
 	}
 	return false;
 }
+
+
 public static void isToken(String word) {
+	for(int ab=0;ab<reserved.length;ab++) {
+		if(reserved[ab].equals(word)) {
+			if(word.equals(".")) {
+				addOperators(word);
+			}
+			else addReserved(word);
+			return;
+		}
+	}
 	int i=0;
 	if(word.toLowerCase().charAt(i)>=97 && word.toLowerCase().charAt(i)<123) {
 		i++;
@@ -217,27 +237,11 @@ public static void isToken(String word) {
 			}
 			i++;
 		}
-		try {
-            BufferedWriter out = new BufferedWriter(
-                new FileWriter("C:\\Users\\DELL\\OneDrive\\Desktop\\compiler\\originalfilename.outlextokens", true));
-            out.write("[ id , "+ word +" , "+ lineNumber + " ], ");
-            out.close();
-        }
-        catch (IOException e) {
-            System.out.println("exception occurred" + e);
-        }
+		tokenAdd(word, "id");
 	}
 	else if(word.charAt(i)>=48 && word.charAt(i)<59) {
 		if(word.charAt(0)=='0' && word.length()==1) {
-			try {
-	            BufferedWriter out = new BufferedWriter(
-	                new FileWriter("C:\\Users\\DELL\\OneDrive\\Desktop\\compiler\\originalfilename.outlextokens", true));
-	            out.write("[ intNum , "+ word +" , "+ lineNumber + " ], ");
-	            out.close();
-	        }
-	        catch (IOException e) {
-	            System.out.println("exception occurred" + e);
-	        }
+			tokenAdd(word,"intNumber");
 			return;
 		}
 		else if(word.charAt(0)=='0' && word.length()>1 && isDigit(word.charAt(1))) {
@@ -258,15 +262,7 @@ public static void isToken(String word) {
 			}
 		}
 		if(inte==0) {
-			try {
-	            BufferedWriter out = new BufferedWriter(
-	                new FileWriter("C:\\Users\\DELL\\OneDrive\\Desktop\\compiler\\originalfilename.outlextokens", true));
-	            out.write("[ intNum , "+ word +" , "+ lineNumber + " ], ");
-	            out.close();
-	        }
-	        catch (IOException e) {
-	            System.out.println("exception occurred" + e);
-	        }
+			tokenAdd(word,"intNumber");
 			return;
 		}
 		else {
@@ -285,15 +281,7 @@ public static void isToken(String word) {
 					i++;
 				}
 				if(i==word.length()-2 && word.charAt(i+1)=='0') {
-					try {
-			            BufferedWriter out = new BufferedWriter(
-			                new FileWriter("C:\\Users\\DELL\\OneDrive\\Desktop\\compiler\\originalfilename.outlextokens", true));
-			            out.write("[ Float , "+ word +" , "+ lineNumber + " ], ");
-			            out.close();
-			        }
-			        catch (IOException e) {
-			            System.out.println("exception occurred" + e);
-			        }
+					tokenAdd(word,"Float");
 					return;
 				}
 				i++;
@@ -310,15 +298,7 @@ public static void isToken(String word) {
 						return;
 				}
 					else {
-						try {
-				            BufferedWriter out = new BufferedWriter(
-				                new FileWriter("C:\\Users\\DELL\\OneDrive\\Desktop\\compiler\\originalfilename.outlextokens", true));
-				            out.write("[ Float , "+ word +" , "+ lineNumber + " ], ");
-				            out.close();
-				        }
-				        catch (IOException e) {
-				            System.out.println("exception occurred" + e);
-				        }
+						tokenAdd(word,"Float");
 						return;
 					}
 				}
@@ -342,15 +322,7 @@ public static void isToken(String word) {
 					return;
 				}
 				else {
-					try {
-			            BufferedWriter out = new BufferedWriter(
-			                new FileWriter("C:\\Users\\DELL\\OneDrive\\Desktop\\compiler\\originalfilename.outlextokens", true));
-			            out.write("[ Float , "+ word +" , "+ lineNumber + " ], ");
-			            out.close();
-			        }
-			        catch (IOException e) {
-			            System.out.println("exception occurred" + e);
-			        }
+					tokenAdd(word,"Float");
 					return;
 				}
 			}
