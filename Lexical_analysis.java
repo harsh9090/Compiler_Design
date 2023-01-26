@@ -4,13 +4,13 @@ public class Lexical_analysis {
 static String[] reserved;
 static int comment=0;
 static int lineNumber = 1,already=0;
-static String s="";
+static String s="",errorFile=".outlexerrors",tokenFile=".outlextokens";
 static char[] symbols = new char[] {'<','>','(',')','{','}','[',']','+','-','/','*','=',';',':',','};
 
 public static void tokenAdd(String word, String type) {
 	try {
         BufferedWriter out = new BufferedWriter(
-            new FileWriter("C:\\Users\\DELL\\OneDrive\\Desktop\\compiler\\originalfilename.outlextokens", true));
+            new FileWriter("C:\\Users\\DELL\\OneDrive\\Desktop\\compiler\\"+tokenFile, true));
         out.write("[ "+type+" , "+ word +" , "+ lineNumber + " ], ");
         out.close();
     }
@@ -22,7 +22,7 @@ public static void tokenAdd(String word, String type) {
 public static void errorMsg(String word, String type) {
 	try {
         BufferedWriter out = new BufferedWriter(
-            new FileWriter("C:\\Users\\DELL\\OneDrive\\Desktop\\compiler\\originalfilename.outlexerrors", true));
+            new FileWriter("C:\\Users\\DELL\\OneDrive\\Desktop\\compiler\\"+errorFile, true));
         out.write("Lexical error: Invalid "+ type +": "+word+": line "+lineNumber+". \n");
         out.close();
     }
@@ -35,7 +35,7 @@ public static void errorMsg(String word, String type) {
 public static void addReserved(String word) {
 	try {
       BufferedWriter out = new BufferedWriter(
-          new FileWriter("C:\\Users\\DELL\\OneDrive\\Desktop\\compiler\\originalfilename.outlextokens", true));
+          new FileWriter("C:\\Users\\DELL\\OneDrive\\Desktop\\compiler\\"+tokenFile, true));
       out.write("[ " + word +" , "+ word +" , "+ lineNumber + " ], ");
       out.close();
   }
@@ -49,7 +49,7 @@ public static void addReserved(String word) {
 public static void addOperators(String word) {
 	try {
       BufferedWriter out = new BufferedWriter(
-          new FileWriter("C:\\Users\\DELL\\OneDrive\\Desktop\\compiler\\originalfilename.outlextokens", true));
+          new FileWriter("C:\\Users\\DELL\\OneDrive\\Desktop\\compiler\\"+tokenFile, true));
       if(word.equals("=="))     	  {
     	  out.write("[ eq, " + word +", "+ lineNumber + " ], "); s = s.substring(1);
       }
@@ -118,13 +118,15 @@ public static String getWord() {
 			comment++;
 		}
 		if(i<s.length()-2 && s.charAt(i)=='*' && s.charAt(i+1)=='/') {
-			s = s.substring(i);
+			s = s.substring(i+1);
 			i=0;
 			comment--;
 		}
 		i++;
 	}
-	if(s.charAt(i)=='/') i++;
+	if(s.charAt(i)=='/') {
+		s = s.substring(1);
+	}
 	while(i<s.length() && (s.charAt(i)!=' ' && s.charAt(i)!= '\t' && s.charAt(i)!='\n')){
 		int x=0;
 		for(int j=0;j<symbols.length;j++) {
@@ -177,12 +179,12 @@ public static String getWord() {
 	if(already!=1 && str.length()>0) {
 		isToken(str);
 	}
-	if(s.charAt(i)=='\n') lineNumber++;
-	if(s.charAt(i)=='\n' && i<s.length()-1 && s.charAt(i+1)!='\n') {
+	if(s.charAt(i)=='\n' && i<s.length()-1) {
+		lineNumber++;
 		i++;
 		try {
 			BufferedWriter out = new BufferedWriter(
-			      new FileWriter("C:\\Users\\DELL\\OneDrive\\Desktop\\compiler\\originalfilename.outlextokens", true));
+			      new FileWriter("C:\\Users\\DELL\\OneDrive\\Desktop\\compiler\\"+tokenFile, true));
 			out.write('\n');
 			out.close();
 		} catch (IOException e) {
@@ -333,9 +335,14 @@ public static void isToken(String word) {
 	}
 }
 	public static void main(String[] args) {
+		System.out.println("Enter file name:");
+		Scanner sc = new Scanner(System.in);
+		String inp = sc.next();
+		errorFile =inp+".outlexerrors";
+		tokenFile=inp+".outlextokens";
 		try {
             BufferedWriter out = new BufferedWriter(
-                new FileWriter("C:\\Users\\DELL\\OneDrive\\Desktop\\compiler\\originalfilename.outlexerrors"));
+                new FileWriter("C:\\Users\\DELL\\OneDrive\\Desktop\\compiler\\"+errorFile));
             out.close();
         }
         catch (IOException e) {
@@ -343,13 +350,13 @@ public static void isToken(String word) {
         }
 		try {
             BufferedWriter out = new BufferedWriter(
-                new FileWriter("C:\\Users\\DELL\\OneDrive\\Desktop\\compiler\\originalfilename.outlextokens"));
+                new FileWriter("C:\\Users\\DELL\\OneDrive\\Desktop\\compiler\\"+tokenFile));
             out.close();
         }
         catch (IOException e) {
             System.out.println("exception occurred" + e);
         }
-		File f1 = new File("C:\\Users\\DELL\\OneDrive\\Desktop\\compiler\\test.txt");
+		File f1 = new File("C:\\Users\\DELL\\OneDrive\\Desktop\\compiler\\"+inp);
 		reserved = new String[] {"==","+","or","(",";","integer","while","localvar","<>","-","and",")",",","float","if","constructor","<","*","not","{",".","void","then","attribute",">","/","}",":","class","else","function","<=","=","[","=>","self","read","public",">=","]","::","isa","write","private","return"};
 		Scanner myReader = null;
 		try {
@@ -361,6 +368,7 @@ public static void isToken(String word) {
 	        s += myReader.nextLine()+'\n';
 	      }
 	      nextToken();
+	      System.out.print("end");
 	}
-
+	
 }
