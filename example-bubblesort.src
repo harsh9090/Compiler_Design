@@ -1,0 +1,2 @@
+/* sort the array */
+function bubbleSort(arr: integer[], size: integer) => void 
