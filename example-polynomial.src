@@ -1,4 +1,4 @@
-// ====== struct declarations ====== //
+/* ====== struct declarations ====== */
 class POLYNOMIAL {
   public function evaluate: (x: float) => float;
 };
