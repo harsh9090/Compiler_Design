@@ -1,6 +1,6 @@
 import java.io.*;
 import java.util.Scanner;
-public class Lexical_analysis {
+public class Lexdriver {
 static String[] reserved;
 static int comment=0;
 static int lineNumber = 1,already=0;
