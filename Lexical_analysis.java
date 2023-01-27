@@ -96,7 +96,7 @@ public static void addOperators(String word) {
 
 }
 
-//get the word untill space of any word breakers
+//get the word until space of any word breakers
 public static String getWord() {
 	already=0;
 	int i=0;
@@ -104,16 +104,20 @@ public static String getWord() {
 	if(s.charAt(0)=='/' && s.charAt(1)=='/') {
 		i=2;
 		while(s.charAt(i)!='\n') {
+			str+=s.charAt(i);
 			i++;
 			s = s.substring(i);
 			i=0;
 		}
+		tokenAdd(str,"inlinecmt");
 	}
+	str="";
 	if(s.charAt(0)=='/' && s.charAt(1)=='*') {
 		comment++;
 		i=2;
 	}
 	while(comment>0) {
+		if(s.charAt(i)!='\n')	str+=s.charAt(i);
 		if(s.charAt(i)=='\n') {
 			lineNumber++;
 		}
@@ -121,9 +125,14 @@ public static String getWord() {
 			comment++;
 		}
 		if(i<s.length()-2 && s.charAt(i)=='*' && s.charAt(i+1)=='/') {
+			if(comment>1) str+=s.charAt(i+1);
 			s = s.substring(i+1);
 			i=0;
 			comment--;
+			if(comment==0) {
+				tokenAdd(str.substring(0,str.length()-1),"blockCmt");
+				str="";
+			}
 		}
 		i++;
 		s = s.substring(i);
@@ -313,9 +322,12 @@ public static void isToken(String word) {
 				if(word.charAt(i)=='-' || word.charAt(i)=='+') {
 					i++;
 				}
-				else {
-					errorMsg(word,"Float Number");
+				if(i<word.length()-1) {
+					if(word.charAt(i)=='0') {
+						System.out.print("here");
+						errorMsg(word,"Float Number");
 						return;
+					}
 				}
 				while(i<word.length()) {
 					if(word.charAt(i)<48 || word.charAt(i)>58) {
@@ -324,14 +336,8 @@ public static void isToken(String word) {
 					}
 					i++;
 				}
-				if(word.charAt(word.length()-1)=='0') {
-					errorMsg(word,"Float Number");
-					return;
-				}
-				else {
-					tokenAdd(word,"Float");
-					return;
-				}
+				tokenAdd(word,"Float");
+				return;
 			}
 		}
 	}
@@ -377,6 +383,7 @@ public static void isToken(String word) {
         }
 		nextToken();
 		System.out.print("end");
+		sc.close();
 	}
 	
 }

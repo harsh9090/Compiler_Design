@@ -6,32 +6,34 @@
 [ geq , >= , 6 ], [ closesqbr , ] , 6 ], [ scopeop , :: , 6 ], [ isa , isa , 6 ], [ write , write , 6 ], [ private , private , 6 ], 
 [ return , return , 7 ], 
 
-[ intNumber , 0 , 9 ], 
-[ intNumber , 1 , 10 ], 
-[ intNumber , 10 , 11 ], 
-[ intNumber , 12 , 12 ], 
-[ intNumber , 123 , 13 ], 
-[ intNumber , 12345 , 14 ], 
 
 
 
 
+[ intNumber , 0 , 13 ], 
+[ intNumber , 1 , 14 ], 
+[ intNumber , 10 , 15 ], 
+[ intNumber , 12 , 16 ], 
+[ intNumber , 123 , 17 ], 
+[ intNumber , 12345 , 18 ], 
 
+[ Float , 1.23 , 20 ], 
+[ Float , 12.34 , 21 ], 
+[ Float , 120.34e10 , 22 ], 
+[ Float , 12345.6789e-123 , 23 ], 
 
+[ id , abc , 25 ], 
+[ id , abc1 , 26 ], 
+[ id , a1bc , 27 ], 
+[ id , abc_1abc , 28 ], 
+[ id , abc1_abc , 29 ], 
 
-[ Float , 1.23 , 28 ], 
-[ Float , 12.34 , 29 ], 
-[ minus, -, 30 ], [ intNumber , 0 , 30 ], 
-[ Float , 12345.6789e-123 , 31 ], 
-[ id , a , 32 ], [ minus, -, 32 ], [ id , b , 32 ], [ assign , = , 32 ], [ id , c , 32 ], [ semi, ;, 32 ], 
+[ inlinecmt ,  this is an inline comment , 31 ], 
 
-[ id , abc , 34 ], 
-[ id , abc1 , 35 ], 
-[ id , a1bc , 36 ], 
-[ id , abc_1abc , 37 ], 
-[ id , abc1_abc , 38 ], 
+[ blockCmt ,  this is a single line block comment  , 33 ], 
 
+[ blockCmt ,  this is a multiple lineblock comment  , 38 ], 
 
-
+[ blockCmt ,  this is an imbricated /* block comment*/ , 43 ], 
 
 
