@@ -15,7 +15,8 @@ Lexical error: Invalid Number: 012.34: line 11.
 Lexical error: Invalid Float Number: 12.340: line 12. 
 Lexical error: Invalid Number: 012.340: line 13. 
 Lexical error: Invalid Number: 012.34e10: line 15. 
-Lexical error: Invalid Float Number: 12.34e010: line 16. 
-Lexical error: Invalid id: _abc: line 18. 
-Lexical error: Invalid Number: 1abc: line 19. 
-Lexical error: Invalid id: _1abc: line 20. 
+Lexical error: Invalid Number: 012.34e01: line 16. 
+Lexical error: Invalid Float Number: 12.340e0: line 17. 
+Lexical error: Invalid id: _abc: line 20. 
+Lexical error: Invalid Number: 1abc: line 21. 
+Lexical error: Invalid id: _1abc: line 22. 

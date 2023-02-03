@@ -1,4 +1,4 @@
-/* sort the array */
+/* sort the array*/
 function bubbleSort(arr: integer[], size: integer) => void 
 {
   localvar n    : integer;
@@ -23,8 +23,8 @@ function bubbleSort(arr: integer[], size: integer) => void
     i = i+1;
   };
 }
-   
-/* print the array */
+
+/* print the array */ 
 function printArray(arr: integer[], size: integer) => void 
 {
   localvar n: integer;
@@ -49,10 +49,10 @@ function main() => void
   arr[5] = 11;
   arr[6] = 90;
   printarray(arr, 7); 
-  bubbleSort(arr, 7);
+  bubbleSort(arr, 7); 
   printarray(arr, 7); 
 }
-
+ 
 /*
     classes
     --------------------------------------

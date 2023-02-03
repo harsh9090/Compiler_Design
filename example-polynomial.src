@@ -2,14 +2,12 @@
 class POLYNOMIAL {
   public function evaluate: (x: float) => float;
 };
-
 class LINEAR isa POLYNOMIAL {
   private attribute a: float;
   private attribute b: float;
   public  constructor: (A: float, B: float);
   public  function evaluate: (x: float) => float;
 };
-
 class QUADRATIC isa POLYNOMIAL {
   private attribute a: float;
   private attribute b: float;
@@ -17,7 +15,6 @@ class QUADRATIC isa POLYNOMIAL {
   public  constructor: (A: float, B: float, C: float);
   public  function evaluate: (x: float) => float;
 };
-
 // ====== member function implementations ====== //  
 function POLYNOMIAL::evaluate(x: float) => float
 {
@@ -54,7 +51,6 @@ function LINEAR::evaluate(x: float) => float
   result = a * x + b;
   return (result);
 }
- 
 // ====== main ====== //
 function main() => void
 {

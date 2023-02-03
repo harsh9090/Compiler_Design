@@ -1,39 +1,33 @@
-[ eq, ==, 1 ], [ plus, +, 1 ], [ or , or , 1 ], [ openpar, (, 1 ], [ semi, ;, 1 ], [ integer , integer , 1 ], [ while , while , 1 ], [ localvar , localvar , 1 ], 
-[ noteq, <>, 2 ], [ minus, -, 2 ], [ and , and , 2 ], [ closepar , ) , 2 ], [ comma , , , 2 ], [ float , float , 2 ], [ if , if , 2 ], [ constructor , constructor , 2 ], 
-[ lt , < , 3 ], [ mult , * , 3 ], [ not , not , 3 ], [ opencubr , { , 3 ], [ dot , . , 3 ], [ void , void , 3 ], [ then , then , 3 ], [ attribute , attribute , 3 ], 
-[ gt , > , 4 ], [ closecubr , } , 4 ], [ colon , :, 4 ], [ class , class , 4 ], [ else , else , 4 ], [ function , function , 4 ], 
-[ leq , <= , 5 ], [ assign , = , 5 ], [ opensqbr , [ , 5 ], [ retruntype , => , 5 ], [ self , self , 5 ], [ read , read , 5 ], [ public , public , 5 ], 
-[ geq , >= , 6 ], [ closesqbr , ] , 6 ], [ scopeop , :: , 6 ], [ isa , isa , 6 ], [ write , write , 6 ], [ private , private , 6 ], 
-[ return , return , 7 ], 
-
-
-
-
-
-[ intNumber , 0 , 13 ], 
-[ intNumber , 1 , 14 ], 
-[ intNumber , 10 , 15 ], 
-[ intNumber , 12 , 16 ], 
-[ intNumber , 123 , 17 ], 
-[ intNumber , 12345 , 18 ], 
-
-[ Float , 1.23 , 20 ], 
-[ Float , 12.34 , 21 ], 
-[ Float , 120.34e10 , 22 ], 
-[ Float , 12345.6789e-123 , 23 ], 
-
-[ id , abc , 25 ], 
-[ id , abc1 , 26 ], 
-[ id , a1bc , 27 ], 
-[ id , abc_1abc , 28 ], 
-[ id , abc1_abc , 29 ], 
-
-[ inlinecmt ,  this is an inline comment , 31 ], 
-
-[ blockCmt ,  this is a single line block comment  , 33 ], 
-
-[ blockCmt ,  this is a multiple lineblock comment  , 38 ], 
-
-[ blockCmt ,  this is an imbricated /* block comment*/ , 43 ], 
-
-
+[ inlinecmt , test , 1 ], 
+[ inlinecmt , thisisaninlinecomment , 2 ], 
+[ BlockCmt , thisisamultiplelineblockcomment , 3 ], 
+[ BlockCmt , thisisanimbricated/*blockcomment*/ , 8 ], 
+[ BlockCmt , thisisasinglelineblockcomment , 14 ], 
+[ eq, ==, 17 ], [ plus, +, 17 ], [ or , or , 17 ], [ openpar, (, 17 ], [ semi, ;, 17 ], [ integer , integer , 17 ], [ while , while , 17 ], [ localvar , localvar , 17 ], 
+[ noteq, <>, 18 ], [ minus, -, 18 ], [ and , and , 18 ], [ closepar , ) , 18 ], [ comma , , , 18 ], [ float , float , 18 ], [ if , if , 18 ], [ constructor , constructor , 18 ], 
+[ lt , < , 19 ], [ mult , * , 19 ], [ not , not , 19 ], [ opencubr , { , 19 ], [ dot , . , 19 ], [ void , void , 19 ], [ then , then , 19 ], [ attribute , attribute , 19 ], 
+[ gt , > , 20 ], [ closecubr , } , 20 ], [ colon , :, 20 ], [ class , class , 20 ], [ else , else , 20 ], [ function , function , 20 ], 
+[ leq , <= , 21 ], [ assign , = , 21 ], [ opensqbr , [ , 21 ], [ retruntype , => , 21 ], [ self , self , 21 ], [ id , re_ad , 21 ], [ public , public , 21 ], 
+[ geq , >= , 22 ], [ closesqbr , ] , 22 ], [ scopeop , :: , 22 ], [ isa , isa , 22 ], [ write , write , 22 ], [ private , private , 22 ], 
+[ return , return , 23 ], 
+[ floatnum , 0.01e-123 , 26 ], 
+[ intnum , 0 , 27 ], 
+[ intnum , 1 , 28 ], 
+[ intnum , 10 , 29 ], 
+[ intnum , 12 , 30 ], 
+[ intnum , 123 , 31 ], 
+[ intnum , 12345 , 32 ], 
+[ floatnum , 0.0 , 33 ], 
+[ floatnum , 0.0e+0 , 34 ], 
+[ floatnum , 1.23 , 37 ], 
+[ floatnum , 12.34 , 38 ], 
+[ floatnum , 120.34e1011 , 39 ], [ minus, -, 39 ], [ id , a , 39 ], [ minus, -, 39 ], [ id , b , 39 ], [ assign , = , 39 ], [ id , c , 39 ], [ semi, ;, 39 ], 
+[ floatnum , 12345.6789e-123 , 40 ], [ minus, -, 40 ], [ id , a , 40 ], [ semi, ;, 40 ], 
+[ id , a , 41 ], [ dot , . , 41 ], [ id , b , 41 ], [ assign , = , 41 ], [ id , c , 41 ], [ semi, ;, 41 ], 
+[ id , a , 42 ], [ minus, -, 42 ], [ id , b , 42 ], [ assign , = , 42 ], [ id , c , 42 ], [ semi, ;, 42 ], 
+[ id , a , 43 ], [ eq, ==, 43 ], [ id , b , 43 ], [ semi, ;, 43 ], 
+[ id , abc , 44 ], 
+[ id , abc1 , 45 ], 
+[ id , a1bc , 46 ], 
+[ id , abc_1abc , 47 ], 
+[ id , abc1_abc , 48 ], 
