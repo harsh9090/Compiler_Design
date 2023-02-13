@@ -4,11 +4,11 @@ import java.util.Scanner;
 public class LexicalDriver {
 	public static int line=0;
 	public static String errorFile,tokenFile;
-public static void tokenAdd(String word) {
+public static void tokenAdd(String[] word) {
 	try {
         BufferedWriter out = new BufferedWriter(
             new FileWriter(tokenFile, true));
-        out.write(word);
+        out.write("["+word[0]+", "+word[1]+", "+word[2]+"], ");
         out.close();
     }
     catch (IOException e) {
@@ -16,19 +16,23 @@ public static void tokenAdd(String word) {
     }
 }
 //if token has error
-public static void errorMsg(String word) {
+public static void errorMsg(String[] word) {
 	try {
         BufferedWriter out = new BufferedWriter(
             new FileWriter(errorFile, true));
-        out.write(word);
+        out.write("["+word[0]+" : "+word[1]+" : Line Number :  "+word[2]+" ], ");
         out.close();
     }
     catch (IOException e) {
         System.out.println("exception occurred" + e);
     }
+	
 }
 	public static String s = "";
-	public static void main(String[] args) {
+	public static String[][] token = new String[10000][3];
+	public static int k =0;
+	
+	public static String[][] main() {
 		System.out.println("Enter file name:");
 		Scanner sc = new Scanner(System.in);
 		String inp = sc.next();
@@ -63,40 +67,38 @@ public static void errorMsg(String word) {
         }
 		while(s!="") {
 			String[] str = Lex_Analyzer.nextToken(s,errorFile,tokenFile);
-			if(str[0].length()>0) {
-				String st2="";
-				String[] st1 = str[0].split(",");
-				if(st1.length>2) {
-					st2 = st1[st1.length-2];
-				int x =Integer.parseInt(st2.substring(1).split(" ")[0]);
-				while(x>(line+1)) {
-					if(line==x-2) {
-						try {
-							BufferedWriter out = new BufferedWriter(
-							      new FileWriter(tokenFile, true));
-							out.write('\n');
-							out.close();
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
+			if(str[0]!="" && str[2]!=null) {
+			int x = Integer.parseInt(str[2]);
+			while(x>(line+1)) {
+				if(line==x-2) {
+					try {
+						BufferedWriter out = new BufferedWriter(
+						      new FileWriter(tokenFile, true));
+						out.write('\n');
+						out.close();
+					} catch (IOException e) {
+						e.printStackTrace();
 					}
-					line++;
 				}
-				}
+				line++;
 			}
-			if(str[2].equals("e")) {
-				errorMsg(str[0]);
+			if(str[0].startsWith("Lexical error")) {
+				errorMsg(str);
 			}
 			else {
-				tokenAdd(str[0]);
+				token[k][0] = str[0];
+				token[k][1] = str[1];
+				token[k][2] = str[2];
+				k++;
+				tokenAdd(str);
 			}
-			
-			if(str[1].length()>0)
-				s = str[1].substring(1);
+			}
+			if(str[3]!=null)
+				s = str[3].substring(1);
 			else s="";
 		}
-		System.out.print("end");
 		sc.close();
+		return token;
 	}
 
 }

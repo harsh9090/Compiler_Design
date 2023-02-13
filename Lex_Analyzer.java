@@ -9,56 +9,118 @@ static String[] reserved = new String[] {"==","+","or","(",";","integer","while"
 
 
 //adding operators
-public static String addOperators(String word) {
+public static String[] addOperators(String word) {
+	
+	String[] stans = new String[3];
       if(word.equals("==")){
     	  s = s.substring(1);
-    	  return ("[ eq, " + word +", "+ lineNumber + " ], ");
+    	  stans[0] = "eq"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
+    	  return stans;
       }
-      else if(word.equals("+"))    	  return ("[ plus, " + word +", "+ lineNumber + " ], ");
-      else if(word.equals("("))    	  return ("[ openpar, " + word +", "+ lineNumber + " ], ");
-      else if(word.equals(";"))   	  return ("[ semi, " + word +", "+ lineNumber + " ], ");
-      else if(word.equals(":"))		  return ("[ colon , " + word+", " + lineNumber + " ], ");
+      else if(word.equals("+")) {
+    	  stans[0] = "Plus"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
+    	  return stans;
+      }
+      else if(word.equals("(")) {
+    	  stans[0] = "Openpar"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
+    	  return stans;
+      }
+      else if(word.equals(";")) {
+    	  stans[0] = "Semi"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
+    	  return stans;
+      }
+      else if(word.equals(":")) {
+    	  stans[0] = "Colon"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
+    	  return stans;
+    	  
+      }
       else if(word.equals("<>"))	  {
     	  s = s.substring(1);
-    	  return ("[ noteq, " + word +", "+ lineNumber + " ], "); 
+    	  stans[0] = "NotEq"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
+    	  return stans;
       }
-      else if(word.equals("-"))	      return ("[ minus, " + word +", "+ lineNumber + " ], ");
-      else if(word.equals(")"))   	  return ("[ closepar , "+ word +" , "+ lineNumber + " ], ");  
-      else if(word.equals(","))   	  return ("[ comma , "+ word +" , "+ lineNumber + " ], ");
-      else if(word.equals("."))   	  return ("[ dot , "+ word +" , "+ lineNumber + " ], ");
-      else if(word.equals("{"))   	  return ("[ opencubr , "+ word +" , "+ lineNumber + " ], ");
-      else if(word.equals("}"))  	  return ("[ closecubr , "+ word +" , "+ lineNumber + " ], ");
-      else if(word.equals("["))    	  return ("[ opensqbr , "+ word +" , "+ lineNumber + " ], ");
-      else if(word.equals("]"))       return ("[ closesqbr , "+ word +" , "+ lineNumber + " ], ");
-      else if(word.equals("<"))    	  return ("[ lt , "+ word +" , "+ lineNumber + " ], ");
-      else if(word.equals(">")) 	  return ("[ gt , "+ word +" , "+ lineNumber + " ], ");
+      else if(word.equals("-")) {
+    	  stans[0] = "Minus"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
+    	  return stans;
+      }
+      else if(word.equals(")")) {
+    	  stans[0] = "Closepar"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
+    	  return stans; 
+      }
+      else if(word.equals(",")) {
+    	  stans[0] = "Comma"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
+    	  return stans;
+      }
+      else if(word.equals(".")) {
+    	  stans[0] = "dot"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
+    	  return stans;
+      }
+      else if(word.equals("{")) {
+    	  stans[0] = "Opencubr"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
+    	  return stans;
+      }
+      else if(word.equals("}")) {
+    	  stans[0] = "Closecubr"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
+    	  return stans;
+      }
+      else if(word.equals("[")) {
+    	  stans[0] = "Opensqbr"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
+    	  return stans;
+      }
+      else if(word.equals("]")) {
+    	  stans[0] = "Closesqbr"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
+    	  return stans;
+      }
+      else if(word.equals("<")) {
+    	  stans[0] = "Lt"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
+    	  return stans;
+      }
+      else if(word.equals(">")) {
+    	  stans[0] = "gt"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
+    	  return stans;
+      }
       else if(word.equals("<=")) 	  {
     	  s = s.substring(1);
-    	  return ("[ leq , "+ word +" , "+ lineNumber + " ], ");
+    	  stans[0] = "leq"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
+    	  return stans;
       }
       else if(word.equals(">=")) 	  {
     	  s = s.substring(1);
-    	  return ("[ geq , "+ word +" , "+ lineNumber + " ], ");
+    	  stans[0] = "geq"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
+    	  return stans;
       }
       else if(word.equals("=")) 	  {
-    	  return ("[ assign , "+ word +" , "+ lineNumber + " ], ");
+    	  stans[0] = "assign"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
+    	  return stans;
       }
       else if(word.equals("::")) 	  {
     	  s = s.substring(1);
-    	  return ("[ scopeop , "+ word +" , "+ lineNumber + " ], "); 
+    	  stans[0] = "sr"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
+    	  return stans;
       }
       else if(word.equals("=>")) 	  {
     	  s = s.substring(1);
-    	  return ("[ retruntype , "+ word +" , "+ lineNumber + " ], ");
+    	  stans[0] = "arrow"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
+    	  return stans;
       }
-      else if(word.equals("*"))		  return ("[ mult , "+ word +" , "+ lineNumber + " ], ");
-      else if(word.equals("/"))		  return ("[ div , "+ word +" , "+ lineNumber + " ], ");
-      else 							  return ("[ " + word +" , "+ word +" , "+ lineNumber + " ], ");
+      else if(word.equals("*")) {
+    	  stans[0] = "Mult"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
+    	  return stans;
+      }
+      else if(word.equals("/")) {
+    	  stans[0] = "Div"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
+    	  return stans;
+      }
+      else {
+    	  stans[0] = word; stans[1]=word;stans[2] = String.valueOf(lineNumber);
+    	  return stans;
+      }
 
 }
 
 //get the word until space of any word breakers
-public static String getWord() {
+public static String[] getWord() {
+	String[] an = new String[3];
 	already=0;
 	int i=0;
 	String str="";
@@ -76,7 +138,7 @@ public static String getWord() {
 	s = s.substring(i);
 	i=0;
 	if(s.equals("")) {
-		return "";
+		return an;
 	}
 	while(i<s.length() && !s.equals("") && s.charAt(i)=='\n' || s.charAt(i)==' ') {
 		if(s.charAt(i)=='\n') {
@@ -95,7 +157,10 @@ public static String getWord() {
 			s = s.substring(i);
 			i=0;
 		}
-		return "[ inlinecmt , "+ str +" , "+ (lineNumber) + " ], ";
+		an[0]="inlinecmt";
+		an[1]=str;
+		an[2]=String.valueOf(lineNumber);
+		return an;
 		
 	}
 	str="";
@@ -129,7 +194,10 @@ public static String getWord() {
 			comment--;
 			if(comment==0) {
 				s = s.substring(1);
-				return "[ BlockCmt , "+ (str.substring(0,str.length()-1))  +" , "+ xa + " ], ";
+				an[0]="Blockcmt";
+				an[1]=str;
+				an[2]=String.valueOf(xa);
+				return an;
 			}
 		}
 		i++;
@@ -198,26 +266,34 @@ public static String getWord() {
 		s = s.substring(str.length());
 		return isToken(str);
 	}
-	return str;
+	an[0]="";
+	an[1]=str;
+	an[2]=String.valueOf(lineNumber);
+	return an;
 }
 
 public static String[] nextToken(String s1,String error,String token) {
 	errorFile = error;
 	tokenFile = token;
 	s=s1;
-	String[] ret = new String[3];
-	String st = getWord();
+	String[] ret = new String[4];
+	String[] st = getWord();
 	if(s.length()>0 && s.charAt(0)=='\n') {
 		lineNumber++;
 	}
-	if(st.startsWith("Lexical error")) {
+	if(st[0]==null) {
+		return ret;
+	}
+	if(st[0].startsWith("Lexical error")) {
 		ret[2]="e";
 	}
 	else {
 		ret[2]="l";
 	}
-	ret[0] = st;
-	ret[1] = s;
+	ret[0] = st[0];
+	ret[1] = st[1];
+	ret[2] = st[2];
+	ret[3] = s;
 	return ret;
 }
 public static boolean isDigit(char x) {
@@ -233,14 +309,21 @@ public static boolean isLetter(char x) {
 }
 
 
-public static String isToken(String word) {
+public static String[] isToken(String word) {
+	String[] an = new String[3];
 	for(int ab=0;ab<reserved.length;ab++) {
 		if(reserved[ab].equals(word)) {
 			
 			if(word.equals(".")) {
-				return "[ dot , "+ word +" , "+ lineNumber + " ], ";
+				an[0]="dot";
+				an[1]=word;
+				an[2]=String.valueOf(lineNumber);
+				return an;
 			}
-			return "[ "+word+" , "+ word +" , "+ lineNumber + " ], ";
+			an[0]=word;
+			an[1]=word;
+			an[2]=String.valueOf(lineNumber);
+			return an;
 		}
 	}
 	int i=0;
@@ -251,18 +334,30 @@ public static String isToken(String word) {
 				i++;
 			}
 			else {
-				return  "Lexical error: Invalid id: "+word+": line "+lineNumber+". \n";
+				an[0]="Lexical error: Invalid id:";
+				an[1]=word;
+				an[2]=String.valueOf(lineNumber)+".\n";
+				return an;
 			}
 			i++;
 		}
-		return "[ id , "+ word +" , "+ lineNumber + " ], ";
+		an[0]="id";
+		an[1]=word;
+		an[2]=String.valueOf(lineNumber);
+		return an;
 	}
 	else if(word.charAt(i)>=48 && word.charAt(i)<59) {
 		if(word.charAt(0)=='0' && word.length()==1) {
-			return "[ intnum , "+ word +" , "+ lineNumber + " ], ";
+			an[0]="intLit";
+			an[1]=word;
+			an[2]=String.valueOf(lineNumber);
+			return an;
 		}
 		else if(word.charAt(0)=='0' && word.length()>1 && isDigit(word.charAt(1))) {
-			return "Lexical error: Invalid Number: "+word+": line "+lineNumber+". \n";
+			an[0]="Lexical error: Invalid Number:";
+			an[1]=word;
+			an[2]=String.valueOf(lineNumber);
+			return an;
 		}
 		int inte=0;
 		while(i<word.length()) {
@@ -273,46 +368,73 @@ public static String isToken(String word) {
 				i++;
 			}
 			else {
-				return "Lexical error: Invalid Number: "+word+": line "+lineNumber+". \n";
+				an[0]="Lexical error: Invalid Number:";
+				an[1]=word;
+				an[2]=String.valueOf(lineNumber);
+				return an;
 			}
 		}
 		if(inte==0) {
-			return "[ intnum , "+ word +" , "+ lineNumber + " ], ";
+			an[0]="intLit";
+			an[1]=word;
+			an[2]=String.valueOf(lineNumber);
+			return an;
 		}
 		else {
 			
 			if((word.charAt(0)=='0' && word.charAt(1)!='.') || word.charAt(0)=='.') {
-				return "Lexical error: Invalid Float Number: "+word+": line "+lineNumber+". \n";
+				an[0]="Lexical error: Invalid Float Number:";
+				an[1]=word;
+				an[2]=String.valueOf(lineNumber);
+				return an;
 			}
 			else {
 				i=0;
 				while(word.charAt(i)!='.') {
 					if(word.charAt(i)<48 || word.charAt(i)>58) {
-						return "Lexical error: Invalid Float Number: "+word+": line "+lineNumber+". \n";
+						an[0]="Lexical error: Invalid Float Number:";
+						an[1]=word;
+						an[2]=String.valueOf(lineNumber);
+						return an;
 					}
 					i++;
 				}
 				if(i==word.length()-2 && word.charAt(i+1)=='0') {
 //					tokenAdd(word,"Float");
-					return "[ floatnum , "+ word +" , "+ lineNumber + " ], ";
+					an[0]="floatLit";
+					an[1]=word;
+					an[2]=String.valueOf(lineNumber);
+					return an;
 				}
 				i++;
 				while(i<word.length() && word.charAt(i)!='e') {
 					if(word.charAt(i)<48 || word.charAt(i)>58) {
-						return "Lexical error: Invalid Float Number: "+word+": line "+lineNumber+". \n";
+						an[0]="Lexical error: Invalid Float Number:";
+						an[1]=word;
+						an[2]=String.valueOf(lineNumber);
+						return an;
 					}
 					i++;
 				}
 				if(i>=word.length()) {
 					if(word.charAt(i-1)=='0') {
-						return "Lexical error: Invalid Float Number: "+word+": line "+lineNumber+". \n";
+						an[0]="Lexical error: Invalid Float Number:";
+						an[1]=word;
+						an[2]=String.valueOf(lineNumber);
+						return an;
 				}
 					else {
-						return "[ floatnum , "+ word +" , "+ lineNumber + " ], ";
+						an[0]="floatLit";
+						an[1]=word;
+						an[2]=String.valueOf(lineNumber);
+						return an;
 					}
 				};
 				if(i>1 && word.charAt(i-1)=='0' && word.charAt(i-2)!='.') {
-					return "Lexical error: Invalid Float Number: "+word+": line "+lineNumber+". \n";
+					an[0]="Lexical error: Invalid Float Number:";
+					an[1]=word;
+					an[2]=String.valueOf(lineNumber);
+					return an;
 				}
 				i++;
 				if(word.charAt(i)=='-' || word.charAt(i)=='+') {
@@ -320,21 +442,33 @@ public static String isToken(String word) {
 				}
 				if(i<word.length()-1) {
 					if(word.charAt(i)=='0') {
-						return "Lexical error: Invalid Float Number: "+word+": line "+lineNumber+". \n";
+						an[0]="Lexical error: Invalid Float Number:";
+						an[1]=word;
+						an[2]=String.valueOf(lineNumber);
+						return an;
 					}
 				}
 				while(i<word.length()) {
 					if(word.charAt(i)<48 || word.charAt(i)>58) {
-						return "Lexical error: Invalid Float Number: "+word+": line "+lineNumber+". \n";
+						an[0]="Lexical error: Invalid Float Number:";
+						an[1]=word;
+						an[2]=String.valueOf(lineNumber);
+						return an;
 					}
 					i++;
 				}
-				return "[ floatnum , "+ word +" , "+ lineNumber + " ], ";
+				an[0]="floatLit";
+				an[1]=word;
+				an[2]=String.valueOf(lineNumber);
+				return an;
 			}
 		}
 	}
 	else {
-		return "Lexical error: Invalid id: "+word+": line "+lineNumber+". \n";
+		an[0]="Lexical error: Invalid id:";
+		an[1]=word;
+		an[2]=String.valueOf(lineNumber);
+		return an;
 	}
 }
 	
