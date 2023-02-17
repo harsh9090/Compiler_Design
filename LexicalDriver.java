@@ -32,10 +32,7 @@ public static void errorMsg(String[] word) {
 	public static String[][] token = new String[10000][3];
 	public static int k =0;
 	
-	public static String[][] main() {
-		System.out.println("Enter file name:");
-		Scanner sc = new Scanner(System.in);
-		String inp = sc.next();
+	public static String[][] lexical(String inp) {
 		File f1 = new File(inp);
 		Scanner myReader = null;
 		try {
@@ -97,7 +94,6 @@ public static void errorMsg(String[] word) {
 				s = str[3].substring(1);
 			else s="";
 		}
-		sc.close();
 		return token;
 	}
 
