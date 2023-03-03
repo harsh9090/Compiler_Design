@@ -22,7 +22,7 @@ function bubbleSort(arr: integer[], size: integer) => void
       };
     i = i+1;
   };
-}
+
    
 /* print the array */
 function printArray(arr: integer[], size: integer) => void 

@@ -22,7 +22,6 @@
 [Closecubr, }, 22], [Semi, ;, 22], 
 [id, i, 23], [assign, =, 23], [id, i, 23], [Plus, +, 23], [intLit, 1, 23], [Semi, ;, 23], 
 [Closecubr, }, 24], [Semi, ;, 24], 
-[Closecubr, }, 25], 
 [Blockcmt,  print the array *, 27], 
 [function, function, 28], [id, printArray, 28], [Openpar, (, 28], [id, arr, 28], [Colon, :, 28], [integer, integer, 28], [Opensqbr, [, 28], [Closesqbr, ], 28], [Comma, ,, 28], [id, size, 28], [Colon, :, 28], [integer, integer, 28], [Closepar, ), 28], [arrow, =>, 28], [void, void, 28], 
 [Opencubr, {, 29], 
