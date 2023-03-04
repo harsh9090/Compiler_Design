@@ -4,3 +4,7 @@
 /Lex_Analyzer.class
 /Parser.class
 /Parserdriver.class
+/Tree$Node.class
+/Tree.class
+/TreeNode.class
+/TreeNode$Parser.class
