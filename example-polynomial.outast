@@ -310,16 +310,18 @@ Program
 | | | | | | | | | IndiceList
 | | | | | | | | | IDNEST
 | | | | | | | | multop
-| | | | | | | | | Factor
-| | | | | | | | | | id
-| | | | | | | | | | IndiceList
-| | | | | | | | | | IDNEST
-| | | | | | | addop
-| | | | | | | | Term
-| | | | | | | | | Factor
-| | | | | | | | | | id
-| | | | | | | | | | IndiceList
-| | | | | | | | | | IDNEST
+| | | | | | | | | ArithExpr
+| | | | | | | | | | Term
+| | | | | | | | | | | Factor
+| | | | | | | | | | | | id
+| | | | | | | | | | | | IndiceList
+| | | | | | | | | | | | IDNEST
+| | | | | | | | | | addop
+| | | | | | | | | | | Term
+| | | | | | | | | | | | Factor
+| | | | | | | | | | | | | id
+| | | | | | | | | | | | | IndiceList
+| | | | | | | | | | | | | IDNEST
 | | | return
 | | | | EXPR
 | | | | | ArithExpr

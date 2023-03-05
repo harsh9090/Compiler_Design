@@ -40,7 +40,7 @@
 [Opencubr, {, 48], 
 [localvar, localvar, 49], [id, result, 49], [Colon, :, 49], [float, float, 49], [Semi, ;, 49], 
 [id, result, 50], [assign, =, 50], [floatLit, 0.0, 50], [Semi, ;, 50], 
-[id, result, 51], [assign, =, 51], [id, a, 51], [Mult, *, 51], [id, x, 51], [Plus, +, 51], [id, b, 51], [Semi, ;, 51], 
+[id, result, 51], [assign, =, 51], [id, a, 51], [Mult, *, 51], [Openpar, (, 51], [id, x, 51], [Plus, +, 51], [id, b, 51], [Closepar, ), 51], [Semi, ;, 51], 
 [return, return, 52], [Openpar, (, 52], [id, result, 52], [Closepar, ), 52], [Semi, ;, 52], 
 [Closecubr, }, 53], 
 [inlinecmt,  ====== main ====== //, 55], 

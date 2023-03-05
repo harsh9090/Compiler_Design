@@ -38,11 +38,8 @@ Program
 | | | | | | | Term
 | | | | | | | | Factor
 | | | | | | | | | id
-| | | | | | | | | ReptIndice
+| | | | | | | | | IndiceList
 | | | | | | | | | IDNEST
-| | | | | | | | TermTail
-| | | | | | | RightExprList
-| | | | | | ExprTail
 | | | Statment
 | | | | id
 | | | | =
@@ -50,9 +47,6 @@ Program
 | | | | | | ArithExpr
 | | | | | | | Term
 | | | | | | | | intLit
-| | | | | | | | TermTail
-| | | | | | | RightExprList
-| | | | | | ExprTail
 | | | Statment
 | | | | id
 | | | | =
@@ -60,9 +54,6 @@ Program
 | | | | | | ArithExpr
 | | | | | | | Term
 | | | | | | | | intLit
-| | | | | | | | TermTail
-| | | | | | | RightExprList
-| | | | | | ExprTail
 | | | Statment
 | | | | id
 | | | | =
@@ -70,31 +61,23 @@ Program
 | | | | | | ArithExpr
 | | | | | | | Term
 | | | | | | | | intLit
-| | | | | | | | TermTail
-| | | | | | | RightExprList
-| | | | | | ExprTail
 | | | while
 | | | | relop
 | | | | | ArithExpr
 | | | | | | Term
 | | | | | | | Factor
 | | | | | | | | id
-| | | | | | | | ReptIndice
+| | | | | | | | IndiceList
 | | | | | | | | IDNEST
-| | | | | | | TermTail
-| | | | | | RightExprList
 | | | | | ArithExpr
 | | | | | | Term
 | | | | | | | Factor
 | | | | | | | | id
-| | | | | | | | ReptIndice
+| | | | | | | | IndiceList
 | | | | | | | | IDNEST
-| | | | | | | TermTail
-| | | | | | RightExprList
-| | | | | | | addop
-| | | | | | | | Term
-| | | | | | | | | intLit
-| | | | | | | | | TermTail
+| | | | | | addop
+| | | | | | | Term
+| | | | | | | | intLit
 | | | | StatmentList
 | | | | | while
 | | | | | | relop
@@ -102,29 +85,23 @@ Program
 | | | | | | | | Term
 | | | | | | | | | Factor
 | | | | | | | | | | id
-| | | | | | | | | | ReptIndice
+| | | | | | | | | | IndiceList
 | | | | | | | | | | IDNEST
-| | | | | | | | | TermTail
-| | | | | | | | RightExprList
 | | | | | | | ArithExpr
 | | | | | | | | Term
 | | | | | | | | | Factor
 | | | | | | | | | | id
-| | | | | | | | | | ReptIndice
+| | | | | | | | | | IndiceList
 | | | | | | | | | | IDNEST
-| | | | | | | | | TermTail
-| | | | | | | | RightExprList
-| | | | | | | | | addop
-| | | | | | | | | | Term
-| | | | | | | | | | | Factor
-| | | | | | | | | | | | id
-| | | | | | | | | | | | ReptIndice
-| | | | | | | | | | | | IDNEST
-| | | | | | | | | | | TermTail
-| | | | | | | | | addop
-| | | | | | | | | | Term
-| | | | | | | | | | | intLit
-| | | | | | | | | | | TermTail
+| | | | | | | | addop
+| | | | | | | | | Term
+| | | | | | | | | | Factor
+| | | | | | | | | | | id
+| | | | | | | | | | | IndiceList
+| | | | | | | | | | | IDNEST
+| | | | | | | | addop
+| | | | | | | | | Term
+| | | | | | | | | | intLit
 | | | | | | StatmentList
 | | | | | | | if
 | | | | | | | | relop
@@ -132,38 +109,29 @@ Program
 | | | | | | | | | | Term
 | | | | | | | | | | | Factor
 | | | | | | | | | | | | id
-| | | | | | | | | | | | ReptIndice
+| | | | | | | | | | | | IndiceList
 | | | | | | | | | | | | | ArithExpr
 | | | | | | | | | | | | | | Term
 | | | | | | | | | | | | | | | Factor
 | | | | | | | | | | | | | | | | id
-| | | | | | | | | | | | | | | | ReptIndice
+| | | | | | | | | | | | | | | | IndiceList
 | | | | | | | | | | | | | | | | IDNEST
-| | | | | | | | | | | | | | | TermTail
-| | | | | | | | | | | | | | RightExprList
 | | | | | | | | | | | | IDNEST
-| | | | | | | | | | | TermTail
-| | | | | | | | | | RightExprList
 | | | | | | | | | ArithExpr
 | | | | | | | | | | Term
 | | | | | | | | | | | Factor
 | | | | | | | | | | | | id
-| | | | | | | | | | | | ReptIndice
+| | | | | | | | | | | | IndiceList
 | | | | | | | | | | | | | ArithExpr
 | | | | | | | | | | | | | | Term
 | | | | | | | | | | | | | | | Factor
 | | | | | | | | | | | | | | | | id
-| | | | | | | | | | | | | | | | ReptIndice
+| | | | | | | | | | | | | | | | IndiceList
 | | | | | | | | | | | | | | | | IDNEST
-| | | | | | | | | | | | | | | TermTail
-| | | | | | | | | | | | | | RightExprList
-| | | | | | | | | | | | | | | addop
-| | | | | | | | | | | | | | | | Term
-| | | | | | | | | | | | | | | | | intLit
-| | | | | | | | | | | | | | | | | TermTail
+| | | | | | | | | | | | | | addop
+| | | | | | | | | | | | | | | Term
+| | | | | | | | | | | | | | | | intLit
 | | | | | | | | | | | | IDNEST
-| | | | | | | | | | | TermTail
-| | | | | | | | | | RightExprList
 | | | | | | | | then
 | | | | | | | | | StatmentList
 | | | | | | | | | | Statment
@@ -174,81 +142,62 @@ Program
 | | | | | | | | | | | | | | Term
 | | | | | | | | | | | | | | | Factor
 | | | | | | | | | | | | | | | | id
-| | | | | | | | | | | | | | | | ReptIndice
+| | | | | | | | | | | | | | | | IndiceList
 | | | | | | | | | | | | | | | | | ArithExpr
 | | | | | | | | | | | | | | | | | | Term
 | | | | | | | | | | | | | | | | | | | Factor
 | | | | | | | | | | | | | | | | | | | | id
-| | | | | | | | | | | | | | | | | | | | ReptIndice
+| | | | | | | | | | | | | | | | | | | | IndiceList
 | | | | | | | | | | | | | | | | | | | | IDNEST
-| | | | | | | | | | | | | | | | | | | TermTail
-| | | | | | | | | | | | | | | | | | RightExprList
 | | | | | | | | | | | | | | | | IDNEST
-| | | | | | | | | | | | | | | TermTail
-| | | | | | | | | | | | | | RightExprList
-| | | | | | | | | | | | | ExprTail
 | | | | | | | | | | Statment
 | | | | | | | | | | | id
 | | | | | | | | | | | StatmentIdnest
-| | | | | | | | | | | | ArithExpr
-| | | | | | | | | | | | | Term
-| | | | | | | | | | | | | | Factor
-| | | | | | | | | | | | | | | id
-| | | | | | | | | | | | | | | ReptIndice
-| | | | | | | | | | | | | | | IDNEST
-| | | | | | | | | | | | | | TermTail
-| | | | | | | | | | | | | RightExprList
-| | | | | | | | | | | | ReptIndice
+| | | | | | | | | | | | IndiceList
+| | | | | | | | | | | | | ArithExpr
+| | | | | | | | | | | | | | Term
+| | | | | | | | | | | | | | | Factor
+| | | | | | | | | | | | | | | | id
+| | | | | | | | | | | | | | | | IndiceList
+| | | | | | | | | | | | | | | | IDNEST
 | | | | | | | | | | | | =
 | | | | | | | | | | | | | EXPR
 | | | | | | | | | | | | | | ArithExpr
 | | | | | | | | | | | | | | | Term
 | | | | | | | | | | | | | | | | Factor
 | | | | | | | | | | | | | | | | | id
-| | | | | | | | | | | | | | | | | ReptIndice
+| | | | | | | | | | | | | | | | | IndiceList
 | | | | | | | | | | | | | | | | | | ArithExpr
 | | | | | | | | | | | | | | | | | | | Term
 | | | | | | | | | | | | | | | | | | | | Factor
 | | | | | | | | | | | | | | | | | | | | | id
-| | | | | | | | | | | | | | | | | | | | | ReptIndice
+| | | | | | | | | | | | | | | | | | | | | IndiceList
 | | | | | | | | | | | | | | | | | | | | | IDNEST
-| | | | | | | | | | | | | | | | | | | | TermTail
-| | | | | | | | | | | | | | | | | | | RightExprList
-| | | | | | | | | | | | | | | | | | | | addop
-| | | | | | | | | | | | | | | | | | | | | Term
-| | | | | | | | | | | | | | | | | | | | | | intLit
-| | | | | | | | | | | | | | | | | | | | | | TermTail
+| | | | | | | | | | | | | | | | | | | addop
+| | | | | | | | | | | | | | | | | | | | Term
+| | | | | | | | | | | | | | | | | | | | | intLit
 | | | | | | | | | | | | | | | | | IDNEST
-| | | | | | | | | | | | | | | | TermTail
-| | | | | | | | | | | | | | | RightExprList
-| | | | | | | | | | | | | | ExprTail
 | | | | | | | | | | Statment
 | | | | | | | | | | | id
 | | | | | | | | | | | StatmentIdnest
-| | | | | | | | | | | | ArithExpr
-| | | | | | | | | | | | | Term
-| | | | | | | | | | | | | | Factor
-| | | | | | | | | | | | | | | id
-| | | | | | | | | | | | | | | ReptIndice
-| | | | | | | | | | | | | | | IDNEST
-| | | | | | | | | | | | | | TermTail
-| | | | | | | | | | | | | RightExprList
+| | | | | | | | | | | | IndiceList
+| | | | | | | | | | | | | ArithExpr
+| | | | | | | | | | | | | | Term
+| | | | | | | | | | | | | | | Factor
+| | | | | | | | | | | | | | | | id
+| | | | | | | | | | | | | | | | IndiceList
+| | | | | | | | | | | | | | | | IDNEST
 | | | | | | | | | | | | | | addop
 | | | | | | | | | | | | | | | Term
 | | | | | | | | | | | | | | | | intLit
-| | | | | | | | | | | | | | | | TermTail
-| | | | | | | | | | | | ReptIndice
 | | | | | | | | | | | | =
 | | | | | | | | | | | | | EXPR
 | | | | | | | | | | | | | | ArithExpr
 | | | | | | | | | | | | | | | Term
 | | | | | | | | | | | | | | | | Factor
 | | | | | | | | | | | | | | | | | id
-| | | | | | | | | | | | | | | | | ReptIndice
+| | | | | | | | | | | | | | | | | IndiceList
 | | | | | | | | | | | | | | | | | IDNEST
-| | | | | | | | | | | | | | | | TermTail
-| | | | | | | | | | | | | | | RightExprList
-| | | | | | | | | | | | | | ExprTail
 | | | | | | | | else
 | | | | | | | Statment
 | | | | | | | | id
@@ -258,15 +207,11 @@ Program
 | | | | | | | | | | | Term
 | | | | | | | | | | | | Factor
 | | | | | | | | | | | | | id
-| | | | | | | | | | | | | ReptIndice
+| | | | | | | | | | | | | IndiceList
 | | | | | | | | | | | | | IDNEST
-| | | | | | | | | | | | TermTail
-| | | | | | | | | | | RightExprList
-| | | | | | | | | | | | addop
-| | | | | | | | | | | | | Term
-| | | | | | | | | | | | | | intLit
-| | | | | | | | | | | | | | TermTail
-| | | | | | | | | | ExprTail
+| | | | | | | | | | | addop
+| | | | | | | | | | | | Term
+| | | | | | | | | | | | | intLit
 | | | | | Statment
 | | | | | | id
 | | | | | | =
@@ -275,15 +220,11 @@ Program
 | | | | | | | | | Term
 | | | | | | | | | | Factor
 | | | | | | | | | | | id
-| | | | | | | | | | | ReptIndice
+| | | | | | | | | | | IndiceList
 | | | | | | | | | | | IDNEST
-| | | | | | | | | | TermTail
-| | | | | | | | | RightExprList
-| | | | | | | | | | addop
-| | | | | | | | | | | Term
-| | | | | | | | | | | | intLit
-| | | | | | | | | | | | TermTail
-| | | | | | | | ExprTail
+| | | | | | | | | addop
+| | | | | | | | | | Term
+| | | | | | | | | | | intLit
 | FunctionDec
 | | function
 | | id
@@ -315,11 +256,8 @@ Program
 | | | | | | | Term
 | | | | | | | | Factor
 | | | | | | | | | id
-| | | | | | | | | ReptIndice
+| | | | | | | | | IndiceList
 | | | | | | | | | IDNEST
-| | | | | | | | TermTail
-| | | | | | | RightExprList
-| | | | | | ExprTail
 | | | Statment
 | | | | id
 | | | | =
@@ -327,46 +265,35 @@ Program
 | | | | | | ArithExpr
 | | | | | | | Term
 | | | | | | | | intLit
-| | | | | | | | TermTail
-| | | | | | | RightExprList
-| | | | | | ExprTail
 | | | while
 | | | | relop
 | | | | | ArithExpr
 | | | | | | Term
 | | | | | | | Factor
 | | | | | | | | id
-| | | | | | | | ReptIndice
+| | | | | | | | IndiceList
 | | | | | | | | IDNEST
-| | | | | | | TermTail
-| | | | | | RightExprList
 | | | | | ArithExpr
 | | | | | | Term
 | | | | | | | Factor
 | | | | | | | | id
-| | | | | | | | ReptIndice
+| | | | | | | | IndiceList
 | | | | | | | | IDNEST
-| | | | | | | TermTail
-| | | | | | RightExprList
 | | | | StatmentList
-| | | | | EXPR
-| | | | | | ArithExpr
-| | | | | | | Term
-| | | | | | | | Factor
-| | | | | | | | | id
-| | | | | | | | | ReptIndice
-| | | | | | | | | | ArithExpr
-| | | | | | | | | | | Term
-| | | | | | | | | | | | Factor
-| | | | | | | | | | | | | id
-| | | | | | | | | | | | | ReptIndice
-| | | | | | | | | | | | | IDNEST
-| | | | | | | | | | | | TermTail
-| | | | | | | | | | | RightExprList
-| | | | | | | | | IDNEST
-| | | | | | | | TermTail
-| | | | | | | RightExprList
-| | | | | | ExprTail
+| | | | | write
+| | | | | | EXPR
+| | | | | | | ArithExpr
+| | | | | | | | Term
+| | | | | | | | | Factor
+| | | | | | | | | | id
+| | | | | | | | | | IndiceList
+| | | | | | | | | | | ArithExpr
+| | | | | | | | | | | | Term
+| | | | | | | | | | | | | Factor
+| | | | | | | | | | | | | | id
+| | | | | | | | | | | | | | IndiceList
+| | | | | | | | | | | | | | IDNEST
+| | | | | | | | | | IDNEST
 | | | | | Statment
 | | | | | | id
 | | | | | | =
@@ -375,15 +302,11 @@ Program
 | | | | | | | | | Term
 | | | | | | | | | | Factor
 | | | | | | | | | | | id
-| | | | | | | | | | | ReptIndice
+| | | | | | | | | | | IndiceList
 | | | | | | | | | | | IDNEST
-| | | | | | | | | | TermTail
-| | | | | | | | | RightExprList
-| | | | | | | | | | addop
-| | | | | | | | | | | Term
-| | | | | | | | | | | | intLit
-| | | | | | | | | | | | TermTail
-| | | | | | | | ExprTail
+| | | | | | | | | addop
+| | | | | | | | | | Term
+| | | | | | | | | | | intLit
 | FunctionDec
 | | function
 | | id
@@ -398,188 +321,132 @@ Program
 | | | Statment
 | | | | id
 | | | | StatmentIdnest
-| | | | | ArithExpr
-| | | | | | Term
-| | | | | | | intLit
-| | | | | | | TermTail
-| | | | | | RightExprList
-| | | | | ReptIndice
+| | | | | IndiceList
+| | | | | | ArithExpr
+| | | | | | | Term
+| | | | | | | | intLit
 | | | | | =
 | | | | | | EXPR
 | | | | | | | ArithExpr
 | | | | | | | | Term
 | | | | | | | | | intLit
-| | | | | | | | | TermTail
-| | | | | | | | RightExprList
-| | | | | | | ExprTail
 | | | Statment
 | | | | id
 | | | | StatmentIdnest
-| | | | | ArithExpr
-| | | | | | Term
-| | | | | | | intLit
-| | | | | | | TermTail
-| | | | | | RightExprList
-| | | | | ReptIndice
+| | | | | IndiceList
+| | | | | | ArithExpr
+| | | | | | | Term
+| | | | | | | | intLit
 | | | | | =
 | | | | | | EXPR
 | | | | | | | ArithExpr
 | | | | | | | | Term
 | | | | | | | | | intLit
-| | | | | | | | | TermTail
-| | | | | | | | RightExprList
-| | | | | | | ExprTail
 | | | Statment
 | | | | id
 | | | | StatmentIdnest
-| | | | | ArithExpr
-| | | | | | Term
-| | | | | | | intLit
-| | | | | | | TermTail
-| | | | | | RightExprList
-| | | | | ReptIndice
+| | | | | IndiceList
+| | | | | | ArithExpr
+| | | | | | | Term
+| | | | | | | | intLit
 | | | | | =
 | | | | | | EXPR
 | | | | | | | ArithExpr
 | | | | | | | | Term
 | | | | | | | | | intLit
-| | | | | | | | | TermTail
-| | | | | | | | RightExprList
-| | | | | | | ExprTail
 | | | Statment
 | | | | id
 | | | | StatmentIdnest
-| | | | | ArithExpr
-| | | | | | Term
-| | | | | | | intLit
-| | | | | | | TermTail
-| | | | | | RightExprList
-| | | | | ReptIndice
+| | | | | IndiceList
+| | | | | | ArithExpr
+| | | | | | | Term
+| | | | | | | | intLit
 | | | | | =
 | | | | | | EXPR
 | | | | | | | ArithExpr
 | | | | | | | | Term
 | | | | | | | | | intLit
-| | | | | | | | | TermTail
-| | | | | | | | RightExprList
-| | | | | | | ExprTail
 | | | Statment
 | | | | id
 | | | | StatmentIdnest
-| | | | | ArithExpr
-| | | | | | Term
-| | | | | | | intLit
-| | | | | | | TermTail
-| | | | | | RightExprList
-| | | | | ReptIndice
+| | | | | IndiceList
+| | | | | | ArithExpr
+| | | | | | | Term
+| | | | | | | | intLit
 | | | | | =
 | | | | | | EXPR
 | | | | | | | ArithExpr
 | | | | | | | | Term
 | | | | | | | | | intLit
-| | | | | | | | | TermTail
-| | | | | | | | RightExprList
-| | | | | | | ExprTail
 | | | Statment
 | | | | id
 | | | | StatmentIdnest
-| | | | | ArithExpr
-| | | | | | Term
-| | | | | | | intLit
-| | | | | | | TermTail
-| | | | | | RightExprList
-| | | | | ReptIndice
+| | | | | IndiceList
+| | | | | | ArithExpr
+| | | | | | | Term
+| | | | | | | | intLit
 | | | | | =
 | | | | | | EXPR
 | | | | | | | ArithExpr
 | | | | | | | | Term
 | | | | | | | | | intLit
-| | | | | | | | | TermTail
-| | | | | | | | RightExprList
-| | | | | | | ExprTail
 | | | Statment
 | | | | id
 | | | | StatmentIdnest
-| | | | | ArithExpr
-| | | | | | Term
-| | | | | | | intLit
-| | | | | | | TermTail
-| | | | | | RightExprList
-| | | | | ReptIndice
+| | | | | IndiceList
+| | | | | | ArithExpr
+| | | | | | | Term
+| | | | | | | | intLit
 | | | | | =
 | | | | | | EXPR
 | | | | | | | ArithExpr
 | | | | | | | | Term
 | | | | | | | | | intLit
-| | | | | | | | | TermTail
-| | | | | | | | RightExprList
-| | | | | | | ExprTail
 | | | id
 | | | Statment
-| | | | Aparms
+| | | | AParmList
 | | | | | EXPR
 | | | | | | ArithExpr
 | | | | | | | Term
 | | | | | | | | Factor
 | | | | | | | | | id
-| | | | | | | | | ReptIndice
+| | | | | | | | | IndiceList
 | | | | | | | | | IDNEST
-| | | | | | | | TermTail
-| | | | | | | RightExprList
-| | | | | | ExprTail
-| | | | | AParmList
-| | | | | | EXPR
-| | | | | | | ArithExpr
-| | | | | | | | Term
-| | | | | | | | | intLit
-| | | | | | | | | TermTail
-| | | | | | | | RightExprList
-| | | | | | | ExprTail
+| | | | | EXPR
+| | | | | | ArithExpr
+| | | | | | | Term
+| | | | | | | | intLit
 | | | | StatmentIdnest
 | | | | | StatIdnest2
 | | | id
 | | | Statment
-| | | | Aparms
+| | | | AParmList
 | | | | | EXPR
 | | | | | | ArithExpr
 | | | | | | | Term
 | | | | | | | | Factor
 | | | | | | | | | id
-| | | | | | | | | ReptIndice
+| | | | | | | | | IndiceList
 | | | | | | | | | IDNEST
-| | | | | | | | TermTail
-| | | | | | | RightExprList
-| | | | | | ExprTail
-| | | | | AParmList
-| | | | | | EXPR
-| | | | | | | ArithExpr
-| | | | | | | | Term
-| | | | | | | | | intLit
-| | | | | | | | | TermTail
-| | | | | | | | RightExprList
-| | | | | | | ExprTail
+| | | | | EXPR
+| | | | | | ArithExpr
+| | | | | | | Term
+| | | | | | | | intLit
 | | | | StatmentIdnest
 | | | | | StatIdnest2
 | | | id
 | | | Statment
-| | | | Aparms
+| | | | AParmList
 | | | | | EXPR
 | | | | | | ArithExpr
 | | | | | | | Term
 | | | | | | | | Factor
 | | | | | | | | | id
-| | | | | | | | | ReptIndice
+| | | | | | | | | IndiceList
 | | | | | | | | | IDNEST
-| | | | | | | | TermTail
-| | | | | | | RightExprList
-| | | | | | ExprTail
-| | | | | AParmList
-| | | | | | EXPR
-| | | | | | | ArithExpr
-| | | | | | | | Term
-| | | | | | | | | intLit
-| | | | | | | | | TermTail
-| | | | | | | | RightExprList
-| | | | | | | ExprTail
+| | | | | EXPR
+| | | | | | ArithExpr
+| | | | | | | Term
+| | | | | | | | intLit
 | | | | StatmentIdnest
 | | | | | StatIdnest2
