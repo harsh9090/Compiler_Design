@@ -270,7 +270,20 @@ public class Parser {
 			}
 		}
 		return token[numb][0];
-		
+	}
+	public static String getLines(int s) {
+		String[] st = {"$","id",";","while","(",")","read","write","return","if","then","else",".","=","neq","lt","gt","leq","geq","{","}","*","/","and","+","-","or",",","intLit","floatLit","not","[","]","localvar",":","integer","float","lsqbr","intlit","rsqbr","function","sr","arrow","constructor","void","public","private","attribute","class","isa","eq"};
+		return st[s];
+	}
+	public static String retStr(String s) {
+		String xa="";
+		int c = getCol(s);
+		for(int i=0;i<rules[0].length;i++) {
+			if(rules[c][i]!="" && rules[c][i]!="EPS") {
+				xa+=getLines(i)+" ";
+			}
+		}
+		return xa;
 	}
 	public static void parse(){
 		int k=0;
@@ -299,7 +312,7 @@ public class Parser {
 	            	try {
 	    	            BufferedWriter out = new BufferedWriter(
 	    	                new FileWriter(inp+".outsyntaxerrors", true));
-	    	            out.write("Error in line " + token[numb][2]+ " Expected : " + x + ", got : "+ a);
+	    	            out.write("Error in line " + token[numb][2]+ " Expected : [ " + x + "  ], got : "+ a);
 	    	            out.write("\n");
 	    	            out.close();
 	    	        }
@@ -341,7 +354,7 @@ public class Parser {
 	    	        catch (IOException e) {
 	    	            System.out.println("exception occurred" + e);
 	    	        }
-	            	System.out.println("Error in line " + token[numb][2] + " Expected : " + x + ", got : "+ a);
+	            	System.out.println("Error in line " + token[numb][2] + " Expected : [ " + retStr(x) + " ], got : "+ a);
 	            	while(true) {
 	            		a=nextToken();
 	            		b = getLine(a);
