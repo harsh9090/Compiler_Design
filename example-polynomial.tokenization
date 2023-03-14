@@ -1,49 +1,38 @@
-function  
-function QUADRATIC  
-function QUADRATIC ::  
-function QUADRATIC :: constructor  
-function QUADRATIC :: constructor (  
-function QUADRATIC :: constructor ( A  
-function QUADRATIC :: constructor ( A :  
-function QUADRATIC :: constructor ( A : float  
-function QUADRATIC :: constructor ( A : float ,  
-function QUADRATIC :: constructor ( A : float , B  
-function QUADRATIC :: constructor ( A : float , B :  
-function QUADRATIC :: constructor ( A : float , B : float  
-function QUADRATIC :: constructor ( A : float , B : float ,  
-function QUADRATIC :: constructor ( A : float , B : float , C  
-function QUADRATIC :: constructor ( A : float , B : float , C :  
-function QUADRATIC :: constructor ( A : float , B : float , C : float  
-function QUADRATIC :: constructor ( A : float , B : float , C : float )  
-function QUADRATIC :: constructor ( A : float , B : float , C : float ) {  
-function QUADRATIC :: constructor ( A : float , B : float , C : float ) { selfa  
-function QUADRATIC :: constructor ( A : float , B : float , C : float ) { selfa .  
-function QUADRATIC :: constructor ( A : float , B : float , C : float ) { selfa . a  
-function QUADRATIC :: constructor ( A : float , B : float , C : float ) { selfa . a =  
-function QUADRATIC :: constructor ( A : float , B : float , C : float ) { selfa . a = A  
-function QUADRATIC :: constructor ( A : float , B : float , C : float ) { selfa . a = A ;  
-function QUADRATIC :: constructor ( A : float , B : float , C : float ) { selfa . a = A ; selfa  
-function QUADRATIC :: constructor ( A : float , B : float , C : float ) { selfa . a = A ; selfa .  
-function QUADRATIC :: constructor ( A : float , B : float , C : float ) { selfa . a = A ; selfa . b  
-function QUADRATIC :: constructor ( A : float , B : float , C : float ) { selfa . a = A ; selfa . b =  
-function QUADRATIC :: constructor ( A : float , B : float , C : float ) { selfa . a = A ; selfa . b = B  
-function QUADRATIC :: constructor ( A : float , B : float , C : float ) { selfa . a = A ; selfa . b = B ;  
-function QUADRATIC :: constructor ( A : float , B : float , C : float ) { selfa . a = A ; selfa . b = B ; selfa  
-function QUADRATIC :: constructor ( A : float , B : float , C : float ) { selfa . a = A ; selfa . b = B ; selfa .  
-function QUADRATIC :: constructor ( A : float , B : float , C : float ) { selfa . a = A ; selfa . b = B ; selfa . c  
-function QUADRATIC :: constructor ( A : float , B : float , C : float ) { selfa . a = A ; selfa . b = B ; selfa . c =  
-function QUADRATIC :: constructor ( A : float , B : float , C : float ) { selfa . a = A ; selfa . b = B ; selfa . c = C  
-function QUADRATIC :: constructor ( A : float , B : float , C : float ) { selfa . a = A ; selfa . b = B ; selfa . c = C ;  
-function QUADRATIC :: constructor ( A : float , B : float , C : float ) { selfa . a = A ; selfa . b = B ; selfa . c = C ; id  
-function QUADRATIC :: constructor ( A : float , B : float , C : float ) { selfa . a = A ; selfa . b = B ; selfa . c = C ; id (  
-function QUADRATIC :: constructor ( A : float , B : float , C : float ) { selfa . a = A ; selfa . b = B ; selfa . c = C ; id ( id  
-function QUADRATIC :: constructor ( A : float , B : float , C : float ) { selfa . a = A ; selfa . b = B ; selfa . c = C ; id ( id )  
-function QUADRATIC :: constructor ( A : float , B : float , C : float ) { selfa . a = A ; selfa . b = B ; selfa . c = C ; id ( id ) .  
-function QUADRATIC :: constructor ( A : float , B : float , C : float ) { selfa . a = A ; selfa . b = B ; selfa . c = C ; id ( id ) . id  
-function QUADRATIC :: constructor ( A : float , B : float , C : float ) { selfa . a = A ; selfa . b = B ; selfa . c = C ; id ( id ) . id [  
-function QUADRATIC :: constructor ( A : float , B : float , C : float ) { selfa . a = A ; selfa . b = B ; selfa . c = C ; id ( id ) . id [ id  
-function QUADRATIC :: constructor ( A : float , B : float , C : float ) { selfa . a = A ; selfa . b = B ; selfa . c = C ; id ( id ) . id [ id ]  
-function QUADRATIC :: constructor ( A : float , B : float , C : float ) { selfa . a = A ; selfa . b = B ; selfa . c = C ; id ( id ) . id [ id ] =  
-function QUADRATIC :: constructor ( A : float , B : float , C : float ) { selfa . a = A ; selfa . b = B ; selfa . c = C ; id ( id ) . id [ id ] = 1  
-function QUADRATIC :: constructor ( A : float , B : float , C : float ) { selfa . a = A ; selfa . b = B ; selfa . c = C ; id ( id ) . id [ id ] = 1 ;  
-function QUADRATIC :: constructor ( A : float , B : float , C : float ) { selfa . a = A ; selfa . b = B ; selfa . c = C ; id ( id ) . id [ id ] = 1 ; }  
+class  
+class C  
+class C {  
+class C { private  
+class C { private attribute  
+class C { private attribute a  
+class C { private attribute a :  
+class C { private attribute a : integer  
+class C { private attribute a : integer ;  
+class C { private attribute a : integer ; }  
+class C { private attribute a : integer ; } ;  
+class C { private attribute a : integer ; } ; class  
+class C { private attribute a : integer ; } ; class D  
+class C { private attribute a : integer ; } ; class D isa  
+class C { private attribute a : integer ; } ; class D isa C  
+class C { private attribute a : integer ; } ; class D isa C {  
+class C { private attribute a : integer ; } ; class D isa C { private  
+class C { private attribute a : integer ; } ; class D isa C { private attribute  
+class C { private attribute a : integer ; } ; class D isa C { private attribute b  
+class C { private attribute a : integer ; } ; class D isa C { private attribute b :  
+class C { private attribute a : integer ; } ; class D isa C { private attribute b : integer  
+class C { private attribute a : integer ; } ; class D isa C { private attribute b : integer ;  
+class C { private attribute a : integer ; } ; class D isa C { private attribute b : integer ; }  
+class C { private attribute a : integer ; } ; class D isa C { private attribute b : integer ; } ;  
+class C { private attribute a : integer ; } ; class D isa C { private attribute b : integer ; } ; class  
+class C { private attribute a : integer ; } ; class D isa C { private attribute b : integer ; } ; class E  
+class C { private attribute a : integer ; } ; class D isa C { private attribute b : integer ; } ; class E isa  
+class C { private attribute a : integer ; } ; class D isa C { private attribute b : integer ; } ; class E isa D  
+class C { private attribute a : integer ; } ; class D isa C { private attribute b : integer ; } ; class E isa D {  
+Comment: -  14.1 
+class C { private attribute a : integer ; } ; class D isa C { private attribute b : integer ; } ; class E isa D { private private  
+class C { private attribute a : integer ; } ; class D isa C { private attribute b : integer ; } ; class E isa D { private private attribute  
+class C { private attribute a : integer ; } ; class D isa C { private attribute b : integer ; } ; class E isa D { private private attribute c  
+class C { private attribute a : integer ; } ; class D isa C { private attribute b : integer ; } ; class E isa D { private private attribute c :  
+class C { private attribute a : integer ; } ; class D isa C { private attribute b : integer ; } ; class E isa D { private private attribute c : integer  
+class C { private attribute a : integer ; } ; class D isa C { private attribute b : integer ; } ; class E isa D { private private attribute c : integer ;  
+class C { private attribute a : integer ; } ; class D isa C { private attribute b : integer ; } ; class E isa D { private private attribute c : integer ; }  
+class C { private attribute a : integer ; } ; class D isa C { private attribute b : integer ; } ; class E isa D { private private attribute c : integer ; } ;  

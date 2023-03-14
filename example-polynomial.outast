@@ -1,82 +1,38 @@
 Program
-| FunctionDec
-| | function
+| ClassDec
+| | class
 | | id
-| | constructor
-| | | FParmsList
-| | | | FParm
+| | MemberList
+| | | Member
+| | | | visiblity
+| | | | VarDec
+| | | | | attribute
 | | | | | id
 | | | | | type
 | | | | | ARRSIZE
-| | | | FParms
+| ClassDec
+| | class
+| | id
+| | isa
+| | | id
+| | MemberList
+| | | Member
+| | | | visiblity
+| | | | VarDec
+| | | | | attribute
 | | | | | id
 | | | | | type
 | | | | | ARRSIZE
-| | | | FParms
+| ClassDec
+| | class
+| | id
+| | isa
+| | | id
+| | MemberList
+| | | Member
+| | | | visiblity
+| | | | VarDec
+| | | | | attribute
 | | | | | id
 | | | | | type
 | | | | | ARRSIZE
-| | Body
-| | | Statment
-| | | | id
-| | | | dot
-| | | | | id
-| | | | | =
-| | | | | | EXPR
-| | | | | | | ArithExpr
-| | | | | | | | Term
-| | | | | | | | | Factor
-| | | | | | | | | | id
-| | | | | | | | | | IndiceList
-| | | | | | | | | | IDNEST
-| | | Statment
-| | | | id
-| | | | dot
-| | | | | id
-| | | | | =
-| | | | | | EXPR
-| | | | | | | ArithExpr
-| | | | | | | | Term
-| | | | | | | | | Factor
-| | | | | | | | | | id
-| | | | | | | | | | IndiceList
-| | | | | | | | | | IDNEST
-| | | Statment
-| | | | id
-| | | | dot
-| | | | | id
-| | | | | =
-| | | | | | EXPR
-| | | | | | | ArithExpr
-| | | | | | | | Term
-| | | | | | | | | Factor
-| | | | | | | | | | id
-| | | | | | | | | | IndiceList
-| | | | | | | | | | IDNEST
-| | | Statment
-| | | | id
-| | | | StatmentIdnest
-| | | | | AParmList
-| | | | | | EXPR
-| | | | | | | ArithExpr
-| | | | | | | | Term
-| | | | | | | | | Factor
-| | | | | | | | | | id
-| | | | | | | | | | IndiceList
-| | | | | | | | | | IDNEST
-| | | | | StatIdnest2
-| | | | | | dot
-| | | | | | | id
-| | | | | | | StatmentIdnest
-| | | | | | | | IndiceList
-| | | | | | | | | ArithExpr
-| | | | | | | | | | Term
-| | | | | | | | | | | Factor
-| | | | | | | | | | | | id
-| | | | | | | | | | | | IndiceList
-| | | | | | | | | | | | IDNEST
-| | | | | | | | =
-| | | | | | | | | EXPR
-| | | | | | | | | | ArithExpr
-| | | | | | | | | | | Term
-| | | | | | | | | | | | intLit

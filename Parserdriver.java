@@ -1,9 +1,9 @@
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Parserdriver {
-
-	public static void main(String[] args) {
+	public static ArrayList<Object> parseDriver() {
 		System.out.println("Enter file name:");
 		Scanner sc = new Scanner(System.in);
 		String inp = sc.next();
@@ -12,11 +12,11 @@ public class Parserdriver {
 			 File my = new File(inp+".src");
 			 if(!my.exists()) {
 				 System.out.print("file not found");
-				 return;
+				 System.exit(0);
 			 }
 		} catch (Exception e) {
 			System.out.print("file not found");
-			return;
+			System.exit(0);
 		}
 		try {
             BufferedWriter out = new BufferedWriter(
@@ -42,7 +42,7 @@ public class Parserdriver {
         catch (IOException e) {
             System.out.println("exception occurred" + e);
         }
-		Parser.parser(inp);
+		return Parser.parser(inp);
 	}
 
 }

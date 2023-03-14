@@ -4,7 +4,7 @@ static int comment=0;
 static int lineNumber = 1,already=0;
 static String s="",errorFile=".outlexerrors",tokenFile=".outlextokens";
 static char[] symbols = new char[] {'<','>','(',')','{','}','[',']','+','-','/','*','=',';',':',',','.'};
-static String[] reserved = new String[] {"==","+","or","(",";","integer","while","localvar","<>","-","and",")",",","float","if","constructor","<","*","not","{",".","void","then","attribute",">","/","}",":","class","else","function","<=","=","[","=>","self","read","public",">=","]","::","isa","write","private","return"};
+static String[] reserved = new String[] {"==","+","or","(",";","integer","while","localvar","<>","-","and",")",",","float","if","constructor","<","*","not","{",".","void","then","attribute",">","/","}",":","class","else","function","<=","=","[","=>","read","public",">=","]","::","isa","write","private","return"};
 
 
 

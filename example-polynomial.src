@@ -1,7 +1,11 @@
-function QUADRATIC::constructor(A: float, B: float, C: float)
-{
-  selfa.a = A;
-  selfa.b = B;
-  selfa.c = C;
-  id(id).id[id]=1;
-}
+class C {
+	private attribute a: integer; 
+};
+
+class D isa C {
+	private attribute b: integer; 
+};
+
+class E isa D {                                                         // 14.1
+	private attribute c: integer; 
+};
