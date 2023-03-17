@@ -1,38 +1,52 @@
 class  
-class C  
-class C {  
-class C { private  
-class C { private attribute  
-class C { private attribute a  
-class C { private attribute a :  
-class C { private attribute a : integer  
-class C { private attribute a : integer ;  
-class C { private attribute a : integer ; }  
-class C { private attribute a : integer ; } ;  
-class C { private attribute a : integer ; } ; class  
-class C { private attribute a : integer ; } ; class D  
-class C { private attribute a : integer ; } ; class D isa  
-class C { private attribute a : integer ; } ; class D isa C  
-class C { private attribute a : integer ; } ; class D isa C {  
-class C { private attribute a : integer ; } ; class D isa C { private  
-class C { private attribute a : integer ; } ; class D isa C { private attribute  
-class C { private attribute a : integer ; } ; class D isa C { private attribute b  
-class C { private attribute a : integer ; } ; class D isa C { private attribute b :  
-class C { private attribute a : integer ; } ; class D isa C { private attribute b : integer  
-class C { private attribute a : integer ; } ; class D isa C { private attribute b : integer ;  
-class C { private attribute a : integer ; } ; class D isa C { private attribute b : integer ; }  
-class C { private attribute a : integer ; } ; class D isa C { private attribute b : integer ; } ;  
-class C { private attribute a : integer ; } ; class D isa C { private attribute b : integer ; } ; class  
-class C { private attribute a : integer ; } ; class D isa C { private attribute b : integer ; } ; class E  
-class C { private attribute a : integer ; } ; class D isa C { private attribute b : integer ; } ; class E isa  
-class C { private attribute a : integer ; } ; class D isa C { private attribute b : integer ; } ; class E isa D  
-class C { private attribute a : integer ; } ; class D isa C { private attribute b : integer ; } ; class E isa D {  
-Comment: -  14.1 
-class C { private attribute a : integer ; } ; class D isa C { private attribute b : integer ; } ; class E isa D { private private  
-class C { private attribute a : integer ; } ; class D isa C { private attribute b : integer ; } ; class E isa D { private private attribute  
-class C { private attribute a : integer ; } ; class D isa C { private attribute b : integer ; } ; class E isa D { private private attribute c  
-class C { private attribute a : integer ; } ; class D isa C { private attribute b : integer ; } ; class E isa D { private private attribute c :  
-class C { private attribute a : integer ; } ; class D isa C { private attribute b : integer ; } ; class E isa D { private private attribute c : integer  
-class C { private attribute a : integer ; } ; class D isa C { private attribute b : integer ; } ; class E isa D { private private attribute c : integer ;  
-class C { private attribute a : integer ; } ; class D isa C { private attribute b : integer ; } ; class E isa D { private private attribute c : integer ; }  
-class C { private attribute a : integer ; } ; class D isa C { private attribute b : integer ; } ; class E isa D { private private attribute c : integer ; } ;  
+class POLYNOMIAL  
+class POLYNOMIAL {  
+class POLYNOMIAL { private  
+class POLYNOMIAL { private attribute  
+class POLYNOMIAL { private attribute a  
+class POLYNOMIAL { private attribute a :  
+class POLYNOMIAL { private attribute a : float  
+class POLYNOMIAL { private attribute a : float ;  
+class POLYNOMIAL { private attribute a : float ; private  
+class POLYNOMIAL { private attribute a : float ; private attribute  
+class POLYNOMIAL { private attribute a : float ; private attribute b  
+class POLYNOMIAL { private attribute a : float ; private attribute b :  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ;  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function evaluate  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function evaluate :  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function evaluate : (  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function evaluate : ( x  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function evaluate : ( x :  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function evaluate : ( x : float  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function evaluate : ( x : float )  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function evaluate : ( x : float ) =>  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function evaluate : ( x : float ) => float  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function evaluate : ( x : float ) => float ;  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function evaluate : ( x : float ) => float ; }  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function evaluate : ( x : float ) => float ; } ;  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function evaluate : ( x : float ) => float ; } ; function  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function evaluate : ( x : float ) => float ; } ; function POLYNOMIAL  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function evaluate : ( x : float ) => float ; } ; function POLYNOMIAL ::  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function evaluate : ( x : float ) => float ; } ; function POLYNOMIAL :: evaluate  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function evaluate : ( x : float ) => float ; } ; function POLYNOMIAL :: evaluate (  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function evaluate : ( x : float ) => float ; } ; function POLYNOMIAL :: evaluate ( x  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function evaluate : ( x : float ) => float ; } ; function POLYNOMIAL :: evaluate ( x :  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function evaluate : ( x : float ) => float ; } ; function POLYNOMIAL :: evaluate ( x : float  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function evaluate : ( x : float ) => float ; } ; function POLYNOMIAL :: evaluate ( x : float )  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function evaluate : ( x : float ) => float ; } ; function POLYNOMIAL :: evaluate ( x : float ) =>  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function evaluate : ( x : float ) => float ; } ; function POLYNOMIAL :: evaluate ( x : float ) => float  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function evaluate : ( x : float ) => float ; } ; function POLYNOMIAL :: evaluate ( x : float ) => float {  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function evaluate : ( x : float ) => float ; } ; function POLYNOMIAL :: evaluate ( x : float ) => float { localvar  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function evaluate : ( x : float ) => float ; } ; function POLYNOMIAL :: evaluate ( x : float ) => float { localvar x  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function evaluate : ( x : float ) => float ; } ; function POLYNOMIAL :: evaluate ( x : float ) => float { localvar x :  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function evaluate : ( x : float ) => float ; } ; function POLYNOMIAL :: evaluate ( x : float ) => float { localvar x : float  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function evaluate : ( x : float ) => float ; } ; function POLYNOMIAL :: evaluate ( x : float ) => float { localvar x : float ;  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function evaluate : ( x : float ) => float ; } ; function POLYNOMIAL :: evaluate ( x : float ) => float { localvar x : float ; return  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function evaluate : ( x : float ) => float ; } ; function POLYNOMIAL :: evaluate ( x : float ) => float { localvar x : float ; return (  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function evaluate : ( x : float ) => float ; } ; function POLYNOMIAL :: evaluate ( x : float ) => float { localvar x : float ; return ( 0  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function evaluate : ( x : float ) => float ; } ; function POLYNOMIAL :: evaluate ( x : float ) => float { localvar x : float ; return ( 0 )  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function evaluate : ( x : float ) => float ; } ; function POLYNOMIAL :: evaluate ( x : float ) => float { localvar x : float ; return ( 0 ) ;  
+class POLYNOMIAL { private attribute a : float ; private attribute b : float ; public function evaluate : ( x : float ) => float ; } ; function POLYNOMIAL :: evaluate ( x : float ) => float { localvar x : float ; return ( 0 ) ; }  

@@ -1,3 +1,6 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -11,15 +14,19 @@ public class tableGenerate {
 			for(int i=0;i<t.children.size();i++) {
 				if(t.children.get(i).val.equals("id")) {
 					if(i+1>=t.children.size()) {
-						temp.add(new TreeNode("id",t.children.get(i).name,"inherit",t.children.get(i).vis));
+						temp.add(new TreeNode("inherit",t.children.get(i).name,"inherit",t.children.get(i).vis));
 					}
 					else {
-						temp.add(new TreeNode("id",t.children.get(i).name,t.children.get(i+1).name,t.children.get(i).vis));
+						temp.add(new TreeNode("data",t.children.get(i).name,t.children.get(i+1).name,t.children.get(i).vis));
 					}
 				}
 				if(t.children.get(i).val.equals("function")) {
-					
 					temp.add(new TreeNode("function",t.children.get(i).children.get(0).name,"function",t.children.get(i).vis));
+					int xb = temp.size();
+					getDetails1(t.children.get(i));
+					for(int k=xb;k<temp.size();k++) {
+						temp.get(k).val = "param";
+					}
 					continue;
 				}
 				if(t.children.get(i).val.equals("constructor")) {
@@ -37,7 +44,8 @@ public class tableGenerate {
 			for(int i=0;i<t.children.size();i++) {
 				getDetails1(t.children.get(i));
 				if(i+1<=t.children.size() && t.children.get(i).val.equals("id") && t.children.get(i+1).val.equals("type")) {
-					temp.add(new TreeNode("id",t.children.get(i).name,t.children.get(i+1).name,t.children.get(i).vis));
+					t.children.get(i).type = t.children.get(i+1).name;
+					temp.add(new TreeNode("local",t.children.get(i).name,t.children.get(i+1).name,t.children.get(i).vis));
 				}
 			}
 		}
@@ -49,7 +57,7 @@ public class tableGenerate {
 				temp.add(new TreeNode("constructor","build","constructor",t.children.get(0).vis));
 			}
 			else {
-				temp.add(new TreeNode("id",t.children.get(2).children.get(0).name,"function",t.children.get(0).vis));
+				temp.add(new TreeNode("function",t.children.get(2).children.get(0).name,"function",t.children.get(0).vis));
 			}
 		}
 		getDetails1(t);
@@ -60,6 +68,7 @@ public class tableGenerate {
 				temp.clear();
 				getDetails(t1.children.get(i));
 				temp.get(0).type="class";
+				temp.get(0).val = "class";
 				ans.add(new ArrayList<TreeNode>(temp));
 			}
 			if(t1.children.get(i).val.equals("FunctionDec")) {
@@ -69,7 +78,6 @@ public class tableGenerate {
 					temp.get(0).type="Main";
 				}
 				if(temp.size()>1 && !temp.get(0).name.equals("main")) {
-					
 					temp.get(0).type="class";
 					temp.add(1,temp.remove(0));
 				}
@@ -84,6 +92,7 @@ public class tableGenerate {
 					for(int j=0;j<ans.get(i).size();j++) {
 						if(ans.get(i).get(j).name.equals(t2.name)) {
 							if(ans.get(i).get(j).type.equals(t2.type)) {
+								mergeFunction(t,t2);
 								return true;
 							}
 						}
@@ -148,11 +157,50 @@ public class tableGenerate {
 					for(int j=0;j<ans.size();j++) {
 						if(ans.get(i).get(1).name.equals(ans.get(j).get(0).name) && ans.get(j).get(0).type.equals("class")) {
 							if(!checkInherit(ans.get(j).get(0),ans.get(i).get(0))) {
-								System.out.println("round");
+								System.out.println("Cycle in class");
 							}
 						}
 					}
 				}
+			}
+		}
+	}
+	private static void mergeFunction(TreeNode t1, TreeNode t2) {
+		int i=0,j=0;
+		for(i=0;i<ans.size();i++) {
+			if(ans.get(i).get(0).name.equals(t1.name))
+				break;
+		}
+		for(j=0;j<ans.size();j++) {
+			if(ans.get(j).get(0).name.equals(t2.name))
+				break;
+		}
+		for(int k=1;k<ans.get(i).size();k++) {
+			for(int l=1;l<ans.get(j).size();l++) {
+				if(ans.get(i).get(k).name.equals(ans.get(j).get(l).name)) {
+					ans.get(j).get(l).val = ans.get(i).get(k).val;
+					continue;
+				}
+			}
+		}
+		for(int k=1;k<ans.get(i).size();k++) {
+			int x=0;
+			if(!ans.get(i).get(k).val.equals("data"))
+				continue;
+			for(int l=1;l<ans.get(j).size();l++) {
+				if(ans.get(i).get(k).name.equals(ans.get(j).get(l).name)) {
+					x=1;
+				}
+			}
+			if(x==0) {
+				ans.get(j).add(ans.get(i).get(k));
+			}
+		}
+	}
+	private static void checkFunc() {
+		for(int i=0;i<ans.size();i++) {
+			for(int j=0;j<ans.size();j++) {
+				
 			}
 		}
 	}
@@ -163,8 +211,21 @@ public class tableGenerate {
 		token = (String[][]) list.get(0);
 		root = ((Stack<TreeNode>) list.get(1)).peek();
 		mainTable(root);
+		for(int i=0;i<ans.size();i++)
+			System.out.println(ans.get(i));
 		checkFunction();
 		checkClass();
 		roundClass();
+		
+		checkFunc();
+		try {
+            BufferedWriter out = new BufferedWriter(
+                new FileWriter("example-polynomial.outast"));
+            out.write(TreeNode.printList(root));
+            out.close();
+        }
+        catch (IOException e) {
+            System.out.println("exception occurred" + e);
+        }
 	}
 }

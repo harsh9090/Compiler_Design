@@ -34,7 +34,7 @@ class TreeNode{
 
 	@Override
 	public String toString() {
-		return "TreeNode [ type= "+ type +" , name = "+name+" ]";
+		return "TreeNode [ type= "+ type +" , name = "+name+" , val= "+val+" ]";
 //		return " [name = "+name +" ] ";
 	}
 	public static String ast = "";
@@ -48,7 +48,7 @@ class TreeNode{
 				for(int i=0;i<index;i++) {
 					ast+= "| ";
 				}
-				ast+= root.val +"\n";
+				ast+= root.val + ","+ root.type +"\n";
 			}
 			index++;
 			for(int i=0;i<root.children.size();i++){

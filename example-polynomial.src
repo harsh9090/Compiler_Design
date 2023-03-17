@@ -1,11 +1,10 @@
-class C {
-	private attribute a: integer; 
+class POLYNOMIAL {
+  private attribute a: float;
+  private attribute b: float;
+  public function evaluate: (x: float) => float;
 };
-
-class D isa C {
-	private attribute b: integer; 
-};
-
-class E isa D {                                                         // 14.1
-	private attribute c: integer; 
-};
+function POLYNOMIAL::evaluate(x: float) => float
+{
+  localvar x: float;
+  return (0);
+}

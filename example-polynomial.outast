@@ -1,38 +1,100 @@
-Program
-| ClassDec
-| | class
-| | id
-| | MemberList
-| | | Member
-| | | | visiblity
-| | | | VarDec
-| | | | | attribute
-| | | | | id
-| | | | | type
-| | | | | ARRSIZE
-| ClassDec
-| | class
-| | id
-| | isa
-| | | id
-| | MemberList
-| | | Member
-| | | | visiblity
-| | | | VarDec
-| | | | | attribute
-| | | | | id
-| | | | | type
-| | | | | ARRSIZE
-| ClassDec
-| | class
-| | id
-| | isa
-| | | id
-| | MemberList
-| | | Member
-| | | | visiblity
-| | | | VarDec
-| | | | | attribute
-| | | | | id
-| | | | | type
-| | | | | ARRSIZE
+Program,Program
+| ClassDec,ClassDec
+| | class,class
+| | id,id
+| | MemberList,MemberList
+| | | Member,Member
+| | | | visiblity,visiblity
+| | | | VarDec,VarDec
+| | | | | attribute,attribute
+| | | | | id,id
+| | | | | type,type
+| | | | | ARRSIZE,ARRSIZE
+| | | Member,Member
+| | | | visiblity,visiblity
+| | | | VarDec,VarDec
+| | | | | attribute,attribute
+| | | | | id,id
+| | | | | type,type
+| | | | | ARRSIZE,ARRSIZE
+| | | Member,Member
+| | | | type,type
+| | | | function,function
+| | | | | id,id
+| | | | | FParmsList,FParmsList
+| | | | | | FParm,FParm
+| | | | | | | id,id
+| | | | | | | type,type
+| | | | | | | ARRSIZE,ARRSIZE
+| | | | | type,type
+| FunctionDec,FunctionDec
+| | function,function
+| | id,id
+| | FunctionMemberTail,FunctionMemberTail
+| | | id,id
+| | | FParmsList,FParmsList
+| | | | FParm,FParm
+| | | | | id,id
+| | | | | type,type
+| | | | | ARRSIZE,ARRSIZE
+| | | type,type
+| | Body,Body
+| | | localvar,localvar
+| | | | id,id
+| | | | type,type
+| | | | ARRSIZE,ARRSIZE
+| | | return,return
+| | | | EXPR,EXPR
+| | | | | ArithExpr,ArithExpr
+| | | | | | Term,Term
+| | | | | | | intLit,intLit
+Program,Program
+| ClassDec,ClassDec
+| | class,class
+| | id,id
+| | MemberList,MemberList
+| | | Member,Member
+| | | | visiblity,visiblity
+| | | | VarDec,VarDec
+| | | | | attribute,attribute
+| | | | | id,id
+| | | | | type,type
+| | | | | ARRSIZE,ARRSIZE
+| | | Member,Member
+| | | | visiblity,visiblity
+| | | | VarDec,VarDec
+| | | | | attribute,attribute
+| | | | | id,id
+| | | | | type,type
+| | | | | ARRSIZE,ARRSIZE
+| | | Member,Member
+| | | | type,type
+| | | | function,function
+| | | | | id,id
+| | | | | FParmsList,FParmsList
+| | | | | | FParm,FParm
+| | | | | | | id,float
+| | | | | | | type,type
+| | | | | | | ARRSIZE,ARRSIZE
+| | | | | type,type
+| FunctionDec,FunctionDec
+| | function,function
+| | id,id
+| | FunctionMemberTail,FunctionMemberTail
+| | | id,id
+| | | FParmsList,FParmsList
+| | | | FParm,FParm
+| | | | | id,float
+| | | | | type,type
+| | | | | ARRSIZE,ARRSIZE
+| | | type,type
+| | Body,Body
+| | | localvar,localvar
+| | | | id,float
+| | | | type,type
+| | | | ARRSIZE,ARRSIZE
+| | | return,return
+| | | | EXPR,EXPR
+| | | | | ArithExpr,ArithExpr
+| | | | | | Term,Term
+| | | | | | | intLit,intLit
