@@ -5,16 +5,20 @@ class TreeNode{
     String val;
     String type;
     String name;
+    String lineNumber;
+    int store;
+    int dim=0;
     ArrayList<TreeNode> children = new ArrayList<>();
     TreeNode(String data,String type){
         val = data;
         this.type = type;
     }
-    TreeNode(String data,String name,String type,String vis){
+    TreeNode(String data,String name,String type,String vis,String line){
         val = data;
         this.name = name;
         this.type = type;
         this.vis = vis;
+        this.lineNumber = line;
     }
     TreeNode(String data,String name,String type){
         val = data;
@@ -34,8 +38,7 @@ class TreeNode{
 
 	@Override
 	public String toString() {
-		return "TreeNode [ type= "+ type +" , name = "+name+" , val= "+val+" ]";
-//		return " [name = "+name +" ] ";
+		return "TreeNode [ type= "+ type +" , val = "+val+" , name = "+name+ " ]";
 	}
 	public static String ast = "";
 	public static int index =0;
@@ -48,7 +51,8 @@ class TreeNode{
 				for(int i=0;i<index;i++) {
 					ast+= "| ";
 				}
-				ast+= root.val + ","+ root.type +"\n";
+//				ast+= root.val+", " + root.name +", " + root.dim +"\n";
+				ast+= root.val +"\n";
 			}
 			index++;
 			for(int i=0;i<root.children.size();i++){

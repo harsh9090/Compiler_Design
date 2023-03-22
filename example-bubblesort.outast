@@ -1,18 +1,19 @@
 Program
 | FunctionDec
 | | function
-| | id
+| | function
 | | FunctionTail
 | | | FParmsList
 | | | | FParm
 | | | | | id
 | | | | | type
 | | | | | ARRSIZE
+| | | | | | null
 | | | | FParms
 | | | | | id
 | | | | | type
 | | | | | ARRSIZE
-| | | type
+| | | return
 | | Body
 | | | localvar
 | | | | id
@@ -227,18 +228,19 @@ Program
 | | | | | | | | | | | intLit
 | FunctionDec
 | | function
-| | id
+| | function
 | | FunctionTail
 | | | FParmsList
 | | | | FParm
 | | | | | id
 | | | | | type
 | | | | | ARRSIZE
+| | | | | | null
 | | | | FParms
 | | | | | id
 | | | | | type
 | | | | | ARRSIZE
-| | | type
+| | | return
 | | Body
 | | | localvar
 | | | | id
@@ -309,9 +311,9 @@ Program
 | | | | | | | | | | | intLit
 | FunctionDec
 | | function
-| | id
+| | function
 | | FunctionTail
-| | | type
+| | | return
 | | Body
 | | | localvar
 | | | | id

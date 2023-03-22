@@ -15,7 +15,6 @@ public class Parser {
 		return rev;
 	}
 	private static TreeNode fNode = new TreeNode();
-	private static int index = 0;
 	private static Stack<TreeNode> astSt = new Stack<>();
 	private static String tok = "";
 	private static String inp = "";
@@ -63,21 +62,21 @@ public class Parser {
 			{"","","A5 REPTARSIZ C2","","( APRMS )","","","","","","","","","","","","","","","","","","","","","","","","","","","A5 REPTARSIZ C2","","","","","","A5 REPTARSIZ C2","","","","","","","","","","","","",""},
 			{"","","EPS","","","","","","","","","","","","","","","","","","","","","","","","","","","","","ARRSIZE REPTARSIZ","","","","","","","","","","","","","","","","","","",""},
 			{"","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","[ ARRSIZE2","","","","","","","","","","","","","","","","","","",""},
-			{"","","","","","","","","","","","","","","","","","","","","","","","","","","","","intlit A7 ]","","","","]","","","","","","","","","","","","","","","","","",""},
+			{"","","","","","","","","","","","","","","","","","","","","","","","","","","","","intlit A7 ]","","","","F4 ]","","","","","","","","","","","","","","","","","",""},
 			{"","LOCVARSTAT REPTVARSTAT","","LOCVARSTAT REPTVARSTAT","","","LOCVARSTAT REPTVARSTAT","LOCVARSTAT REPTVARSTAT","LOCVARSTAT REPTVARSTAT","LOCVARSTAT REPTVARSTAT","","","","","","","","","","","EPS","","","","","","","","","","","","","LOCVARSTAT REPTVARSTAT","","","","","","","","","","","","","","","","",""},
 			{"","","","","","","","","","","","","","","","","","","","A5 { REPTVARSTAT } C1","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""},
 			{"","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","FUNHEAD FUNBODY C11","","","","","","","","","",""},
 			{"","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","function A11 id A4 FUNHEADTAIL","","","","","","","","","",""},
-			{"","","","","( FPARM ) arrow RETTYPE C13","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","sr FUNHEADMEMTAIL","","","","","","","","",""},
-			{"","id A4 ( FPARM ) arrow RETTYPE C14","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","constructor ( FPARM ) D6","","","","","","",""},
-			{"","TYPE A1","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","TYPE A1","TYPE A1","","","","","","","","void A1","","","","","",""},
+			{"","","","","( FPARM ) arrow RETTYPE A13 C13","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","sr FUNHEADMEMTAIL","","","","","","","","",""},
+			{"","id A4 ( FPARM ) arrow RETTYPE A13 C14","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","constructor ( FPARM ) D6","","","","","","",""},
+			{"","TYPE","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","TYPE","TYPE","","","","","","","","void","","","","","",""},
 			{"","A5 id A4 : TYPE A1 A5 REPTPRM3 C2 E7 REPTPRM4 C5","","","","EPS A5","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","",""},
 			{"","","","","","EPS","","","","","","","","","","","","","","","","","","","","","","EPS","","","","ARRSIZE REPTPRM3","","","","","","ARRSIZE REPTPRM3","","","","","","","","","","","","",""},
 			{"","","","","","EPS","","","","","","","","","","","","","","","","","","","","","","FPARMTAIL REPTPRM4","","","","","","","","","","","","","","","","","","","","","","",""},
 			{"","","","","","","","","","","","","","","","","","","","","","","","","","","",", id A4 : TYPE A1 A5 REPTPRMTAIL C2 C4","","","","","","","","","","","","","","","","","","","","","","",""},
 			{"","","","","","EPS","","","","","","","","","","","","","","","","","","","","","","EPS","","","","ARRSIZE REPTPRMTAIL","","","","","","ARRSIZE REPTPRMTAIL","","","","","","","","","","","","",""},
 			{"","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","MEMFUNHEAD ;","","","MEMFUNHEAD ;","","","","","","",""},
-			{"","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","function id A4 : ( FPARM ) arrow RETTYPE C7","","","constructor : ( FPARM ) D6","","","","","","",""},
+			{"","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","function id A4 : ( FPARM ) arrow RETTYPE A13 C7","","","constructor : ( FPARM ) D6","","","","","","",""},
 			{"","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","MEMFUNDEC","","","MEMFUNDEC","","","","MEMVARDECL","","",""},
 			{"","","","","","","","","","","","","","","","","","","","","EPS","","","","","","","","","","","","","","","","","","","","","","","","","VIS A1 MEMDECL D1 REPTMEMDECL","VIS A12 MEMDECL D1 REPTMEMDECL","","","",""},
 			{"","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","public","private","","","",""},
@@ -100,7 +99,7 @@ public class Parser {
 		return -1;
 	}
 	private static boolean isAST(String s) {
-		String[] st = {"D1","D2","C1","C2","C3","C4","C5","C6","C7","C8","C9","C10","C11","C12","C13","C14","V1","V2","V3","V4","V5","V6","V7","V8","V9","V10","V11","V12","V13","V14","V15","V16","V17","V18","V19","B1","B2","B3","B4","B5","B6","B7","B8","B9","A1","A3","A4","A5","A6","A7","A8","A9","A10","A11","D3","D4","A2","D5","D6","A12","D8","D9","E1","E2","E3","E4","E5","E6","E7","F1","F2","F3"};
+		String[] st = {"D1","D2","C1","C2","C3","C4","C5","C6","C7","C8","C9","C10","C11","C12","C13","C14","V1","V2","V3","V4","V5","V6","V7","V8","V9","V10","V11","V12","V13","V14","V15","V16","V17","V18","V19","B1","B2","B3","B4","B5","B6","B7","B8","B9","A1","A3","A4","A5","A6","A7","A8","A9","A10","A11","D3","D4","A2","D5","D6","A12","D8","D9","E1","E2","E3","E4","E5","E6","E7","F1","F2","F3","A13","F4"};
 		for(int i=0;i<st.length;i++) {
 			if(st[i].equals(s)) {
 				return true;
@@ -109,7 +108,7 @@ public class Parser {
 		return false;
 	}
 	private static int getAST(String s) {
-		String[] st = {"D1","D2","C1","C2","C3","C4","C5","C6","C7","C8","C9","C10","C11","C12","C13","C14","V1","V2","V3","V4","V5","V6","V7","V8","V9","V10","V11","V12","V13","V14","V15","V16","V17","V18","V19","B1","B2","B3","B4","B5","B6","B7","B8","B9","A1","A3","A4","A5","A6","A7","A8","A9","A10","A11","D3","D4","A2","D5","D6","A12","D8","D9","E1","E2","E3","E4","E5","E6","E7","F1","F2","F3"};
+		String[] st = {"D1","D2","C1","C2","C3","C4","C5","C6","C7","C8","C9","C10","C11","C12","C13","C14","V1","V2","V3","V4","V5","V6","V7","V8","V9","V10","V11","V12","V13","V14","V15","V16","V17","V18","V19","B1","B2","B3","B4","B5","B6","B7","B8","B9","A1","A3","A4","A5","A6","A7","A8","A9","A10","A11","D3","D4","A2","D5","D6","A12","D8","D9","E1","E2","E3","E4","E5","E6","E7","F1","F2","F3","A13","F4"};
 		for(int i=0;i<st.length;i++) {
 			if(st[i].equals(s)) {
 				return i;
@@ -117,16 +116,30 @@ public class Parser {
 		}
 		return 0;
 	}
+	private static void giveNode(TreeNode t) {
+		for(int i=0;i<t.children.size();i++) {
+			if(t.children.get(i).type.equals("integer") || t.children.get(i).type.equals("float")) {
+				t.type = t.children.get(i).type;
+			}
+		}
+	}
 	private static void addRule(String s) {
 		int x =getAST(s);
-		String[] str = {"push(createsubtree(Member,pop,pop))","push(createsubtree(isa,popuntillEPS))","push(createsubtree(Body,popuntillEPS))","push(createsubtree(ARRSIZE,popuntillEPS))","push(createsubtree(localvar,pop,pop,pop))","push(createsubtree(FParms,pop,pop,pop))","push(createsubtree(FParmsList,popuntillEPS))","push(createsubtree(FParms,pop,pop,pop,pop))","push(createsubtree(function,pop,pop,pop))","push(createsubtree(MemberList,popuntillEPS))","push(createsubtree(ClassDec,pop,pop,pop,pop))","push(createsubtree(Program,popuntillEPS))","push(createsubtree(FunctionDec,pop,pop,pop,pop))","push(createsubtree(List,popuntillEPS))","push(createsubtree(FunctionTail,pop,pop))","push(createsubtree(FunctionMemberTail,pop,pop,pop))","push(createsubtree(VariableList,popuntillEPS))","push(createsubtree(ArithExpr,popuntillEPS))","push(createsubtree(IndiceList,popuntillEPS))","push(createsubtree(ArithExpr,pop,pop))","push(createsubtree(relop,pop,pop))","push(createsubtree(StatmentList,popuntillEPS))","push(createsubtree(IDNEST,popuntillEPS))","push(createsubtree(AParmList,popuntillEPS))","push(createsubtree(EXPR,popuntillEPS))","push(createsubtree(Factor,pop,pop))","push(createsubtree(Variable,pop,pop))","push(createsubtree(Term,pop,pop))","push(createsubtree(Term,popuntillEPS))","push(createsubtree(Factor,pop,pop,pop))","push(createsubtree(Aparms,pop,pop))","push(createsubtree(dot,pop,pop))","push(createsubtree(VarId2,pop,pop))","push(createsubtree(read,pop,pop))","push(createsubtree(=,pop))","push(createsubtree(StatmentIdnest,popuntillEPS))","push(createsubtree(Statment,pop,pop))","push(createsubtree(StatmentIdnest,pop,pop))","push(createsubtree(if,pop,pop,pop))","push(createsubtree(StatmentIdnest,pop,pop))","push(createsubtree(dot,pop,pop))","push(createsubtree(multop,pop))","push(createsubtree(addop,pop))","push(createsubtree(StatIdnest2,popuntillEPS))","push(createLeaf(type))","push(createLeaf(sign))","push(createLeaf(id))","push(EPS)","push(createLeaf(relop))","push(createLeaf(intLit))","push(createLeaf(isa))","push(createLeaf(constructor))","push(createLeaf(class))","push(createLeaf(function))","push(createsubtree(VarDec,pop,pop,pop,pop))","push(createsubtree(functionMemberHead,pop,pop))","push(createLeaf(not))","push(createsubtree(EXPR,pop,pop))","push(createsubtree(constructor,pop))","push(createLeaf(visiblity))","push(createsubtree(dot,pop,pop))","push(createsubtree(while,pop,pop))","push(createLeaf(attribute))","push(createLeaf(floatLit))","push(createsubtree(then,pop))","push(createsubtree(else,pop))","push(createsubtree(not,pop))","push(createsubtree(=,pop))","push(createsubtree(FParm,pop,pop,pop))","push(createsubtree(write,pop))","push(createsubtree(read,pop))","push(createsubtree(return,pop))"};
+		String[] str = {"push(createsubtree(Member,pop,pop))","push(createsubtree(isa,popuntillEPS))","push(createsubtree(Body,popuntillEPS))","push(createsubtree(ARRSIZE,popuntillEPS))","push(createsubtree(localvar,pop,pop,pop))","push(createsubtree(FParms,pop,pop,pop))","push(createsubtree(FParmsList,popuntillEPS))","push(createsubtree(FParms,pop,pop,pop,pop))","push(createsubtree(function,pop,pop,pop))","push(createsubtree(MemberList,popuntillEPS))","push(createsubtree(ClassDec,pop,pop,pop,pop))","push(createsubtree(Program,popuntillEPS))","push(createsubtree(FunctionDec,pop,pop,pop,pop))","push(createsubtree(List,popuntillEPS))","push(createsubtree(FunctionTail,pop,pop))","push(createsubtree(FunctionMemberTail,pop,pop,pop))","push(createsubtree(VariableList,popuntillEPS))","push(createsubtree(ArithExpr,popuntillEPS))","push(createsubtree(IndiceList,popuntillEPS))","push(createsubtree(ArithExpr,pop,pop))","push(createsubtree(relop,pop,pop))","push(createsubtree(StatmentList,popuntillEPS))","push(createsubtree(IDNEST,popuntillEPS))","push(createsubtree(AParmList,popuntillEPS))","push(createsubtree(EXPR,popuntillEPS))","push(createsubtree(Factor,pop,pop))","push(createsubtree(Variable,pop,pop))","push(createsubtree(Term,pop,pop))","push(createsubtree(Term,popuntillEPS))","push(createsubtree(Factor,pop,pop,pop))","push(createsubtree(Aparms,pop,pop))","push(createsubtree(dot,pop,pop))","push(createsubtree(VarId2,pop,pop))","push(createsubtree(read,pop,pop))","push(createsubtree(=,pop))","push(createsubtree(StatmentIdnest,popuntillEPS))","push(createsubtree(Statment,pop,pop))","push(createsubtree(StatmentIdnest,pop,pop))","push(createsubtree(if,pop,pop,pop))","push(createsubtree(StatmentIdnest,pop,pop))","push(createsubtree(dot,pop,pop))","push(createsubtree(multop,pop))","push(createsubtree(addop,pop))","push(createsubtree(StatIdnest2,popuntillEPS))","push(createLeaf(type))","push(createLeaf(sign))","push(createLeaf(id))","push(EPS)","push(createLeaf(relop))","push(createLeaf(intLit))","push(createLeaf(isa))","push(createLeaf(constructor))","push(createLeaf(class))","push(createLeaf(function))","push(createsubtree(VarDec,pop,pop,pop,pop))","push(createsubtree(functionMemberHead,pop,pop))","push(createLeaf(not))","push(createsubtree(EXPR,pop,pop))","push(createsubtree(constructor,pop))","push(createLeaf(visiblity))","push(createsubtree(dot,pop,pop))","push(createsubtree(while,pop,pop))","push(createLeaf(attribute))","push(createLeaf(floatLit))","push(createsubtree(then,pop))","push(createsubtree(else,pop))","push(createsubtree(not,pop))","push(createsubtree(=,pop))","push(createsubtree(FParm,pop,pop,pop))","push(createsubtree(write,pop))","push(createsubtree(read,pop))","push(createsubtree(returnFromFunction,pop))","push(createLeaf(return))","push(createLeaf(null))"};
 		s = str[x];
 		if(s.contains("push(createLeaf")) {
 			s = s.substring(16);
 			s = s.split("\\)")[0];
 			astSt.push(new TreeNode(s,s));
+			if(astSt.peek().val.equals("intLit")) {
+				astSt.peek().type = "integer";
+			}
+			if(astSt.peek().val.equals("floatLit")) {
+				astSt.peek().type = "float";
+			}
 			astSt.peek().name= prev[1];
 			astSt.peek().vis = prev[1];
+			astSt.peek().lineNumber = token[numb][2];
 		}
 		else if(s.contains("push(createsubtree(")) {
 			s = s.substring(19);
@@ -138,6 +151,8 @@ public class Parser {
 					fNode.children.add(temp);
 				}
 				fNode.children = reverseList(fNode.children);
+				giveNode(fNode);
+				fNode.lineNumber = token[numb][2];
 				astSt.pop();
 				astSt.push(fNode);
 			
@@ -150,6 +165,8 @@ public class Parser {
 					fNode.children.add(temp);
 				}
 				fNode.children = reverseList(fNode.children);
+				giveNode(fNode);
+				fNode.lineNumber = token[numb][2];
 				astSt.push(fNode);
 			}
 		}
@@ -339,20 +356,10 @@ public class Parser {
             else break;
 	    }
 	    if (!(a.equals("$")) || k==1){ 
-//	        System.out.println("Parsing Failed! ");
+	        System.out.println("Parsing Failed! ");
 	    }
 	    else {
 	    	getPrivate(fNode,"public");
-	    	try {
-	            BufferedWriter out = new BufferedWriter(
-	                new FileWriter(inp+".outast"));
-	            out.write(TreeNode.printList(fNode));
-	            out.close();
-	        }
-	        catch (IOException e) {
-	            System.out.println("exception occurred" + e);
-	        }
-//	    	System.out.println("Parsed Successfully");
 	    }
 	    }
 	private static void getPrivate(TreeNode t,String vis) {
@@ -376,6 +383,8 @@ public class Parser {
 		ArrayList<Object> ans = new ArrayList<>();
 		ans.add(token);
 		ans.add(astSt);
+		ans.add(inp);
+		
 		return ans;
 	    }
 }

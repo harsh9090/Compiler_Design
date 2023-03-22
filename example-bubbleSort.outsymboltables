@@ -1,0 +1,33 @@
+------------------------------------------------------------------------------
+| MAIN TABLE MAIN TABLE
+| TreeNode [ type= function , val = function , name = bubbleSort ]
+| TreeNode [ type= function , val = function , name = printArray ]
+| TreeNode [ type= function , val = function , name = main ]
+------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------
+| function BUBBLESORT
+| TreeNode [ type= integer , val = param , name = arr ]
+| TreeNode [ type= integer , val = param , name = size ]
+| TreeNode [ type= void , val = return , name = return ]
+| TreeNode [ type= integer , val = local , name = n ]
+| TreeNode [ type= integer , val = local , name = i ]
+| TreeNode [ type= integer , val = local , name = j ]
+| TreeNode [ type= integer , val = local , name = temp ]
+------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------
+| function PRINTARRAY
+| TreeNode [ type= integer , val = param , name = arr ]
+| TreeNode [ type= integer , val = param , name = size ]
+| TreeNode [ type= void , val = return , name = return ]
+| TreeNode [ type= integer , val = local , name = n ]
+| TreeNode [ type= integer , val = local , name = i ]
+------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------
+| function MAIN
+| TreeNode [ type= void , val = return , name = return ]
+| TreeNode [ type= integer , val = local , name = arr ]
+------------------------------------------------------------------------------
+
