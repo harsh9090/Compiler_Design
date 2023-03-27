@@ -1,475 +1,74 @@
-Program
-| ClassDec
-| | class
-| | id
-| | MemberList
-| | | Member
-| | | | type
-| | | | function
-| | | | | id
-| | | | | FParmsList
-| | | | | | FParm
-| | | | | | | id
-| | | | | | | type
-| | | | | | | ARRSIZE
-| | | | | return
-| ClassDec
-| | class
-| | id
-| | isa
-| | | id
-| | MemberList
-| | | Member
-| | | | visiblity
-| | | | VarDec
-| | | | | attribute
-| | | | | id
-| | | | | type
-| | | | | ARRSIZE
-| | | Member
-| | | | visiblity
-| | | | VarDec
-| | | | | attribute
-| | | | | id
-| | | | | type
-| | | | | ARRSIZE
-| | | Member
-| | | | type
-| | | | constructor
-| | | | | FParmsList
-| | | | | | FParm
-| | | | | | | id
-| | | | | | | type
-| | | | | | | ARRSIZE
-| | | | | | FParms
-| | | | | | | id
-| | | | | | | type
-| | | | | | | ARRSIZE
-| | | Member
-| | | | type
-| | | | function
-| | | | | id
-| | | | | FParmsList
-| | | | | | FParm
-| | | | | | | id
-| | | | | | | type
-| | | | | | | ARRSIZE
-| | | | | return
-| ClassDec
-| | class
-| | id
-| | isa
-| | | id
-| | MemberList
-| | | Member
-| | | | visiblity
-| | | | VarDec
-| | | | | attribute
-| | | | | id
-| | | | | type
-| | | | | ARRSIZE
-| | | Member
-| | | | visiblity
-| | | | VarDec
-| | | | | attribute
-| | | | | id
-| | | | | type
-| | | | | ARRSIZE
-| | | Member
-| | | | visiblity
-| | | | VarDec
-| | | | | attribute
-| | | | | id
-| | | | | type
-| | | | | ARRSIZE
-| | | Member
-| | | | type
-| | | | constructor
-| | | | | FParmsList
-| | | | | | FParm
-| | | | | | | id
-| | | | | | | type
-| | | | | | | ARRSIZE
-| | | | | | FParms
-| | | | | | | id
-| | | | | | | type
-| | | | | | | ARRSIZE
-| | | | | | FParms
-| | | | | | | id
-| | | | | | | type
-| | | | | | | ARRSIZE
-| | | Member
-| | | | type
-| | | | function
-| | | | | id
-| | | | | FParmsList
-| | | | | | FParm
-| | | | | | | id
-| | | | | | | type
-| | | | | | | ARRSIZE
-| | | | | return
-| FunctionDec
-| | function
-| | class
-| | FunctionMemberTail
-| | | id
-| | | FParmsList
-| | | | FParm
-| | | | | id
-| | | | | type
-| | | | | ARRSIZE
-| | | return
-| | Body
-| | | returnFromFunction
-| | | | EXPR
-| | | | | ArithExpr
-| | | | | | Term
-| | | | | | | floatLit
-| FunctionDec
-| | function
-| | class
-| | FunctionMemberTail
-| | | id
-| | | FParmsList
-| | | | FParm
-| | | | | id
-| | | | | type
-| | | | | ARRSIZE
-| | | return
-| | Body
-| | | localvar
-| | | | id
-| | | | type
-| | | | ARRSIZE
-| | | Statment
-| | | | id
-| | | | =
-| | | | | EXPR
-| | | | | | ArithExpr
-| | | | | | | Term
-| | | | | | | | Factor
-| | | | | | | | | id
-| | | | | | | | | IndiceList
-| | | | | | | | | IDNEST
-| | | Statment
-| | | | id
-| | | | =
-| | | | | EXPR
-| | | | | | ArithExpr
-| | | | | | | Term
-| | | | | | | | Factor
-| | | | | | | | | id
-| | | | | | | | | IndiceList
-| | | | | | | | | IDNEST
-| | | | | | | | multop
-| | | | | | | | | Factor
-| | | | | | | | | | id
-| | | | | | | | | | IndiceList
-| | | | | | | | | | IDNEST
-| | | | | | | addop
-| | | | | | | | Term
-| | | | | | | | | Factor
-| | | | | | | | | | id
-| | | | | | | | | | IndiceList
-| | | | | | | | | | IDNEST
-| | | Statment
-| | | | id
-| | | | =
-| | | | | EXPR
-| | | | | | ArithExpr
-| | | | | | | Term
-| | | | | | | | Factor
-| | | | | | | | | id
-| | | | | | | | | IndiceList
-| | | | | | | | | IDNEST
-| | | | | | | | multop
-| | | | | | | | | Factor
-| | | | | | | | | | id
-| | | | | | | | | | IndiceList
-| | | | | | | | | | IDNEST
-| | | | | | | addop
-| | | | | | | | Term
-| | | | | | | | | Factor
-| | | | | | | | | | id
-| | | | | | | | | | IndiceList
-| | | | | | | | | | IDNEST
-| | | returnFromFunction
-| | | | EXPR
-| | | | | ArithExpr
-| | | | | | Term
-| | | | | | | Factor
-| | | | | | | | id
-| | | | | | | | IndiceList
-| | | | | | | | IDNEST
-| FunctionDec
-| | function
-| | id
-| | constructor
-| | | FParmsList
-| | | | FParm
-| | | | | id
-| | | | | type
-| | | | | ARRSIZE
-| | | | FParms
-| | | | | id
-| | | | | type
-| | | | | ARRSIZE
-| | | | FParms
-| | | | | id
-| | | | | type
-| | | | | ARRSIZE
-| | Body
-| | | Statment
-| | | | id
-| | | | dot
-| | | | | id
-| | | | | =
-| | | | | | EXPR
-| | | | | | | ArithExpr
-| | | | | | | | Term
-| | | | | | | | | Factor
-| | | | | | | | | | id
-| | | | | | | | | | IndiceList
-| | | | | | | | | | IDNEST
-| | | Statment
-| | | | id
-| | | | dot
-| | | | | id
-| | | | | =
-| | | | | | EXPR
-| | | | | | | ArithExpr
-| | | | | | | | Term
-| | | | | | | | | Factor
-| | | | | | | | | | id
-| | | | | | | | | | IndiceList
-| | | | | | | | | | IDNEST
-| | | Statment
-| | | | id
-| | | | dot
-| | | | | id
-| | | | | =
-| | | | | | EXPR
-| | | | | | | ArithExpr
-| | | | | | | | Term
-| | | | | | | | | Factor
-| | | | | | | | | | id
-| | | | | | | | | | IndiceList
-| | | | | | | | | | IDNEST
-| FunctionDec
-| | function
-| | id
-| | constructor
-| | | FParmsList
-| | | | FParm
-| | | | | id
-| | | | | type
-| | | | | ARRSIZE
-| | | | FParms
-| | | | | id
-| | | | | type
-| | | | | ARRSIZE
-| | Body
-| | | Statment
-| | | | id
-| | | | dot
-| | | | | id
-| | | | | =
-| | | | | | EXPR
-| | | | | | | ArithExpr
-| | | | | | | | Term
-| | | | | | | | | Factor
-| | | | | | | | | | id
-| | | | | | | | | | IndiceList
-| | | | | | | | | | IDNEST
-| | | Statment
-| | | | id
-| | | | dot
-| | | | | id
-| | | | | =
-| | | | | | EXPR
-| | | | | | | ArithExpr
-| | | | | | | | Term
-| | | | | | | | | Factor
-| | | | | | | | | | id
-| | | | | | | | | | IndiceList
-| | | | | | | | | | IDNEST
-| FunctionDec
-| | function
-| | class
-| | FunctionMemberTail
-| | | id
-| | | FParmsList
-| | | | FParm
-| | | | | id
-| | | | | type
-| | | | | ARRSIZE
-| | | return
-| | Body
-| | | localvar
-| | | | id
-| | | | type
-| | | | ARRSIZE
-| | | localvar
-| | | | id
-| | | | type
-| | | | ARRSIZE
-| | | | | intLit
-| | | Statment
-| | | | id
-| | | | StatmentIdnest
-| | | | | IndiceList
-| | | | | | ArithExpr
-| | | | | | | Term
-| | | | | | | | intLit
-| | | | | =
-| | | | | | EXPR
-| | | | | | | ArithExpr
-| | | | | | | | Term
-| | | | | | | | | floatLit
-| | | Statment
-| | | | id
-| | | | =
-| | | | | EXPR
-| | | | | | ArithExpr
-| | | | | | | Term
-| | | | | | | | Factor
-| | | | | | | | | id
-| | | | | | | | | IndiceList
-| | | | | | | | | IDNEST
-| | | | | | | | multop
-| | | | | | | | | Factor
-| | | | | | | | | | id
-| | | | | | | | | | IndiceList
-| | | | | | | | | | IDNEST
-| | | | | | | addop
-| | | | | | | | Term
-| | | | | | | | | Factor
-| | | | | | | | | | id
-| | | | | | | | | | IndiceList
-| | | | | | | | | | IDNEST
-| | | returnFromFunction
-| | | | EXPR
-| | | | | ArithExpr
-| | | | | | Term
-| | | | | | | Factor
-| | | | | | | | id
-| | | | | | | | IndiceList
-| | | | | | | | IDNEST
-| FunctionDec
-| | function
-| | function
-| | FunctionTail
-| | | return
-| | Body
-| | | localvar
-| | | | id
-| | | | type
-| | | | AParmList
-| | | | | EXPR
-| | | | | | ArithExpr
-| | | | | | | Term
-| | | | | | | | floatLit
-| | | | | EXPR
-| | | | | | ArithExpr
-| | | | | | | Term
-| | | | | | | | floatLit
-| | | localvar
-| | | | id
-| | | | type
-| | | | AParmList
-| | | | | EXPR
-| | | | | | ArithExpr
-| | | | | | | Term
-| | | | | | | | Factor
-| | | | | | | | | sign
-| | | | | | | | | floatLit
-| | | | | EXPR
-| | | | | | ArithExpr
-| | | | | | | Term
-| | | | | | | | floatLit
-| | | | | EXPR
-| | | | | | ArithExpr
-| | | | | | | Term
-| | | | | | | | floatLit
-| | | localvar
-| | | | id
-| | | | type
-| | | | ARRSIZE
-| | | Statment
-| | | | id
-| | | | =
-| | | | | EXPR
-| | | | | | ArithExpr
-| | | | | | | Term
-| | | | | | | | floatLit
-| | | if
-| | | | relop
-| | | | | ArithExpr
-| | | | | | Term
-| | | | | | | Factor
-| | | | | | | | id
-| | | | | | | | IndiceList
-| | | | | | | | IDNEST
-| | | | | ArithExpr
-| | | | | | Term
-| | | | | | | floatLit
-| | | | then
-| | | | | StatmentList
-| | | | else
-| | | | | StatmentList
-| | | while
-| | | | relop
-| | | | | ArithExpr
-| | | | | | Term
-| | | | | | | Factor
-| | | | | | | | id
-| | | | | | | | IndiceList
-| | | | | | | | IDNEST
-| | | | | ArithExpr
-| | | | | | Term
-| | | | | | | floatLit
-| | | | StatmentList
-| | | | | write
-| | | | | | EXPR
-| | | | | | | ArithExpr
-| | | | | | | | Term
-| | | | | | | | | Factor
-| | | | | | | | | | id
-| | | | | | | | | | IndiceList
-| | | | | | | | | | IDNEST
-| | | | | write
-| | | | | | EXPR
-| | | | | | | ArithExpr
-| | | | | | | | Term
-| | | | | | | | | Factor
-| | | | | | | | | | id
-| | | | | | | | | | IndiceList
-| | | | | | | | | | IDNEST
-| | | | | | | | | | | dot
-| | | | | | | | | | | | function
-| | | | | | | | | | | | AParmList
-| | | | | | | | | | | | | EXPR
-| | | | | | | | | | | | | | ArithExpr
-| | | | | | | | | | | | | | | Term
-| | | | | | | | | | | | | | | | Factor
-| | | | | | | | | | | | | | | | | param
-| | | | | | | | | | | | | | | | | IndiceList
-| | | | | | | | | | | | | | | | | IDNEST
-| | | | | write
-| | | | | | EXPR
-| | | | | | | ArithExpr
-| | | | | | | | Term
-| | | | | | | | | Factor
-| | | | | | | | | | id
-| | | | | | | | | | IndiceList
-| | | | | | | | | | IDNEST
-| | | | | | | | | | | dot
-| | | | | | | | | | | | function
-| | | | | | | | | | | | AParmList
-| | | | | | | | | | | | | EXPR
-| | | | | | | | | | | | | | ArithExpr
-| | | | | | | | | | | | | | | Term
-| | | | | | | | | | | | | | | | Factor
-| | | | | | | | | | | | | | | | | param
-| | | | | | | | | | | | | | | | | IndiceList
-| | | | | | | | | | | | | | | | | IDNEST
+Program, null, 0
+| ClassDec, null, 0
+| | class, class, 0
+| | id, POLYNOMIAL, 0
+| | MemberList, null, 0
+| | | Member, null, 0
+| | | | type, public, 0
+| | | | function, null, 0
+| | | | | id, evaluate, 0
+| | | | | FParmsList, null, 0
+| | | | | | FParm, null, 0
+| | | | | | | id, x, 0
+| | | | | | | type, float, 0
+| | | | | | | ARRSIZE, x, 0
+| | | | | return, float, 0
+| FunctionDec, null, 0
+| | function, function, 0
+| | class, POLYNOMIAL, 0
+| | FunctionMemberTail, null, 0
+| | | id, evaluate, 0
+| | | FParmsList, null, 0
+| | | | FParm, null, 0
+| | | | | id, x, 0
+| | | | | type, float, 0
+| | | | | ARRSIZE, x, 0
+| | | return, float, 0
+| | Body, null, 0
+| | | returnFromFunction, null, 0
+| | | | EXPR, null, 0
+| | | | | ArithExpr, null, 0
+| | | | | | Term, null, 0
+| | | | | | | floatLit, 0.0, 0
+| FunctionDec, null, 0
+| | function, function, 0
+| | function, main, 0
+| | FunctionTail, null, 0
+| | | return, void, 0
+| | Body, null, 0
+| | | localvar, null, 0
+| | | | id, x, 2
+| | | | type, integer, 0
+| | | | ARRSIZE, x, 0
+| | | | | intLit, 3, 0
+| | | | | intLit, 2, 0
+| | | localvar, null, 0
+| | | | id, y, 0
+| | | | type, integer, 0
+| | | | ARRSIZE, y, 0
+| | | localvar, null, 0
+| | | | id, z, 0
+| | | | type, integer, 0
+| | | | ARRSIZE, z, 0
+| | | Statment, null, 0
+| | | | id, x, 0
+| | | | =, null, 0
+| | | | | EXPR, null, 0
+| | | | | | ArithExpr, null, 0
+| | | | | | | Term, null, 0
+| | | | | | | | intLit, 1, 0
+| | | Statment, null, 0
+| | | | id, x, 0
+| | | | =, null, 0
+| | | | | EXPR, null, 0
+| | | | | | ArithExpr, null, 0
+| | | | | | | Term, null, 0
+| | | | | | | | Factor, null, 0
+| | | | | | | | | id, y, 0
+| | | | | | | | | IndiceList, null, 0
+| | | | | | | | | IDNEST, null, 0
+| | | read, null, 0
+| | | | id, x, 0
+| | | | Variable, null, 0
+| | | | | IndiceList, null, 0
+| | | | | VariableList, null, 0

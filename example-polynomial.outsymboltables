@@ -1,95 +1,29 @@
 ------------------------------------------------------------------------------
 | MAIN TABLE MAIN TABLE
 | TreeNode [ type= class , val = class , name = POLYNOMIAL ]
-| TreeNode [ type= class , val = class , name = LINEAR ]
-| TreeNode [ type= class , val = class , name = QUADRATIC ]
 | TreeNode [ type= function , val = function , name = evaluate ]
-| TreeNode [ type= function , val = function , name = evaluate ]
-| TreeNode [ type= constructor , val = constructor , name = build ]
-| TreeNode [ type= constructor , val = constructor , name = build ]
-| TreeNode [ type= function , val = function , name = evaluate ]
-| TreeNode [ type= function , val = function , name = main ]
+| TreeNode [ type= function , val = function , name = mainmain ]
 ------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------
 | class POLYNOMIAL
 | TreeNode [ type= function , val = function , name = evaluate ]
-| TreeNode [ type= float , val = param , name = x ]
-| TreeNode [ type= float , val = param , name = return ]
-------------------------------------------------------------------------------
-
-------------------------------------------------------------------------------
-| class LINEAR
-| TreeNode [ type= inherit , val = inherit , name = POLYNOMIAL ]
-| TreeNode [ type= float , val = data , name = a ]
-| TreeNode [ type= float , val = data , name = b ]
-| TreeNode [ type= constructor , val = constructor , name = build ]
-| TreeNode [ type= float , val = param , name = A ]
-| TreeNode [ type= float , val = param , name = B ]
-| TreeNode [ type= function , val = function , name = evaluate2 ]
-| TreeNode [ type= float , val = param , name = x ]
-| TreeNode [ type= float , val = param , name = return ]
-------------------------------------------------------------------------------
-
-------------------------------------------------------------------------------
-| class QUADRATIC
-| TreeNode [ type= inherit , val = inherit , name = POLYNOMIAL ]
-| TreeNode [ type= float , val = data , name = a ]
-| TreeNode [ type= float , val = data , name = b ]
-| TreeNode [ type= float , val = data , name = c ]
-| TreeNode [ type= constructor , val = constructor , name = build ]
-| TreeNode [ type= float , val = param , name = A ]
-| TreeNode [ type= float , val = param , name = B ]
-| TreeNode [ type= float , val = param , name = C ]
-| TreeNode [ type= function , val = function , name = evaluate ]
-| TreeNode [ type= float , val = param , name = x ]
-| TreeNode [ type= float , val = param , name = return ]
+| TreeNode [ type= float , val = param , name = xPOLYNOMIAL ]
+| TreeNode [ type= float , val = param , name = returnPOLYNOMIAL ]
 ------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------
 | function EVALUATE
-| TreeNode [ type= class , val = class , name = POLYNOMIAL ]
-| TreeNode [ type= float , val = param , name = x ]
-| TreeNode [ type= float , val = return , name = return ]
-------------------------------------------------------------------------------
-
-------------------------------------------------------------------------------
-| function EVALUATE
-| TreeNode [ type= class , val = class , name = QUADRATIC ]
-| TreeNode [ type= float , val = param , name = x ]
-| TreeNode [ type= float , val = return , name = return ]
-| TreeNode [ type= float , val = local , name = result ]
-------------------------------------------------------------------------------
-
-------------------------------------------------------------------------------
-| constructor BUILD
-| TreeNode [ type= class , val = class , name = QUADRATIC ]
-| TreeNode [ type= float , val = param , name = A ]
-| TreeNode [ type= float , val = param , name = B ]
-| TreeNode [ type= float , val = param , name = C ]
-------------------------------------------------------------------------------
-
-------------------------------------------------------------------------------
-| constructor BUILD
-| TreeNode [ type= class , val = class , name = LINEAR ]
-| TreeNode [ type= float , val = param , name = A ]
-| TreeNode [ type= float , val = param , name = B ]
-------------------------------------------------------------------------------
-
-------------------------------------------------------------------------------
-| function EVALUATE
-| TreeNode [ type= class , val = class , name = LINEAR ]
-| TreeNode [ type= float , val = param , name = x ]
-| TreeNode [ type= float , val = return , name = return ]
-| TreeNode [ type= float , val = local , name = result ]
-| TreeNode [ type= float , val = local , name = res ]
+| TreeNode [ type= class , val = class , name = POLYNOMIALevaluate ]
+| TreeNode [ type= float , val = param , name = xevaluate ]
+| TreeNode [ type= float , val = return , name = returnevaluate ]
 ------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------
 | function MAIN
-| TreeNode [ type= void , val = return , name = return ]
-| TreeNode [ type= LINEAR , val = local , name = f1 ]
-| TreeNode [ type= QUADRATIC , val = local , name = f2 ]
-| TreeNode [ type= float , val = local , name = counter ]
+| TreeNode [ type= void , val = return , name = returnmain ]
+| TreeNode [ type= integer , val = local , name = xmain ]
+| TreeNode [ type= integer , val = local , name = ymain ]
+| TreeNode [ type= integer , val = local , name = zmain ]
 ------------------------------------------------------------------------------
 
