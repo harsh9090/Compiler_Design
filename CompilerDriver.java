@@ -402,6 +402,8 @@ public class CompilerDriver {
 							t2 = t2.children.get(0);
 						}
 						String tem = tempList.pop();
+						
+						code += "\tlw r2,"+tem+"(r0)\n";
 						if(t2.val.equals("id")) {
 							if(t2.parent.children.get(1).children.size()!=0) {
 								getArray(t2);
@@ -412,8 +414,7 @@ public class CompilerDriver {
 						else {
 							code += "\taddi r1,r0,"+t2.name+"\n";
 						}
-						code += "\tlw r2,"+tem+"(r0)\n";
-						code += "\t"+op+" r1,r1,r2\n";
+						code += "\t"+op+" r1,r2,r1\n";
 						if(!temp.contains("temp"+numb)) {
 							temp.add("temp"+numb);
 							decs += "temp"+numb+" res 4\n";
@@ -469,7 +470,8 @@ public class CompilerDriver {
 						code += "code here2!\n";
 					}
 				}
-					else {
+				else {
+					if(!tmp.contains("temp")) {
 						TreeNode x = t.children.get(i-1).parent;
 						getArray2(x);
 						TreeNode v = x;
@@ -487,6 +489,32 @@ public class CompilerDriver {
 									+ "\tsw "+funcName+x.name+"(r3),r1\n";
 						}
 					}
+					else {
+						TreeNode x = t.children.get(i-1).parent;
+						getArray2(x);
+						TreeNode v = x;
+						x=x.parent.children.get(0);
+						v=v.children.get(1);
+						while(!(v.val.equals("id") || v.val.equals("intLit") || v.val.equals("floatLit")) && v.children.size()>0) {
+							v = v.children.get(0);
+						}
+						if(!tempList.isEmpty()) {
+							System.out.println(tempList);
+							code += "\tlw r1,"+tempList.pop()+"(r0)\n"
+									+ "\tsw "+funcName+x.name+"(r3),r1\n";
+						}
+						else {
+							if(v.val.equals("id")) {
+								code += "\tlw r1,"+funcName +v.name+"(r0)\n"
+										+ "\tsw "+funcName+x.name+"(r3),r1\n";
+							}
+							else {
+								code += "\taddi r1,r0,"+v.name+"\n"
+										+ "\tsw "+funcName+x.name+"(r3),r1\n";
+							}
+						}
+					}
+				}
 				numb=0;
 				tempList.clear();
 			}
@@ -598,7 +626,6 @@ public class CompilerDriver {
 					}
 					else {
 						getArray(x.children.get(0));
-						System.out.println(x.children.get(0));
 						code += "\tlw r13,"+funcName+x.children.get(0).name +"(r3)\n"
 								+ "	sw -8(r14),r13\n"
 								+ "    addi r1,r0, buf\n"
@@ -614,8 +641,13 @@ public class CompilerDriver {
 					
 				}
 				else {
-					String tem = tempList.pop();
-					code += "\tlw r13,"+tem+"(r0)\n"
+					x=x.children.get(0).children.get(1);
+					if(x.children.size()>0) {
+						x=x.parent.children.get(0);
+					String temp = tempList.pop();
+					code += "\tlw r2,"+temp+"(r0)\n"
+							+ "muli r2,r2,4\n"
+							+ "\tlw r13,"+funcName+x.name+"(r2)\n"
 							+ "	sw -8(r14),r13\n"
 							+ "    addi r1,r0, buf\n"
 							+ "    sw -12(r14),r1\n"
@@ -626,6 +658,20 @@ public class CompilerDriver {
 							+ "\taddi r1,r0,tm\n"
 							+ "\tsw -8(r14),r1\n"
 							+ "\tjl r15,putstr\n";
+					}
+					else {
+						code += "\tlw r13,"+tempList.pop()+"(r0)\n"
+								+ "	sw -8(r14),r13\n"
+								+ "    addi r1,r0, buf\n"
+								+ "    sw -12(r14),r1\n"
+								+ "    jl r15, intstr\n"
+								+	"\tadd r1,r0,r13\n"
+								+ "    sw -8(r14),r1\r\n"
+								+ "    jl r15,putstr\n"
+								+ "\taddi r1,r0,tm\n"
+								+ "\tsw -8(r14),r1\n"
+								+ "\tjl r15,putstr\n";
+					}
 				}
 			}
 		}
@@ -636,7 +682,6 @@ public class CompilerDriver {
 		for(int i=0;i<t.children.size();i++) {
 			
 			if(t.children.get(i).val.equals("Term")) {
-				System.out.println(fn+" here");
 				if(contains(t.parent,"addop") || contains(t.parent,"multop")) {
 					code += "\t lw r1,"+tempList.pop()+"(r0)\n"
 							+ "\t sw "+parmList.get(x+countPm)+"(r0),r1\n";
@@ -648,11 +693,28 @@ public class CompilerDriver {
 					}
 					t = t.children.get(0);
 					if(t.val.equals("id")) {
+						if(t.parent.children.get(1).children.size()==0) {
 						code += "\taddi r1,r0,"+funcName+t.name+"\n"
 								+ "\tsw "+parmList.get(x+countPm)+"(r0),r1\n";
 						countPm++;
+						}
+						else {
+							t=t.parent.children.get(1);
+							code += "\taddi r6,r0,0\n";
+							for(int a=0;a<t.children.size();a++) {
+								TreeNode c = t.children.get(0).children.get(0).children.get(0);
+								
+								for(int d=0;d<Integer.parseInt(c.name);d++) {
+									code += "\tlw r1,"+funcName+ t.parent.children.get(0).name+"(r6)\n"
+											+ "\tsw "+parmList.get(x+countPm)+"(r6),r1\n"
+													+ "\taddi r6,r6,4\n";
+								}
+							}
+							countPm++;
+						}
 					}
 					else {
+						
 						code += "\taddi r1,r0,"+t.name+"\n"
 								+ "\tsw "+parmList.get(x+countPm)+"(r0),r1\n";
 						countPm++;
@@ -704,6 +766,7 @@ public class CompilerDriver {
 			}
 			else {
 				tem=tem.children.get(0);
+				code += "\taddi r6,r0,0\n";
 				code += "\tlw r4,"+funcName+tem.name+"(r0)\n";
 				code += "\tadd r6,r6,r4\n";
 				
@@ -725,18 +788,35 @@ public class CompilerDriver {
 				dim = mainTable.get(mainPin).get(j);
 			}
 		}
-		
 		code += "\tadd r5,r0,r0\n";
 		for(int k=0;k<x.parent.children.get(1).children.get(0).children.size();k++) {
-			TreeNode tem= x.parent.children.get(1).children.get(k).children.get(0).children.get(0).children.get(0);
-			if(tem.val.equals("intLit")) {
-				code += "\taddi r6,r0,"+tem.name+"\n";
+			TreeNode tem= x.parent.children.get(1).children.get(k).children.get(0).children.get(0);
+			if(contains(tem.parent, "addop") || contains(tem.parent,"multop")) {
+				String st="";
+				if(tempList.size()>1) {
+					st=tempList.pop();
+					code += "\taddi r6,r0,0\n";
+					code += "\tlw r4,"+tempList.pop()+"(r0)\n";
+					code += "\tadd r6,r6,r4\n";
+					tempList.push(st);
+				}
+				else {
+					code += "\taddi r6,r0,0\n";
+					code += "\tlw r4,"+tempList.pop()+"(r0)\n";
+					code += "\tadd r6,r6,r4\n";
+				}
 			}
 			else {
-				tem=tem.children.get(0);
-				code += "lw r4,"+funcName+tem.name+"(r0)\n";
-				code += "add r6,r6,r4\n";
-				
+				tem= tem.children.get(0);
+				if(tem.val.equals("intLit")) {
+					code += "\taddi r6,r0,"+tem.name+"\n";
+				}
+				else {
+					tem=tem.children.get(0);
+					code += "\taddi r6,r0,0\n";
+					code += "\tlw r4,"+funcName+tem.name+"(r0)\n";
+					code += "\tadd r6,r6,r4\n";	
+				}
 			}
 			int col=1;
 			for(int c=k+1;c<dim.dim.size();c++) {
@@ -767,6 +847,14 @@ public class CompilerDriver {
 		}
 		for(int i=0;i<t.children.size();i++)
 			getMainNode(t.children.get(i));
+	}
+	static boolean containMem(String s) {
+		for(int i=1;i<symbolTable.get(mainPin).size();i++) {
+			if(symbolTable.get(mainPin).get(i).name.equals(s)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	public static TreeNode main;
 	static void getFunctions(TreeNode t) {

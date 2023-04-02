@@ -1,32 +1,15 @@
+
    
-/* print the array */
-function printArray(arr: integer[7], size: integer) => void 
-{
-write(size);
-write(arr[0]);
-  localvar n: integer;
-  localvar i: integer; 
-  n = size;
-  i = 0; 
-  while (i<n) { 
-//    write(arr[i]);
-      i = i+1;
-  };
-} 
 
 // main funtion to test above
 function main() => void
 {
   localvar arr: integer[7]; 
+  localvar i:integer;
+  i=6;
   arr[0] = 64;
-  arr[1] = 34;
-  arr[2] = 25;
-  arr[3] = 12;
-  arr[4] = 22;
-  arr[5] = 11;
-  arr[6] = 90;
-  write(arr[6]);
-  printArray(arr[7], 7);
+  arr[1] = 25;
+  arr[i-5]= arr[i-6];
 }
 
 /*

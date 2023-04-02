@@ -1,21 +1,12 @@
 ------------------------------------------------------------------------------
 | MAIN TABLE MAIN TABLE
-| TreeNode [val=function, name=printArray ]
 | TreeNode [val=function, name=main ]
-------------------------------------------------------------------------------
-
-------------------------------------------------------------------------------
-| function PRINTARRAY
-| TreeNode [val=param, name=arr ]
-| TreeNode [val=param, name=size ]
-| TreeNode [val=return, name=return ]
-| TreeNode [val=local, name=n ]
-| TreeNode [val=local, name=i ]
 ------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------
 | function MAIN
 | TreeNode [val=return, name=return ]
 | TreeNode [val=local, name=arr ]
+| TreeNode [val=local, name=i ]
 ------------------------------------------------------------------------------
 
