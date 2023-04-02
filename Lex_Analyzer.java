@@ -204,10 +204,6 @@ public static String[] getWord() {
 		s = s.substring(i);
 		i=0;
 	}
-	
-	if(i<s.length() && s.charAt(i)=='/') {
-		s = s.substring(1);
-	}
 	while(i<s.length() && s.charAt(i)==' ') {
 		i++;
 	}

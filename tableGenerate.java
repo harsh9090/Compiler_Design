@@ -15,14 +15,14 @@ public class tableGenerate {
 			for(int i=0;i<t.children.size();i++) {
 				int skip=0;
 				if(t.children.get(i).val.equals("isa")) {
-					temp.add(new TreeNode("inherit",t.children.get(i).children.get(0).name,"inherit",t.children.get(i).vis,t.children.get(i).children.get(0).lineNumber));
+					temp.add(new TreeNode("inherit",t.children.get(i).children.get(0).name,"inherit",t.children.get(i).vis,t.children.get(i).children.get(0).lineNumber,"",t));
 					skip=1;
 					}
 				if(t.children.get(i).val.equals("id")) {
-					temp.add(new TreeNode("data",t.children.get(i).name,t.children.get(i+1).name,t.children.get(i).vis,t.children.get(i).lineNumber));
+					temp.add(new TreeNode("data",t.children.get(i).name,t.children.get(i+1).name,t.children.get(i).vis,t.children.get(i).lineNumber,"",t));
 				}
 				if(t.children.get(i).val.equals("function")) {
-					temp.add(new TreeNode("function",t.children.get(i).children.get(0).name,"function",t.children.get(i).vis,t.children.get(i).lineNumber));
+					temp.add(new TreeNode("function",t.children.get(i).children.get(0).name,"function",t.children.get(i).vis,t.children.get(i).lineNumber,"",t));
 					int xb = temp.size();
 					getFunctionDetails(t.children.get(i));
 					for(int k=xb;k<temp.size();k++) {
@@ -31,7 +31,7 @@ public class tableGenerate {
 					continue;
 				}
 				if(t.children.get(i).val.equals("constructor")) {
-					temp.add(new TreeNode("constructor","build","constructor",t.children.get(i).vis,t.children.get(i).lineNumber));
+					temp.add(new TreeNode("constructor","build","constructor",t.children.get(i).vis,t.children.get(i).lineNumber,"",t));
 					int xb = temp.size();
 					getFunctionDetails(t.children.get(i));
 					for(int k=xb;k<temp.size();k++) {
@@ -49,15 +49,20 @@ public class tableGenerate {
 			getFunctionParameters(t.children.get(i));
 			if(i<t.children.size() && t.children.get(i).val.equals("id") && t.children.get(i+1).val.equals("type")) {
 				t.children.get(i).type = t.children.get(i+1).name;
-				temp.add(new TreeNode("param",t.children.get(i).name,t.children.get(i+1).name,t.children.get(i).vis,t.children.get(i).lineNumber,temp.get(0).name));
+				temp.add(new TreeNode("param",t.children.get(i).name,t.children.get(i+1).name,t.children.get(i).vis,t.children.get(i).lineNumber,temp.get(0).name,t));
 				if(t.children.get(i+2)!=null && t.children.get(i+2).val.equals("ARRSIZE")) {
-					t.children.get(i+2).name = t.children.get(i).name;
-					t.children.get(i).dim = t.children.get(i+2).children.size();
-					temp.get(temp.size()-1).dim = t.children.get(i+2).children.size();
+					if(t.children.get(i+2).children.size()>0 && !t.children.get(i+2).children.get(0).val.equals("null")) {
+						t.children.get(i+2).name = t.children.get(i).name;
+						for(int x=0;x<t.children.get(i+2).children.size();x++) {
+							t.children.get(i).dim.add(Integer.parseInt(t.children.get(i+2).children.get(x).name));
+						}
+						temp.get(temp.size()-1).dim = t.children.get(i).dim;
+						
+					}
 				}
 			}
 			if(t.children.get(i).val.equals("return")) {
-				temp.add(new TreeNode("return","return",t.children.get(i).name,t.children.get(i).vis,t.children.get(i).lineNumber,temp.get(0).name));
+				temp.add(new TreeNode("return","return",t.children.get(i).name,t.children.get(i).vis,t.children.get(i).lineNumber,temp.get(0).name,t));
 			}
 		}
 	}
@@ -69,7 +74,7 @@ public class tableGenerate {
 				getFunctionDetails(t.children.get(i));
 				if(t.children.get(i).val.equals("return")) {
 					
-					temp.add(new TreeNode("return","return",t.children.get(i).name,t.children.get(i).vis,t.children.get(i).lineNumber,temp.get(0).name));
+					temp.add(new TreeNode("return","return",t.children.get(i).name,t.children.get(i).vis,t.children.get(i).lineNumber,temp.get(0).name,t));
 				}
 				else if(t.children.get(i).val.equals("returnFromFunction")) {
 					for(int k=0;k<temp.size();k++) {
@@ -101,11 +106,13 @@ public class tableGenerate {
 					}
 					t.children.get(i).type = t.children.get(i+1).name;
 					t.children.get(i).funName = temp.get(0).name;
-					temp.add(new TreeNode("local",t.children.get(i).name,t.children.get(i+1).name,t.children.get(i).vis,t.children.get(i).lineNumber,temp.get(0).name));
+					temp.add(new TreeNode("local",t.children.get(i).name,t.children.get(i+1).name,t.children.get(i).vis,t.children.get(i).lineNumber,temp.get(0).name,t));
 					if(t.children.get(i+2)!=null && t.children.get(i+2).val.equals("ARRSIZE")) {
 						t.children.get(i+2).name = t.children.get(i).name;
-						t.children.get(i).dim = t.children.get(i+2).children.size();
-						temp.get(temp.size()-1).dim = t.children.get(i+2).children.size();
+						for(int x=0;x<t.children.get(i+2).children.size();x++) {
+							t.children.get(i).dim.add(Integer.parseInt(t.children.get(i+2).children.get(x).name));
+						}
+						temp.get(temp.size()-1).dim = t.children.get(i).dim;
 					}
 				}
 				else if(t.children.get(i).val.equals("id") && t.children.get(i).type.equals("id")) {
@@ -142,8 +149,10 @@ public class tableGenerate {
 	}
 	private static void checkConstructor(TreeNode t,TreeNode classNam) {
 		ArrayList<String> typeList = new ArrayList<>();
+		boolean found = false;
 		for(int i=0;i<ans.size();i++) {
 			if(ans.get(i).get(0).name.equals(classNam.name)) {
+				found = true;
 				for(int j=0;j<ans.get(i).size();j++) {
 					if(ans.get(i).get(j).type.equals("constructor")) {
 						j++;
@@ -155,18 +164,21 @@ public class tableGenerate {
 				}
 			}
 		}
+		if(found == false) {
+			System.out.println("The defined class is not available. Line number -" + classNam.lineNumber);
+		}
 		int ak=0;
 		if(t.children.size()!= typeList.size()) {
-			System.out.println("please enter correct parameters to pass in constructor. Line number -" + t.lineNumber);
+			System.out.println("please enter correct number of parameters to pass in constructor. Line number -" + t.parent.children.get(0).lineNumber);
 			return;
 		}
 		for(int i=0;i<t.children.size();i++) {
 			if(i>typeList.size()) {
-				System.out.println("too many members passing to constructor. Line number -" + t.children.get(0).lineNumber);
+				System.out.println("too many members passing to constructor. Line number -" + t.parent.children.get(0).lineNumber);
 				return;
 			}
 			if(!typeList.get(ak).equals(t.children.get(i).type)) {
-				System.out.println("Type is not matching with constructor values Line number -" + t.children.get(0).lineNumber);
+				System.out.println("Type is not matching with constructor values Line number -" + t.parent.children.get(0).lineNumber);
 				return;
 			}
 			ak++;
@@ -176,20 +188,19 @@ public class tableGenerate {
 		if(t.children.get(2).val.equals("FunctionMemberTail")) {
 			t.children.get(1).val="class";
 			t.children.get(1).type="class";
-			temp.add(new TreeNode("function",t.children.get(2).children.get(0).name,"function",t.children.get(2).children.get(0).vis,t.children.get(2).children.get(0).lineNumber));
-			temp.add(new TreeNode("class",t.children.get(1).name,"class",t.children.get(0).vis,t.children.get(1).lineNumber,temp.get(0).name));
+			temp.add(new TreeNode("function",t.children.get(2).children.get(0).name,"function",t.children.get(2).children.get(0).vis,t.children.get(2).children.get(0).lineNumber,"",t));
+			temp.add(new TreeNode("class",t.children.get(1).name,"class",t.children.get(0).vis,t.children.get(1).lineNumber,temp.get(0).name,t));
 			getFunctionParameters(t.children.get(2));
 		}
 		else if(t.children.get(2).val.equals("FunctionTail")) {
 			t.children.get(1).type = "function";
 			t.children.get(1).val = "function";
-			temp.add(new TreeNode("function",t.children.get(1).name,"function",t.children.get(1).vis,t.children.get(1).lineNumber,t.children.get(1).name));
+			temp.add(new TreeNode("function",t.children.get(1).name,"function",t.children.get(1).vis,t.children.get(1).lineNumber,t.children.get(1).name,t));
 			getFunctionParameters(t.children.get(2));
 		}
 		else if(t.children.get(2).val.equals("constructor")) {
-			
-			temp.add(new TreeNode("constructor","build","constructor",t.children.get(2).vis,t.children.get(2).lineNumber,temp.get(0).name));
-			temp.add(new TreeNode("class",t.children.get(1).name,"class",t.children.get(0).vis,t.children.get(1).lineNumber,temp.get(0).name));
+			temp.add(new TreeNode("constructor","build","constructor",t.children.get(2).vis,t.children.get(2).lineNumber,"",t));
+			temp.add(new TreeNode("class",t.children.get(1).name,"class",t.children.get(0).vis,t.children.get(1).lineNumber,temp.get(0).name,t));
 			getFunctionParameters(t.children.get(2));
 		}
 		for(int i=0;i<t.children.size();i++) {
@@ -199,7 +210,7 @@ public class tableGenerate {
 		}
 		
 	}
-	private static String fNames = "";
+	private static String fNames = " ";
 	private static void mainTable(TreeNode t1){
 		for(int i=0;i<t1.children.size();i++) {
 			if(t1.children.get(i).val.equals("ClassDec")) {
@@ -385,10 +396,13 @@ public class tableGenerate {
 	private static int paramCount=0;
 	private static void checkParams(TreeNode t) {
 		if(t==null) return;
-		if(t.val.equals("id")) {
-			if(paramCount<params.size() && !t.type.equals(params.get(paramCount).type)) {
-				System.out.println("param type is not matching ! on line - " + t.lineNumber + "\n");
-				String er = "param type is not matching ! on line - " + t.lineNumber + "\n";
+		if(t.val.equals("id") || t.val.equals("intLit") || t.val.equals("floatLit")) {
+			if(paramCount>=params.size() ) {
+				System.out.println("passing more parameters!" + t.lineNumber);
+			}
+			else if(!t.type.equals(params.get(paramCount).type)) {
+				System.out.println("param type is not matching ! on line - " + t.parent.lineNumber + "\n");
+				String er = "param type is not matching ! on line - " + t.parent.lineNumber + "\n";
 				try {
 		            BufferedWriter out = new BufferedWriter(
 		                new FileWriter(error,true));
@@ -404,29 +418,55 @@ public class tableGenerate {
 			}
 			paramCount++;
 		}
-		for(int i=0;i<t.children.size();i++)
+		for(int i=0;i<t.children.size();i++) {
 			checkParams(t.children.get(i));
+		}
 	}
-	private static void operational(TreeNode t,int x) {
+	private static void operational(TreeNode t,int x,boolean done) {
+		
 		if(t==null || t.children==null) return;
 		for(int i=0;i<t.children.size();i++) {
-			
 			if(t.children.get(i).val.equals("dot")) {
+				done =false;
 				String fName = t.children.get(i).children.get(0).name;
-				for(int j=0;j<ans.size();j++) {
-					if(ans.get(j).get(0).name!=null && ans.get(j).get(0).name.equals(fName) && ans.get(j).get(1).name.equals(ans.get(x).get(0).name)) {
-						t.children.get(i).children.get(0).val = "function";
-						for(int k=0;k<ans.get(j).size();k++) {
-							if(ans.get(j).get(k).val.equals("param")) {
-								params.add(ans.get(j).get(k));
+				if(fNames.contains(" "+fName+ " ")) {
+					for(int j=0;j<ans.size();j++) {
+						if(ans.get(j).get(0).name.equals(fName) && ans.get(j).get(1).name.equals(ans.get(x).get(0).name)) {
+							t.children.get(i).children.get(0).val = "function";
+							for(int k=0;k<ans.get(j).size();k++) {
+								if(ans.get(j).get(k).val.equals("param")) {
+									params.add(ans.get(j).get(k));
+								}
+							}
+							checkParams(t.children.get(i).children.get(1));
+							if(paramCount<params.size()) {
+								System.out.println("less agguments are passed");
+							}
+							paramCount=0;
+							TreeNode var = t;
+							while(var.parent!=null && !var.parent.val.equals("Program")) {
+								var=var.parent;
+							}
+//							find functions in main
+							if(var.children.get(1).name.equals("main")) {
+//								System.out.println(fName + " "+ans.get(x).get(0).name);
 							}
 						}
-						checkParams(t.children.get(i).children.get(1));
 					}
+					done = true;
+				}
+				else {
+					for(int j=0;j<ans.get(x).size();j++) {
+						if(ans.get(x).get(j).name.equals(fName)) {
+							return;
+						}
+					}
+					System.out.println("defined function "+fName+ " is not available!");
 				}
 			}
-			operational(t.children.get(i),x);
+			operational(t.children.get(i),x,done);
 		}
+		return;
 	}
 	private static void validateMember(TreeNode t,TreeNode parent,int j) {
 		if(t == null) return;
@@ -458,8 +498,8 @@ public class tableGenerate {
 				for(i=0;i<ans.size();i++) {
 					if(ans.get(i).get(0).name.equals(parent.children.get(0).type)) {
 						params=new ArrayList<>();
-						operational(parent,i);
-						if(parent.children.size()>2 && parent.children.get(2).children.get(0).children.size()>1) {
+						operational(parent,i,true);
+						if(parent.children.size()>3 && parent.children.get(2).children.get(0).children.size()>1) {
 							if(parent.children.get(2).children.get(0).children.get(1).children.size()!=params.size()) {
 								System.out.println("enter correct parameters. Line Number -" +parent.children.get(2).children.get(0).children.get(1).lineNumber );
 							}
@@ -606,7 +646,7 @@ public class tableGenerate {
 				checkParam(t.children.get(i));
 				for(int j=0;j<ans.get(num).size();j++) {
 					if(ans.get(num).get(j).name.equals(idName)) {
-						if(ans.get(num).get(j).dim!=arrcount) {
+						if(ans.get(num).get(j).dim.size()!=arrcount) {
 							String er = "Enter correct Dimensions. Line Number- " + t.lineNumber+"\n";
 							try {
 					            BufferedWriter out = new BufferedWriter(
@@ -717,24 +757,61 @@ public class tableGenerate {
 		}
 	}
 	public static void editMainFunction() {
-		if(!fNames.contains("main")) {
+		if(!fNames.contains(" main ")) {
 			System.out.println("Main function not available!");
 		}
 		else {
-			String[] classList = className.split(" ");
-			String[] funcList = fNames.split(" ");
-			for(int i=0;i<ans.size();i++) {
-				if(ans.get(i).get(0).type.equals("function") && ans.get(i).get(0).name.equals("main")) {
-					for(int j=0;j<funcList.length;j++) {
-						if(funcList[j].equals("")) continue;
-						ans.get(i).add(new TreeNode("function",funcList[j],"function"));
-					}
-					for(int j=0;j<classList.length;j++) {
-						if(classList[j].equals("")) continue;
-						ans.get(i).add(new TreeNode("class",classList[j],"class"));
+			
+		}
+	}
+	public static void writeOffset(ArrayList<ArrayList<TreeNode>> arr) {
+		for(int i=0;i<arr.size();i++) {
+			if((arr.get(i).get(0).val.equals("function") ||arr.get(i).get(0).val.equals("constructor")) && !arr.get(i).get(0).name.equals("main")) {
+				int size=0;
+				for(int j=0;j<arr.get(i).size();j++) {
+					if(arr.get(i).get(j).val.equals("local") || arr.get(i).get(j).val.equals("param")) {
+						if(arr.get(i).get(j).dim.size()==0) {
+							if(arr.get(i).get(j).type.equals("integer")) size+=4;
+							else size+=8;
+						}
+						else {
+							int cnt =1;
+							for(int x=0;x<arr.get(i).get(j).dim.size();x++) {
+								cnt*=arr.get(i).get(j).dim.get(x);
+							}
+							if(arr.get(i).get(j).type.equals("integer")) {
+								size+= cnt*4;
+							}
+							else size+= cnt*8;
+						}
 					}
 				}
+				arr.get(i).get(0).store=size;
 			}
+			if(arr.get(i).get(0).val.equals("class")) {
+				int size=0;
+				for(int j=0;j<arr.get(i).size();j++) {
+					if(arr.get(i).get(j).val.equals("data")) {
+						if(arr.get(i).get(j).dim.size()==0) {
+							if(arr.get(i).get(j).type.equals("integer")) size+=4;
+							else size+=8;
+						}
+						else {
+							int cnt =1;
+							for(int x=0;x<arr.get(i).get(j).dim.size();x++) {
+								cnt*=arr.get(i).get(j).dim.get(x);
+							}
+							if(arr.get(i).get(j).type.equals("integer")) {
+								size+= cnt*4;
+							}
+							else size+= cnt*8;
+						}
+					}
+					
+				}
+				arr.get(i).get(0).store=size;
+			}
+			
 		}
 	}
 	public static ArrayList<Object> tableGenerator() {
@@ -742,6 +819,15 @@ public class tableGenerate {
 		ArrayList<Object> list = Parserdriver.parseDriver();
 		root = ((Stack<TreeNode>) list.get(1)).peek();
 		inps = ((String) list.get(2));
+		try {
+            BufferedWriter out = new BufferedWriter(
+                new FileWriter(inps+".outast"));
+            out.write(TreeNode.printList(root));
+            out.close();
+        }
+        catch (IOException e) {
+            System.out.println("exception occurred" + e);
+        }
 		String table = inps+ ".outsymboltables";
 		error = inps + ".outsemanticerrors";
 		try {
@@ -772,28 +858,21 @@ public class tableGenerate {
 		for(int i=0;i<ans.size();i++) {
 			createTable(ans.get(i),table);
 		}
+		writeOffset(ans);
 		roundClass();
 		checkClassMembers();
 		checkSameNameClass();
 		checkFunctionFromClass();
 		editMainFunction();
-		
 		validateFunction(root);
-		try {
-            BufferedWriter out = new BufferedWriter(
-                new FileWriter(inps+".outast"));
-            out.write(TreeNode.printList(root));
-            out.close();
-        }
-        catch (IOException e) {
-            System.out.println("exception occurred" + e);
-        }
 		checkNodeByPart(root);
 		duplicateFunction();
 		checkMembers();
 		array.add(root);
 		array.add(ans);
 		array.add(inps);
+		array.add(fNames);
+		array.add(className);
 		return array;
 	}
 	private static void checkMembers() {

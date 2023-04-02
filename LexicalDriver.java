@@ -15,7 +15,6 @@ public static void tokenAdd(String[] word) {
         System.out.println("exception occurred" + e);
     }
 }
-//if token has error
 public static void errorMsg(String[] word) {
 	try {
         BufferedWriter out = new BufferedWriter(

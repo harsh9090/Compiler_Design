@@ -10,3 +10,5 @@
 /TreeNode$Parser.class
 /tableGenerate.class
 /CompilerDriver.class
+/testCode.class
+/TagsBasedCodeGenerationVisitor.class

@@ -1,29 +1,21 @@
 ------------------------------------------------------------------------------
 | MAIN TABLE MAIN TABLE
-| TreeNode [ type= class , val = class , name = POLYNOMIAL ]
-| TreeNode [ type= function , val = function , name = evaluate ]
-| TreeNode [ type= function , val = function , name = mainmain ]
+| TreeNode [val=function, name=printArray ]
+| TreeNode [val=function, name=main ]
 ------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------
-| class POLYNOMIAL
-| TreeNode [ type= function , val = function , name = evaluate ]
-| TreeNode [ type= float , val = param , name = xPOLYNOMIAL ]
-| TreeNode [ type= float , val = param , name = returnPOLYNOMIAL ]
-------------------------------------------------------------------------------
-
-------------------------------------------------------------------------------
-| function EVALUATE
-| TreeNode [ type= class , val = class , name = POLYNOMIALevaluate ]
-| TreeNode [ type= float , val = param , name = xevaluate ]
-| TreeNode [ type= float , val = return , name = returnevaluate ]
+| function PRINTARRAY
+| TreeNode [val=param, name=arr ]
+| TreeNode [val=param, name=size ]
+| TreeNode [val=return, name=return ]
+| TreeNode [val=local, name=n ]
+| TreeNode [val=local, name=i ]
 ------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------
 | function MAIN
-| TreeNode [ type= void , val = return , name = returnmain ]
-| TreeNode [ type= integer , val = local , name = xmain ]
-| TreeNode [ type= integer , val = local , name = ymain ]
-| TreeNode [ type= integer , val = local , name = zmain ]
+| TreeNode [val=return, name=return ]
+| TreeNode [val=local, name=arr ]
 ------------------------------------------------------------------------------
 
