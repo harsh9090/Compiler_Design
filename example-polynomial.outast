@@ -1,65 +1,270 @@
 Program, null
 | FunctionDec, null
 | | function, function
-| | id, main
+| | id, bubbleSort
 | | FunctionTail, null
+| | | FParmsList, null
+| | | | FParm, null
+| | | | | id, arr
+| | | | | type, integer
+| | | | | ARRSIZE, null
+| | | | | | intLit, 4
+| | | | FParms, null
+| | | | | id, size
+| | | | | type, integer
+| | | | | ARRSIZE, null
 | | | return, void
 | | Body, null
 | | | localvar, null
-| | | | id, arr
+| | | | id, n
 | | | | type, integer
 | | | | ARRSIZE, null
-| | | | | intLit, 7
 | | | localvar, null
 | | | | id, i
 | | | | type, integer
 | | | | ARRSIZE, null
+| | | localvar, null
+| | | | id, j
+| | | | type, integer
+| | | | ARRSIZE, null
+| | | localvar, null
+| | | | id, temp
+| | | | type, integer
+| | | | ARRSIZE, null
+| | | Statment, null
+| | | | id, n
+| | | | =, null
+| | | | | EXPR, null
+| | | | | | ArithExpr, null
+| | | | | | | Term, null
+| | | | | | | | Factor, null
+| | | | | | | | | id, size
+| | | | | | | | | IndiceList, null
+| | | | | | | | | IDNEST, null
 | | | Statment, null
 | | | | id, i
 | | | | =, null
 | | | | | EXPR, null
 | | | | | | ArithExpr, null
 | | | | | | | Term, null
-| | | | | | | | intLit, 6
+| | | | | | | | intLit, 0
 | | | Statment, null
-| | | | id, arr
-| | | | StatmentIdnest, null
-| | | | | IndiceList, null
+| | | | id, j
+| | | | =, null
+| | | | | EXPR, null
 | | | | | | ArithExpr, null
 | | | | | | | Term, null
 | | | | | | | | intLit, 0
-| | | | | =, null
-| | | | | | EXPR, null
-| | | | | | | ArithExpr, null
-| | | | | | | | Term, null
-| | | | | | | | | intLit, 64
 | | | Statment, null
-| | | | id, arr
-| | | | StatmentIdnest, null
-| | | | | IndiceList, null
+| | | | id, temp
+| | | | =, null
+| | | | | EXPR, null
 | | | | | | ArithExpr, null
 | | | | | | | Term, null
-| | | | | | | | intLit, 1
-| | | | | =, null
-| | | | | | EXPR, null
-| | | | | | | ArithExpr, null
-| | | | | | | | Term, null
-| | | | | | | | | intLit, 25
-| | | Statment, null
-| | | | id, arr
-| | | | StatmentIdnest, null
-| | | | | IndiceList, null
+| | | | | | | | intLit, 0
+| | | while, null
+| | | | whileTree, null
+| | | | | relop, null
 | | | | | | ArithExpr, null
 | | | | | | | Term, null
 | | | | | | | | Factor, null
 | | | | | | | | | id, i
 | | | | | | | | | IndiceList, null
 | | | | | | | | | IDNEST, null
+| | | | | | relOp, <
+| | | | | | ArithExpr, null
+| | | | | | | Term, null
+| | | | | | | | Factor, null
+| | | | | | | | | id, n
+| | | | | | | | | IndiceList, null
+| | | | | | | | | IDNEST, null
 | | | | | | | addop, null
 | | | | | | | | add, -
 | | | | | | | | Term, null
-| | | | | | | | | intLit, 5
-| | | | | =, null
+| | | | | | | | | intLit, 1
+| | | | StatmentList, null
+| | | | | Statment, null
+| | | | | | id, j
+| | | | | | =, null
+| | | | | | | EXPR, null
+| | | | | | | | ArithExpr, null
+| | | | | | | | | Term, null
+| | | | | | | | | | intLit, 0
+| | | | | while, null
+| | | | | | whileTree, null
+| | | | | | | relop, null
+| | | | | | | | ArithExpr, null
+| | | | | | | | | Term, null
+| | | | | | | | | | Factor, null
+| | | | | | | | | | | id, j
+| | | | | | | | | | | IndiceList, null
+| | | | | | | | | | | IDNEST, null
+| | | | | | | | relOp, <
+| | | | | | | | ArithExpr, null
+| | | | | | | | | Term, null
+| | | | | | | | | | Factor, null
+| | | | | | | | | | | id, n
+| | | | | | | | | | | IndiceList, null
+| | | | | | | | | | | IDNEST, null
+| | | | | | | | | addop, null
+| | | | | | | | | | add, -
+| | | | | | | | | | Term, null
+| | | | | | | | | | | intLit, 1
+| | | | | | StatmentList, null
+| | | | | | | if, null
+| | | | | | | | ifTree, null
+| | | | | | | | | relop, null
+| | | | | | | | | | ArithExpr, null
+| | | | | | | | | | | Term, null
+| | | | | | | | | | | | Factor, null
+| | | | | | | | | | | | | id, arr
+| | | | | | | | | | | | | IndiceList, null
+| | | | | | | | | | | | | | ArithExpr, null
+| | | | | | | | | | | | | | | Term, null
+| | | | | | | | | | | | | | | | Factor, null
+| | | | | | | | | | | | | | | | | id, j
+| | | | | | | | | | | | | | | | | IndiceList, null
+| | | | | | | | | | | | | | | | | IDNEST, null
+| | | | | | | | | | | | | IDNEST, null
+| | | | | | | | | | relOp, >
+| | | | | | | | | | ArithExpr, null
+| | | | | | | | | | | Term, null
+| | | | | | | | | | | | Factor, null
+| | | | | | | | | | | | | id, arr
+| | | | | | | | | | | | | IndiceList, null
+| | | | | | | | | | | | | | ArithExpr, null
+| | | | | | | | | | | | | | | Term, null
+| | | | | | | | | | | | | | | | Factor, null
+| | | | | | | | | | | | | | | | | id, j
+| | | | | | | | | | | | | | | | | IndiceList, null
+| | | | | | | | | | | | | | | | | IDNEST, null
+| | | | | | | | | | | | | | | addop, null
+| | | | | | | | | | | | | | | | add, +
+| | | | | | | | | | | | | | | | Term, null
+| | | | | | | | | | | | | | | | | intLit, 1
+| | | | | | | | | | | | | IDNEST, null
+| | | | | | | | then, null
+| | | | | | | | | StatmentList, null
+| | | | | | | | | | Statment, null
+| | | | | | | | | | | id, temp
+| | | | | | | | | | | =, null
+| | | | | | | | | | | | EXPR, null
+| | | | | | | | | | | | | ArithExpr, null
+| | | | | | | | | | | | | | Term, null
+| | | | | | | | | | | | | | | Factor, null
+| | | | | | | | | | | | | | | | id, arr
+| | | | | | | | | | | | | | | | IndiceList, null
+| | | | | | | | | | | | | | | | | ArithExpr, null
+| | | | | | | | | | | | | | | | | | Term, null
+| | | | | | | | | | | | | | | | | | | Factor, null
+| | | | | | | | | | | | | | | | | | | | id, j
+| | | | | | | | | | | | | | | | | | | | IndiceList, null
+| | | | | | | | | | | | | | | | | | | | IDNEST, null
+| | | | | | | | | | | | | | | | IDNEST, null
+| | | | | | | | | | Statment, null
+| | | | | | | | | | | id, arr
+| | | | | | | | | | | StatmentIdnest, null
+| | | | | | | | | | | | IndiceList, null
+| | | | | | | | | | | | | ArithExpr, null
+| | | | | | | | | | | | | | Term, null
+| | | | | | | | | | | | | | | Factor, null
+| | | | | | | | | | | | | | | | id, j
+| | | | | | | | | | | | | | | | IndiceList, null
+| | | | | | | | | | | | | | | | IDNEST, null
+| | | | | | | | | | | | =, null
+| | | | | | | | | | | | | EXPR, null
+| | | | | | | | | | | | | | ArithExpr, null
+| | | | | | | | | | | | | | | Term, null
+| | | | | | | | | | | | | | | | Factor, null
+| | | | | | | | | | | | | | | | | id, arr
+| | | | | | | | | | | | | | | | | IndiceList, null
+| | | | | | | | | | | | | | | | | | ArithExpr, null
+| | | | | | | | | | | | | | | | | | | Term, null
+| | | | | | | | | | | | | | | | | | | | Factor, null
+| | | | | | | | | | | | | | | | | | | | | id, j
+| | | | | | | | | | | | | | | | | | | | | IndiceList, null
+| | | | | | | | | | | | | | | | | | | | | IDNEST, null
+| | | | | | | | | | | | | | | | | | | addop, null
+| | | | | | | | | | | | | | | | | | | | add, +
+| | | | | | | | | | | | | | | | | | | | Term, null
+| | | | | | | | | | | | | | | | | | | | | intLit, 1
+| | | | | | | | | | | | | | | | | IDNEST, null
+| | | | | | | | | | Statment, null
+| | | | | | | | | | | id, arr
+| | | | | | | | | | | StatmentIdnest, null
+| | | | | | | | | | | | IndiceList, null
+| | | | | | | | | | | | | ArithExpr, null
+| | | | | | | | | | | | | | Term, null
+| | | | | | | | | | | | | | | Factor, null
+| | | | | | | | | | | | | | | | id, j
+| | | | | | | | | | | | | | | | IndiceList, null
+| | | | | | | | | | | | | | | | IDNEST, null
+| | | | | | | | | | | | | | addop, null
+| | | | | | | | | | | | | | | add, +
+| | | | | | | | | | | | | | | Term, null
+| | | | | | | | | | | | | | | | intLit, 1
+| | | | | | | | | | | | =, null
+| | | | | | | | | | | | | EXPR, null
+| | | | | | | | | | | | | | ArithExpr, null
+| | | | | | | | | | | | | | | Term, null
+| | | | | | | | | | | | | | | | Factor, null
+| | | | | | | | | | | | | | | | | id, temp
+| | | | | | | | | | | | | | | | | IndiceList, null
+| | | | | | | | | | | | | | | | | IDNEST, null
+| | | | | | | | else, null
+| | | | | | | Statment, null
+| | | | | | | | id, j
+| | | | | | | | =, null
+| | | | | | | | | EXPR, null
+| | | | | | | | | | ArithExpr, null
+| | | | | | | | | | | Term, null
+| | | | | | | | | | | | Factor, null
+| | | | | | | | | | | | | id, j
+| | | | | | | | | | | | | IndiceList, null
+| | | | | | | | | | | | | IDNEST, null
+| | | | | | | | | | | addop, null
+| | | | | | | | | | | | add, +
+| | | | | | | | | | | | Term, null
+| | | | | | | | | | | | | intLit, 1
+| | | | | Statment, null
+| | | | | | id, i
+| | | | | | =, null
+| | | | | | | EXPR, null
+| | | | | | | | ArithExpr, null
+| | | | | | | | | Term, null
+| | | | | | | | | | Factor, null
+| | | | | | | | | | | id, i
+| | | | | | | | | | | IndiceList, null
+| | | | | | | | | | | IDNEST, null
+| | | | | | | | | addop, null
+| | | | | | | | | | add, +
+| | | | | | | | | | Term, null
+| | | | | | | | | | | intLit, 1
+| | | Statment, null
+| | | | id, i
+| | | | =, null
+| | | | | EXPR, null
+| | | | | | ArithExpr, null
+| | | | | | | Term, null
+| | | | | | | | intLit, 0
+| | | while, null
+| | | | whileTree, null
+| | | | | relop, null
+| | | | | | ArithExpr, null
+| | | | | | | Term, null
+| | | | | | | | Factor, null
+| | | | | | | | | id, i
+| | | | | | | | | IndiceList, null
+| | | | | | | | | IDNEST, null
+| | | | | | relOp, <
+| | | | | | ArithExpr, null
+| | | | | | | Term, null
+| | | | | | | | Factor, null
+| | | | | | | | | id, n
+| | | | | | | | | IndiceList, null
+| | | | | | | | | IDNEST, null
+| | | | StatmentList, null
+| | | | | write, null
 | | | | | | EXPR, null
 | | | | | | | ArithExpr, null
 | | | | | | | | Term, null
@@ -72,8 +277,96 @@ Program, null
 | | | | | | | | | | | | | | id, i
 | | | | | | | | | | | | | | IndiceList, null
 | | | | | | | | | | | | | | IDNEST, null
-| | | | | | | | | | | | addop, null
-| | | | | | | | | | | | | add, -
-| | | | | | | | | | | | | Term, null
-| | | | | | | | | | | | | | intLit, 6
 | | | | | | | | | | IDNEST, null
+| | | | | Statment, null
+| | | | | | id, i
+| | | | | | =, null
+| | | | | | | EXPR, null
+| | | | | | | | ArithExpr, null
+| | | | | | | | | Term, null
+| | | | | | | | | | Factor, null
+| | | | | | | | | | | id, i
+| | | | | | | | | | | IndiceList, null
+| | | | | | | | | | | IDNEST, null
+| | | | | | | | | addop, null
+| | | | | | | | | | add, +
+| | | | | | | | | | Term, null
+| | | | | | | | | | | intLit, 1
+| FunctionDec, null
+| | function, function
+| | id, main
+| | FunctionTail, null
+| | | return, void
+| | Body, null
+| | | localvar, null
+| | | | id, arr
+| | | | type, integer
+| | | | ARRSIZE, null
+| | | | | intLit, 4
+| | | Statment, null
+| | | | id, arr
+| | | | StatmentIdnest, null
+| | | | | IndiceList, null
+| | | | | | ArithExpr, null
+| | | | | | | Term, null
+| | | | | | | | intLit, 0
+| | | | | =, null
+| | | | | | EXPR, null
+| | | | | | | ArithExpr, null
+| | | | | | | | Term, null
+| | | | | | | | | intLit, 34
+| | | Statment, null
+| | | | id, arr
+| | | | StatmentIdnest, null
+| | | | | IndiceList, null
+| | | | | | ArithExpr, null
+| | | | | | | Term, null
+| | | | | | | | intLit, 1
+| | | | | =, null
+| | | | | | EXPR, null
+| | | | | | | ArithExpr, null
+| | | | | | | | Term, null
+| | | | | | | | | intLit, 12
+| | | Statment, null
+| | | | id, arr
+| | | | StatmentIdnest, null
+| | | | | IndiceList, null
+| | | | | | ArithExpr, null
+| | | | | | | Term, null
+| | | | | | | | intLit, 2
+| | | | | =, null
+| | | | | | EXPR, null
+| | | | | | | ArithExpr, null
+| | | | | | | | Term, null
+| | | | | | | | | intLit, 25
+| | | Statment, null
+| | | | id, arr
+| | | | StatmentIdnest, null
+| | | | | IndiceList, null
+| | | | | | ArithExpr, null
+| | | | | | | Term, null
+| | | | | | | | intLit, 3
+| | | | | =, null
+| | | | | | EXPR, null
+| | | | | | | ArithExpr, null
+| | | | | | | | Term, null
+| | | | | | | | | intLit, 64
+| | | Statment, null
+| | | | id, bubbleSort
+| | | | StatmentIdnest, null
+| | | | | AParmList, null
+| | | | | | EXPR, null
+| | | | | | | ArithExpr, null
+| | | | | | | | Term, null
+| | | | | | | | | Factor, null
+| | | | | | | | | | id, arr
+| | | | | | | | | | IndiceList, null
+| | | | | | | | | | | ArithExpr, null
+| | | | | | | | | | | | Term, null
+| | | | | | | | | | | | | intLit, 4
+| | | | | | | | | | IDNEST, null
+| | | | | | EXPR, null
+| | | | | | | ArithExpr, null
+| | | | | | | | Term, null
+| | | | | | | | | intLit, 4
+| | | | | StatIdnest2, null

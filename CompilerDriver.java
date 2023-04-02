@@ -113,7 +113,7 @@ public class CompilerDriver {
 			if(t.children.get(i).val.equals("returnFromFunction")) {
 				if(!decs.contains(funcName+"ret "))
 					decs +=funcName+"ret res 4";
-				code += "\t%WRITE EXPRESSION\n";
+				code += "\t%RETURN EXPRESSION\n";
 				TreeNode x = t.children.get(i).children.get(0).children.get(0).children.get(0);
 				if(tempList.isEmpty()) {
 					x=x.children.get(0);
@@ -361,6 +361,7 @@ public class CompilerDriver {
 						numb++;
 					}
 					else {
+						
 						while(!(t1.val.equals("id") || t1.val.equals("intLit") || t1.val.equals("floatLit")) && t1.children.size()>0) {
 							t1 = t1.children.get(0);
 						}
@@ -391,7 +392,6 @@ public class CompilerDriver {
 				}
 				else {
 					if(!contains(t2.parent,"multop")) {
-						
 						if(t1.val.equals("add")) {
 							t1=t1.parent.children.get(1);
 						}
@@ -402,8 +402,14 @@ public class CompilerDriver {
 							t2 = t2.children.get(0);
 						}
 						String tem = tempList.pop();
-						
-						code += "\tlw r2,"+tem+"(r0)\n";
+						if(t1.val.equals("id")) {
+							if(t1.parent.children.get(1).children.size()>0) {
+								getArray(t1);
+								code += "\tlw r1,"+funcName+t1.name+"(r3)\n";
+							}
+							else code += "\tlw r2,"+tem+"(r0)\n";
+						}
+						else code += "\tlw r2,"+tem+"(r0)\n";
 						if(t2.val.equals("id")) {
 							if(t2.parent.children.get(1).children.size()!=0) {
 								getArray(t2);
@@ -442,36 +448,49 @@ public class CompilerDriver {
 			}
 			if(t.children.get(i).val.equals("=")) {
 				code += "\t%ASSIGN VALUE\n";
-				String tmp="";
 				TreeNode tmp1 = t.children.get(i);
-				if(!tempList.isEmpty()) {
-					tmp = tempList.pop();
-					tempList.push(tmp);
+				while(!(tmp1.val.equals("id") || tmp1.val.equals("intLit") || tmp1.val.equals("floatLit")) && tmp1.children.size()>0) {
+					tmp1 = tmp1.children.get(0);
 				}
-				else {
-					while(!(tmp1.val.equals("id") || tmp1.val.equals("intLit") || tmp1.val.equals("floatLit")) && tmp1.children.size()>0) {
-						tmp1 = tmp1.children.get(0);
-					}
-					tmp = tmp1.name;
-				}
+//				ALL MEMBERS WITH x = .....
 				if(t.children.get(i-1).val.equals("id")) {
 					if(!t.children.get(i-1).parent.val.equals("dot")) {
 						if(tempList.isEmpty()) {
-							if(!tmp1.val.equals("id")) code += "\taddi r1,r0,"+tmp+"\n";
-							else code += "\tlw r1,"+funcName +tmp+"(r0)\n";
+							if(!tmp1.val.equals("id")) {
+								code += "\taddi r1,r0,"+tmp1.name+"\n";
+							}
+							else {
+								if(!tmp1.val.equals("intLit") && tmp1.parent.children.get(1).children.size()>0) {
+									getArray(tmp1);
+									code += "\tlw r1,"+funcName+tmp1.name+"(r3)\n";
+								}
+								else code += "\tlw r1,"+funcName +tmp1.name+"(r0)\n";
+							}
 						}
 						else {
-							code += "\tlw r1,"+tmp+"(r0)\n";
-							tempList.pop();
+							if(!tmp1.val.equals("intLit") && tmp1.parent.children.get(1).children.size()>0) {
+								getArray(tmp1);
+								if(tempList.isEmpty()) {
+								code += "\tlw r1,"+funcName+tmp1.name+"(r3)\n";
+								}
+								else {
+									code += "\tlw r1,"+tempList.pop()+"(r0)\n";
+								}
+							}
+							else {
+								code += "\tlw r1,"+tempList.pop()+"(r0)\n";
+							}
 						}
 						code += "\tsw "+funcName+t.children.get(i-1).name+"(r0),r1\n";
 					}
 					else {
-						code += "code here2!\n";
+						code += "code here for assign class.variable!\n";
 					}
+					
 				}
+//				ALL MEMBERS WITH ARRAY SIZE ARR[X] or ARR[1] or ARR[x+1] = .....
 				else {
-					if(!tmp.contains("temp")) {
+					if(tempList.isEmpty()) {
 						TreeNode x = t.children.get(i-1).parent;
 						getArray2(x);
 						TreeNode v = x;
@@ -499,9 +518,23 @@ public class CompilerDriver {
 							v = v.children.get(0);
 						}
 						if(!tempList.isEmpty()) {
-							System.out.println(tempList);
-							code += "\tlw r1,"+tempList.pop()+"(r0)\n"
-									+ "\tsw "+funcName+x.name+"(r3),r1\n";
+							if(v.val.equals("id")) {
+								if(v.parent.children.get(1).children.size()>0) {
+									code +="\tadd r7,r0,r3\n";
+									getArray(v);
+									
+									code += "\tlw r1,"+funcName+ v.name+"(r3)\n"
+											+ "\tsw "+funcName+x.name+"(r7),r1\n";
+								}
+								else {
+									code += "\tlw r1,"+tempList.pop()+"(r0)\n"
+											+ "\tsw "+funcName+x.name+"(r3),r1\n";
+								}
+							}
+							else {
+								code += "\taddi r1,r0,"+v.name+"\n"
+										+ "\tsw "+funcName+x.name+"(r3),r1\n";
+							}		
 						}
 						else {
 							if(v.val.equals("id")) {
@@ -544,7 +577,7 @@ public class CompilerDriver {
 				code += "endif"+iLoop.peek() +" ";
 				iLoop.pop();
 			}
-			
+//			RELATIONAL OPERATIONS
 			if(t.children.get(i).val.equals("relop")) {
 				code += "\t%RELATIONAL OPERATIONAL\n";
 				TreeNode t1,t2;
@@ -568,19 +601,28 @@ public class CompilerDriver {
 					if(!t1.val.equals("intLit")) {
 						t1 =t1.children.get(0);
 					}
-					if(t1.val.equals("id")) {
+					if(t1.val.equals("intLit")) {
+						code += "\taddi r2,r0,"+t1.name+"\n";
+					}
+					else if(t1.val.equals("id") && t1.parent.children.get(1).children.size()==0) {
 						code += "\tlw r2,"+funcName+t1.name+"(r0)\n";
 					}
 					else {
-						code += "\taddi r2,r0,"+t1.name+"\n";
+						getArray(t1);
+						code += "\tlw r2,"+funcName+t1.name+"(r3)\n";
 					}
 				}
 				if(contains(t2.parent.parent,"addop") || contains(t2.parent.parent,"multop")) {
 					if(!t2.val.equals("intLit")) {
 						t2 =t2.children.get(0);
 					}
-					
-					code += "\tlw r3,"+tempList.pop()+"(r0)\n";
+					if(!t2.val.equals("intLit") && t2.parent.children.get(1).children.size()>0) {
+						getArray(t2);
+						code += "\tlw r3,"+funcName+t2.name+"(r3)\n";
+					}
+					else {
+						code += "\tlw r3,"+tempList.pop()+"(r0)\n";
+					}
 				}
 				else {
 					if(!t2.val.equals("intLit")) {
@@ -592,11 +634,13 @@ public class CompilerDriver {
 				}
 				code +="\t"+op+" r1,r2,r3\n";
 			}
+//			WRITE OPERATION
 			if(t.children.get(i).val.equals("write")) {
 				code += "\t%WRITE EXPRESSION\n";
 				TreeNode x = t.children.get(i).children.get(0).children.get(0).children.get(0);
 				if(tempList.isEmpty()) {
 					x=x.children.get(0);
+//					write(1);
 					if(x.children.size()==0) {
 						code += "\taddi r13,r0,"+x.name +"\n"
 								+ "	sw -8(r14),r13\n"
@@ -610,6 +654,7 @@ public class CompilerDriver {
 								+ "\tsw -8(r14),r1\n"
 								+ "\tjl r15,putstr\n";
 					}
+//					write(x);
 					else if(x.children.get(1).children.size()==0) {
 						x=x.children.get(0);
 						code += "\tlw r13,"+funcName+x.name +"(r0)\n"
@@ -624,6 +669,7 @@ public class CompilerDriver {
 								+ "\tsw -8(r14),r1\n"
 								+ "\tjl r15,putstr\n";
 					}
+//					write(arr[1]);
 					else {
 						getArray(x.children.get(0));
 						code += "\tlw r13,"+funcName+x.children.get(0).name +"(r3)\n"
@@ -641,25 +687,8 @@ public class CompilerDriver {
 					
 				}
 				else {
-					x=x.children.get(0).children.get(1);
-					if(x.children.size()>0) {
-						x=x.parent.children.get(0);
-					String temp = tempList.pop();
-					code += "\tlw r2,"+temp+"(r0)\n"
-							+ "muli r2,r2,4\n"
-							+ "\tlw r13,"+funcName+x.name+"(r2)\n"
-							+ "	sw -8(r14),r13\n"
-							+ "    addi r1,r0, buf\n"
-							+ "    sw -12(r14),r1\n"
-							+ "    jl r15, intstr\n"
-							+	"\tadd r1,r0,r13\n"
-							+ "    sw -8(r14),r1\r\n"
-							+ "    jl r15,putstr\n"
-							+ "\taddi r1,r0,tm\n"
-							+ "\tsw -8(r14),r1\n"
-							+ "\tjl r15,putstr\n";
-					}
-					else {
+//					write(1+x)
+					if(x.children.get(0).val.equals("intLit")) {
 						code += "\tlw r13,"+tempList.pop()+"(r0)\n"
 								+ "	sw -8(r14),r13\n"
 								+ "    addi r1,r0, buf\n"
@@ -672,6 +701,40 @@ public class CompilerDriver {
 								+ "\tsw -8(r14),r1\n"
 								+ "\tjl r15,putstr\n";
 					}
+
+					else {
+						x=x.children.get(0).children.get(1);
+						if(x.children.size()>0) {
+							
+							x=x.parent.children.get(0);
+							getArray(x);
+							code += "\tlw r13,"+funcName+x.name+"(r3)\n"
+								+ "	sw -8(r14),r13\n"
+								+ "    addi r1,r0, buf\n"
+								+ "    sw -12(r14),r1\n"
+								+ "    jl r15, intstr\n"
+								+	"\tadd r1,r0,r13\n"
+								+ "    sw -8(r14),r1\r\n"
+								+ "    jl r15,putstr\n"
+								+ "\taddi r1,r0,tm\n"
+								+ "\tsw -8(r14),r1\n"
+								+ "\tjl r15,putstr\n";
+						}
+//						write(x+1);
+						else {
+							code += "\tlw r13,"+tempList.pop()+"(r0)\n"
+									+ "	sw -8(r14),r13\n"
+									+ "    addi r1,r0, buf\n"
+									+ "    sw -12(r14),r1\n"
+									+ "    jl r15, intstr\n"
+									+	"\tadd r1,r0,r13\n"
+									+ "    sw -8(r14),r1\r\n"
+									+ "    jl r15,putstr\n"
+									+ "\taddi r1,r0,tm\n"
+									+ "\tsw -8(r14),r1\n"
+									+ "\tjl r15,putstr\n";
+						}
+				}
 				}
 			}
 		}
@@ -761,15 +824,38 @@ public class CompilerDriver {
 		code += "\tadd r5,r0,r0\n";
 		for(int k=0;k<x.parent.children.get(1).children.size();k++) {
 			TreeNode tem= x.parent.children.get(1).children.get(k).children.get(0).children.get(0);
-			if(tem.val.equals("intLit")) {
-				code += "\taddi r6,r0,"+tem.name+"\n";
+			if(!tem.val.equals("Term")) {
+				tem=tem.parent;
+			}
+			if(contains(tem.parent, "addop") || contains(tem.parent,"multop")) {
+				
+				String st="";
+				if(tempList.size()>1) {
+					st=tempList.pop();
+					code += "\taddi r6,r0,0\n";
+					code += "\tlw r4,"+tempList.pop()+"(r0)\n";
+					code += "\tadd r6,r6,r4\n";
+					tempList.push(st);
+				}
+				else {
+					code += "\taddi r6,r0,0\n";
+					code += "\tlw r4,"+tempList.pop()+"(r0)\n";
+					code += "\tadd r6,r6,r4\n";
+				}
 			}
 			else {
-				tem=tem.children.get(0);
-				code += "\taddi r6,r0,0\n";
-				code += "\tlw r4,"+funcName+tem.name+"(r0)\n";
-				code += "\tadd r6,r6,r4\n";
-				
+				if(tem.val.equals("Term")) {
+					tem=tem.children.get(0);
+				}
+				if(tem.val.equals("intLit")) {
+					code += "\taddi r6,r0,"+tem.name+"\n";
+				}
+				else {
+					tem = tem.children.get(0);
+					code += "\taddi r6,r0,0\n";
+					code += "\tlw r4,"+funcName+tem.name+"(r0)\n";
+					code += "\tadd r6,r6,r4\n";	
+				}
 			}
 			int col=1;
 			for(int c=k+1;c<dim.dim.size();c++) {
@@ -801,6 +887,7 @@ public class CompilerDriver {
 					tempList.push(st);
 				}
 				else {
+					
 					code += "\taddi r6,r0,0\n";
 					code += "\tlw r4,"+tempList.pop()+"(r0)\n";
 					code += "\tadd r6,r6,r4\n";

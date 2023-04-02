@@ -1,35 +1,102 @@
-	%INITIALIZE CODE FROM MAIN 
-	entry
-	addi r14,r0,topaddr
+bubbleSort 	%ASSIGN VALUE
+	lw r1,bubbleSortsize(r0)
+	sw bubbleSortn(r0),r1
 	%ASSIGN VALUE
-	addi r1,r0,6
-	sw maini(r0),r1
+	addi r1,r0,0
+	sw bubbleSorti(r0),r1
+	%ASSIGN VALUE
+	addi r1,r0,0
+	sw bubbleSortj(r0),r1
+	%ASSIGN VALUE
+	addi r1,r0,0
+	sw bubbleSorttemp(r0),r1
+	%WHILE LOOP STARTS 
+gowhile0 	%ADD OR SUB VALUES
+	lw r1,bubbleSortn(r0)
+	addi r2,r0,1
+	sub r1,r1,r2
+	sw temp0(r0),r1
+	%RELATIONAL OPERATIONAL
+	lw r2,bubbleSorti(r0)
+	lw r3,temp0(r0)
+	clt r1,r2,r3
+	bz r1,endwhile0
+	%ASSIGN VALUE
+	addi r1,r0,0
+	sw bubbleSortj(r0),r1
+	%WHILE LOOP STARTS 
+gowhile1 	%ADD OR SUB VALUES
+	lw r1,bubbleSortn(r0)
+	addi r2,r0,1
+	sub r1,r1,r2
+	sw temp0(r0),r1
+	%RELATIONAL OPERATIONAL
+	lw r2,bubbleSortj(r0)
+	lw r3,temp0(r0)
+	clt r1,r2,r3
+	bz r1,endwhile1
+	%ADD OR SUB VALUES
+	lw r1,bubbleSortj(r0)
+	addi r2,r0,1
+	add r1,r1,r2
+	sw temp1(r0),r1
+	%RELATIONAL OPERATIONAL
+	add r5,r0,r0
+	addi r6,r0,0
+	lw r4,bubbleSortj(r0)
+	add r6,r6,r4
+	muli r6,r6,1
+	add r5,r5,r6
+	muli r3,r5,4
+	lw r2,bubbleSortarr(r3)
+	add r5,r0,r0
+	addi r6,r0,0
+	lw r4,temp1(r0)
+	add r6,r6,r4
+	muli r6,r6,1
+	add r5,r5,r6
+	muli r3,r5,4
+	lw r3,bubbleSortarr(r3)
+	cgt r1,r2,r3
+	bz r1,else0
 	%ASSIGN VALUE
 	add r5,r0,r0
 	addi r6,r0,0
+	lw r4,bubbleSortj(r0)
+	add r6,r6,r4
 	muli r6,r6,1
 	add r5,r5,r6
 	muli r3,r5,4
-	addi r1,r0,64
-	sw mainarr(r3),r1
+	lw r1,bubbleSortarr(r3)
+	sw bubbleSorttemp(r0),r1
+	%ADD OR SUB VALUES
+	lw r1,bubbleSortj(r0)
+	addi r2,r0,1
+	add r1,r1,r2
+	sw temp0(r0),r1
 	%ASSIGN VALUE
 	add r5,r0,r0
-	addi r6,r0,1
+	addi r6,r0,0
+	lw r4,bubbleSortj(r0)
+	add r6,r6,r4
 	muli r6,r6,1
 	add r5,r5,r6
 	muli r3,r5,4
-	addi r1,r0,25
-	sw mainarr(r3),r1
+	add r7,r0,r3
+	add r5,r0,r0
+	addi r6,r0,0
+	lw r4,temp0(r0)
+	add r6,r6,r4
+	muli r6,r6,1
+	add r5,r5,r6
+	muli r3,r5,4
+	lw r1,bubbleSortarr(r3)
+	sw bubbleSortarr(r7),r1
 	%ADD OR SUB VALUES
-	lw r1,maini(r0)
-	addi r2,r0,5
-	sub r1,r1,r2
+	lw r1,bubbleSortj(r0)
+	addi r2,r0,1
+	add r1,r1,r2
 	sw temp0(r0),r1
-	%ADD OR SUB VALUES
-	lw r1,maini(r0)
-	addi r2,r0,6
-	sub r1,r1,r2
-	sw temp1(r0),r1
 	%ASSIGN VALUE
 	add r5,r0,r0
 	addi r6,r0,0
@@ -38,15 +105,137 @@
 	muli r6,r6,1
 	add r5,r5,r6
 	muli r3,r5,4
-	lw r1,mainarr(r3)
+	lw r1,bubbleSorttemp(r0)
+	sw bubbleSortarr(r3),r1
+	j endif0
+else0 endif0 	%ADD OR SUB VALUES
+	lw r1,bubbleSortj(r0)
+	addi r2,r0,1
+	add r1,r1,r2
+	sw temp0(r0),r1
+	%ASSIGN VALUE
+	lw r1,temp0(r0)
+	sw bubbleSortj(r0),r1
+	j gowhile1
+	%WHILE LOOP ENDS
+endwhile1 	%ADD OR SUB VALUES
+	lw r1,bubbleSorti(r0)
+	addi r2,r0,1
+	add r1,r1,r2
+	sw temp0(r0),r1
+	%ASSIGN VALUE
+	lw r1,temp0(r0)
+	sw bubbleSorti(r0),r1
+	j gowhile0
+	%WHILE LOOP ENDS
+endwhile0 	%ASSIGN VALUE
+	addi r1,r0,0
+	sw bubbleSorti(r0),r1
+	%WHILE LOOP STARTS 
+gowhile2 	%RELATIONAL OPERATIONAL
+	lw r2,bubbleSorti(r0)
+	lw r3,bubbleSortn(r0)
+	clt r1,r2,r3
+	bz r1,endwhile2
+	%WRITE EXPRESSION
+	add r5,r0,r0
+	addi r6,r0,0
+	lw r4,bubbleSorti(r0)
+	add r6,r6,r4
+	muli r6,r6,1
+	add r5,r5,r6
+	muli r3,r5,4
+	lw r13,bubbleSortarr(r3)
+	sw -8(r14),r13
+    addi r1,r0, buf
+    sw -12(r14),r1
+    jl r15, intstr
+	add r1,r0,r13
+    sw -8(r14),r1
+    jl r15,putstr
+	addi r1,r0,tm
+	sw -8(r14),r1
+	jl r15,putstr
+	%ADD OR SUB VALUES
+	lw r1,bubbleSorti(r0)
+	addi r2,r0,1
+	add r1,r1,r2
+	sw temp0(r0),r1
+	%ASSIGN VALUE
+	lw r1,temp0(r0)
+	sw bubbleSorti(r0),r1
+	j gowhile2
+	%WHILE LOOP ENDS
+endwhile2 jl r15,endbubbleSort
+
+	%INITIALIZE CODE FROM MAIN 
+	entry
+	addi r14,r0,topaddr
+	%ASSIGN VALUE
+	add r5,r0,r0
+	addi r6,r0,0
+	muli r6,r6,1
+	add r5,r5,r6
+	muli r3,r5,4
+	addi r1,r0,34
 	sw mainarr(r3),r1
-	hlt
+	%ASSIGN VALUE
+	add r5,r0,r0
+	addi r6,r0,1
+	muli r6,r6,1
+	add r5,r5,r6
+	muli r3,r5,4
+	addi r1,r0,12
+	sw mainarr(r3),r1
+	%ASSIGN VALUE
+	add r5,r0,r0
+	addi r6,r0,2
+	muli r6,r6,1
+	add r5,r5,r6
+	muli r3,r5,4
+	addi r1,r0,25
+	sw mainarr(r3),r1
+	%ASSIGN VALUE
+	add r5,r0,r0
+	addi r6,r0,3
+	muli r6,r6,1
+	add r5,r5,r6
+	muli r3,r5,4
+	addi r1,r0,64
+	sw mainarr(r3),r1
+	addi r6,r0,0
+	lw r1,mainarr(r6)
+	sw bubbleSortarr(r6),r1
+	addi r6,r6,4
+	lw r1,mainarr(r6)
+	sw bubbleSortarr(r6),r1
+	addi r6,r6,4
+	lw r1,mainarr(r6)
+	sw bubbleSortarr(r6),r1
+	addi r6,r6,4
+	lw r1,mainarr(r6)
+	sw bubbleSortarr(r6),r1
+	addi r6,r6,4
+	addi r1,r0,4
+	sw bubbleSortsize(r0),r1
+jl r15,bubbleSort
+endbubbleSort 	hlt
+	%DECLARE VARIABLE
+bubbleSortarr res 16
+	%DECLARE VARIABLE
+bubbleSortsize res 4
+	%DECLARE VARIABLE
+bubbleSortn res 4
+	%DECLARE VARIABLE
+bubbleSorti res 4
+	%DECLARE VARIABLE
+bubbleSortj res 4
+	%DECLARE VARIABLE
+bubbleSorttemp res 4
+temp0 res 4
+temp1 res 4
 	%TAG LIST
 buf res 20
 tm db " , ",0
 	%DECLARE VARIABLE
-mainarr res 28
-	%DECLARE VARIABLE
-maini res 4
-temp0 res 4
-temp1 res 4
+mainarr res 16
