@@ -8,7 +8,7 @@ Program, null
 | | | | | id, arr
 | | | | | type, integer
 | | | | | ARRSIZE, null
-| | | | | | intLit, 4
+| | | | | | intLit, 7
 | | | | FParms, null
 | | | | | id, size
 | | | | | type, integer
@@ -106,6 +106,13 @@ Program, null
 | | | | | | | | | | | id, n
 | | | | | | | | | | | IndiceList, null
 | | | | | | | | | | | IDNEST, null
+| | | | | | | | | addop, null
+| | | | | | | | | | add, -
+| | | | | | | | | | Term, null
+| | | | | | | | | | | Factor, null
+| | | | | | | | | | | | id, i
+| | | | | | | | | | | | IndiceList, null
+| | | | | | | | | | | | IDNEST, null
 | | | | | | | | | addop, null
 | | | | | | | | | | add, -
 | | | | | | | | | | Term, null
@@ -240,6 +247,40 @@ Program, null
 | | | | | | | | | | add, +
 | | | | | | | | | | Term, null
 | | | | | | | | | | | intLit, 1
+| FunctionDec, null
+| | function, function
+| | id, printArray
+| | FunctionTail, null
+| | | FParmsList, null
+| | | | FParm, null
+| | | | | id, arr
+| | | | | type, integer
+| | | | | ARRSIZE, null
+| | | | | | intLit, 7
+| | | | FParms, null
+| | | | | id, size
+| | | | | type, integer
+| | | | | ARRSIZE, null
+| | | return, void
+| | Body, null
+| | | localvar, null
+| | | | id, n
+| | | | type, integer
+| | | | ARRSIZE, null
+| | | localvar, null
+| | | | id, i
+| | | | type, integer
+| | | | ARRSIZE, null
+| | | Statment, null
+| | | | id, n
+| | | | =, null
+| | | | | EXPR, null
+| | | | | | ArithExpr, null
+| | | | | | | Term, null
+| | | | | | | | Factor, null
+| | | | | | | | | id, size
+| | | | | | | | | IndiceList, null
+| | | | | | | | | IDNEST, null
 | | | Statment, null
 | | | | id, i
 | | | | =, null
@@ -302,7 +343,7 @@ Program, null
 | | | | id, arr
 | | | | type, integer
 | | | | ARRSIZE, null
-| | | | | intLit, 4
+| | | | | intLit, 7
 | | | Statment, null
 | | | | id, arr
 | | | | StatmentIdnest, null
@@ -314,7 +355,7 @@ Program, null
 | | | | | | EXPR, null
 | | | | | | | ArithExpr, null
 | | | | | | | | Term, null
-| | | | | | | | | intLit, 34
+| | | | | | | | | intLit, 64
 | | | Statment, null
 | | | | id, arr
 | | | | StatmentIdnest, null
@@ -326,7 +367,7 @@ Program, null
 | | | | | | EXPR, null
 | | | | | | | ArithExpr, null
 | | | | | | | | Term, null
-| | | | | | | | | intLit, 12
+| | | | | | | | | intLit, 34
 | | | Statment, null
 | | | | id, arr
 | | | | StatmentIdnest, null
@@ -350,7 +391,62 @@ Program, null
 | | | | | | EXPR, null
 | | | | | | | ArithExpr, null
 | | | | | | | | Term, null
-| | | | | | | | | intLit, 64
+| | | | | | | | | intLit, 12
+| | | Statment, null
+| | | | id, arr
+| | | | StatmentIdnest, null
+| | | | | IndiceList, null
+| | | | | | ArithExpr, null
+| | | | | | | Term, null
+| | | | | | | | intLit, 4
+| | | | | =, null
+| | | | | | EXPR, null
+| | | | | | | ArithExpr, null
+| | | | | | | | Term, null
+| | | | | | | | | intLit, 22
+| | | Statment, null
+| | | | id, arr
+| | | | StatmentIdnest, null
+| | | | | IndiceList, null
+| | | | | | ArithExpr, null
+| | | | | | | Term, null
+| | | | | | | | intLit, 5
+| | | | | =, null
+| | | | | | EXPR, null
+| | | | | | | ArithExpr, null
+| | | | | | | | Term, null
+| | | | | | | | | intLit, 11
+| | | Statment, null
+| | | | id, arr
+| | | | StatmentIdnest, null
+| | | | | IndiceList, null
+| | | | | | ArithExpr, null
+| | | | | | | Term, null
+| | | | | | | | intLit, 6
+| | | | | =, null
+| | | | | | EXPR, null
+| | | | | | | ArithExpr, null
+| | | | | | | | Term, null
+| | | | | | | | | intLit, 90
+| | | Statment, null
+| | | | id, printArray
+| | | | StatmentIdnest, null
+| | | | | AParmList, null
+| | | | | | EXPR, null
+| | | | | | | ArithExpr, null
+| | | | | | | | Term, null
+| | | | | | | | | Factor, null
+| | | | | | | | | | id, arr
+| | | | | | | | | | IndiceList, null
+| | | | | | | | | | | ArithExpr, null
+| | | | | | | | | | | | Term, null
+| | | | | | | | | | | | | intLit, 7
+| | | | | | | | | | IDNEST, null
+| | | | | | EXPR, null
+| | | | | | | ArithExpr, null
+| | | | | | | | Term, null
+| | | | | | | | | intLit, 7
+| | | | | StatIdnest2, null
 | | | Statment, null
 | | | | id, bubbleSort
 | | | | StatmentIdnest, null
@@ -363,10 +459,29 @@ Program, null
 | | | | | | | | | | IndiceList, null
 | | | | | | | | | | | ArithExpr, null
 | | | | | | | | | | | | Term, null
-| | | | | | | | | | | | | intLit, 4
+| | | | | | | | | | | | | intLit, 7
 | | | | | | | | | | IDNEST, null
 | | | | | | EXPR, null
 | | | | | | | ArithExpr, null
 | | | | | | | | Term, null
-| | | | | | | | | intLit, 4
+| | | | | | | | | intLit, 7
+| | | | | StatIdnest2, null
+| | | Statment, null
+| | | | id, printArray
+| | | | StatmentIdnest, null
+| | | | | AParmList, null
+| | | | | | EXPR, null
+| | | | | | | ArithExpr, null
+| | | | | | | | Term, null
+| | | | | | | | | Factor, null
+| | | | | | | | | | id, arr
+| | | | | | | | | | IndiceList, null
+| | | | | | | | | | | ArithExpr, null
+| | | | | | | | | | | | Term, null
+| | | | | | | | | | | | | intLit, 7
+| | | | | | | | | | IDNEST, null
+| | | | | | EXPR, null
+| | | | | | | ArithExpr, null
+| | | | | | | | Term, null
+| | | | | | | | | intLit, 7
 | | | | | StatIdnest2, null

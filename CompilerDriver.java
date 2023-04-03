@@ -90,9 +90,13 @@ public class CompilerDriver {
 				}
 				getParams(t.children.get(i+1),t.children.get(i).name,x);
 				countPm=0;
+				
 				tempList.clear();
 				code +="jl r15,"+t.children.get(i).name+"\n";
-				code +="end"+t.children.get(i).name+" ";
+				for(int s=0;s<statmt.size();s++) {
+					code += statmt.get(s);
+				}
+				statmt.clear();
 				if(code.contains("%return from "+t.children.get(i).name)) {
 					if(!temp.contains("temp"+numb)) {
 						temp.add("temp"+numb);
@@ -740,10 +744,10 @@ public class CompilerDriver {
 		}
 	}
 	static int countPm=0;
+	static ArrayList<String> statmt = new ArrayList<>();
 	static void getParams(TreeNode t,String fn,int x) {
 		if(t==null || t.children==null) return;
 		for(int i=0;i<t.children.size();i++) {
-			
 			if(t.children.get(i).val.equals("Term")) {
 				if(contains(t.parent,"addop") || contains(t.parent,"multop")) {
 					code += "\t lw r1,"+tempList.pop()+"(r0)\n"
@@ -763,14 +767,18 @@ public class CompilerDriver {
 						}
 						else {
 							t=t.parent.children.get(1);
+							statmt.add("\taddi r6,r0,0\n");
 							code += "\taddi r6,r0,0\n";
 							for(int a=0;a<t.children.size();a++) {
 								TreeNode c = t.children.get(0).children.get(0).children.get(0);
-								
 								for(int d=0;d<Integer.parseInt(c.name);d++) {
 									code += "\tlw r1,"+funcName+ t.parent.children.get(0).name+"(r6)\n"
 											+ "\tsw "+parmList.get(x+countPm)+"(r6),r1\n"
 													+ "\taddi r6,r6,4\n";
+									statmt.add("\tlw r1,"+parmList.get(x+countPm)+"(r6)\n"+
+													"\tsw "+funcName+ t.parent.children.get(0).name+"(r6),r1\n"
+													+ "\taddi r6,r6,4\n");
+									
 								}
 							}
 							countPm++;
@@ -928,9 +936,10 @@ public class CompilerDriver {
 			main = t;
 		}
 		else if(t.val.equals("function") && t.name!=null && !t.name.equals("main") && !t.name.equals("function")) {
-			code += t.name+" ";
+			code += t.name+" add r12,r0,r15\n";
 			traverseNodes(t.parent);
-			code+="jl r15,end"+t.name+"\n\n";
+			code+="\tadd r15,r0,r12\n"
+					+ "\tjr r15\n\n";
 		}
 		for(int i=0;i<t.children.size();i++)
 			getMainNode(t.children.get(i));
