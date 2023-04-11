@@ -17,6 +17,7 @@ public class CompilerDriver {
 	static ArrayList<Integer> wLoopList = new ArrayList<>(),iLoopList = new ArrayList<>();
 	static Stack<Integer> wLoop = new Stack<>(),iLoop = new Stack<>();
 	private static String funcName= "";
+		
 	private static void traverseNodes(TreeNode t) {
 		if(t ==null || t.children== null) return;
 		if(t.val.equals("function") && t.name!=null && t.name.equals("main")) {
@@ -26,10 +27,18 @@ public class CompilerDriver {
 		}
 		if(t.val.equals("FunctionDec")) {
 			funcName = t.children.get(1).name;
+			if(t.children.get(2).val.equals("FunctionMemberTail")) {
+				funcName += t.children.get(2).children.get(0).name;
+			}
+			if(t.children.get(2).val.equals("constructor")) {
+				funcName += "constructor";
+			}
 		}
 		if(t.val.equals("localvar") || t.val.equals("FParm") || t.val.equals("FParms")) {
 			int space =0;
-			String name =funcName+t.children.get(0).name;
+			String name =funcName;
+			name += t.children.get(0).name;
+			
 			if(t.val.equals("FParm") || t.val.equals("FParms")) {
 				parmList.add(name);
 			}
@@ -53,13 +62,36 @@ public class CompilerDriver {
 				for(int i=0;i<symbolTable.size();i++) {
 					if(symbolTable.get(i).get(0).name.equals(t.children.get(0).type)) {
 						space = symbolTable.get(i).get(0).store;
-						name = t.children.get(0).type +t.children.get(0).name;
-						decs+=name+" res "+symbolTable.get(i).get(0).store+"\n";
+						if(t.children.get(0).dim.size()>0) {
+							for(int j=0;j<t.children.get(2).children.size();j++) {
+								space*=Integer.parseInt(t.children.get(2).children.get(j).name);
+							}
+						}
+						name = funcName +t.children.get(0).name;
 					}
 				}
 			}
 			decs += "\t%DECLARE VARIABLE\n";
-			decs += name+" res "+ space +"\n";
+			
+			if(!decs.contains(name + " res"))
+				decs += name+" res "+ space +"\n";
+			if(t.children.get(2).val.equals("AParmList")) {
+				int x=0;
+				for(x=0;x<parmList.size();x++) {
+					if(parmList.get(x).contains(t.children.get(0).type+"constructor")) {
+						break;
+					}
+				}
+				getParams(t,t.name,x);
+				countPm=0;
+				tempList.clear();
+				code +="jl r15,"+t.children.get(1).name+"constructor\n";
+				alignConst(t,t.children.get(1).name);
+				for(int s=0;s<statmt.size();s++) {
+					code += statmt.get(s);
+				}
+				statmt.clear();
+			}
 		}
 		for(int i=0;i<t.children.size();i++) {
 			if(t.children.get(i).val.equals("whileTree")) {
@@ -81,7 +113,7 @@ public class CompilerDriver {
 				code += "gowhile"+wLoop.peek() + " ";
 			}
 			if(tokens.contains(t.children.get(i).name)) {
-				traverseNodes(t.children.get(i+1));
+//				traverseNodes(t.children.get(i+1));
 				int x=0;
 				for(x=0;x<parmList.size();x++) {
 					if(parmList.get(x).contains(t.children.get(i).name)) {
@@ -90,7 +122,6 @@ public class CompilerDriver {
 				}
 				getParams(t.children.get(i+1),t.children.get(i).name,x);
 				countPm=0;
-				
 				tempList.clear();
 				code +="jl r15,"+t.children.get(i).name+"\n";
 				for(int s=0;s<statmt.size();s++) {
@@ -107,16 +138,14 @@ public class CompilerDriver {
 					tempList.push("temp"+numb);
 					numb++;
 				}
-				else {
-					
-				}
+				
 				return;
 			}
 			traverseNodes(t.children.get(i));
 			
 			if(t.children.get(i).val.equals("returnFromFunction")) {
 				if(!decs.contains(funcName+"ret "))
-					decs +=funcName+"ret res 4";
+					decs +=funcName+"ret res 4\n";
 				code += "\t%RETURN EXPRESSION\n";
 				TreeNode x = t.children.get(i).children.get(0).children.get(0).children.get(0);
 				if(tempList.isEmpty()) {
@@ -131,24 +160,12 @@ public class CompilerDriver {
 								code += "\tsw "+funcName+"ret(r0),r1\n";
 					}
 					else {
-//						getArray(x);
-//						code += "\tlw r13,"+funcName+x.name +"(r3)\n"
-//								+ "	sw -8(r14),r13\n"
-//								+ "    addi r1,r0, buf\n"
-//								+ "    sw -12(r14),r1\n"
-//								+ "    jl r15, intstr\n"
-//								+	"\tadd r1,r0,r13\n"
-//								+ "    sw -8(r14),r1\r\n"
-//								+ "    jl r15,putstr\n"
-//								+ "\taddi r1,r0,tm\n"
-//								+ "\tsw -8(r14),r1\n"
-//								+ "\tjl r15,putstr\n";
 					}
 					
 				}
 				else {
-					String tem = tempList.pop();
-					code += "\tlw r1,"+tem+"(r0)\n";
+//					System.out.println(tempList + "here13");
+					code += "\tlw r1,"+tempList.pop()+"(r0)\n";
 					code += "\tsw "+funcName+"ret(r0),r1\n";
 				}
 				code+="%return from "+funcName+"\n";
@@ -184,6 +201,7 @@ public class CompilerDriver {
 				}
 				else {
 					TreeNode x=t.children.get(i).children.get(1);
+//					System.out.println("here1");
 					getArray2(x);
 					x=x.parent.children.get(0);
 					code += "\t%READ VARIABLE VALUE\n";
@@ -201,6 +219,7 @@ public class CompilerDriver {
 			
 			
 			if(t.children.get(i).val.equals("multop")) {
+
 				code += "\t%MULTIPLY OR DIVIDE\n";
 				String op = "";
 				if(t.children.get(i).children.get(0).name.equals("*")) {
@@ -209,247 +228,155 @@ public class CompilerDriver {
 				else {
 					op = "div";
 				}
-				
 				TreeNode t1 = t.children.get(i-1);
 				TreeNode t2 = t.children.get(i).children.get(1);
-				if(!(contains(t1,"multop") || contains(t1,"addop"))) {
-					if(!contains(t2.parent,"addop")) {
-						while(!(t1.val.equals("id") || t1.val.equals("intLit") || t1.val.equals("floatLit")) && t1.children.size()>0) {
-							t1 = t1.children.get(0);
-						}
-						while(!(t2.val.equals("id") || t2.val.equals("intLit") || t2.val.equals("floatLit")) && t2.children.size()>0) {
-							t2 = t2.children.get(0);
-						}
-						if(t1.val.equals("id")) {
-							if(t1.parent.children.get(1).children.size()!=0) {
-								getArray(t1);
-								code += "\tlw r1,"+funcName+t1.name+"(r3)\n";
-							}
-							else code += "\tlw r1,"+funcName+t1.name+"(r0)\n";
-						}
-						else {
-							code += "\taddi r1,r0,"+t1.name+"\n";
-						}
-						if(t2.val.equals("id")) {
-							if(t2.parent.children.get(1).children.size()!=0) {
-								getArray(t2);
-								code += "\tlw r2,"+funcName+t2.name+"(r3)\n";
-							}
-							else {
-								code += "\tlw r2,"+funcName+t2.name+"(r0)\n";
-							}
+				TreeNode x=t1,y=t2;
+				if(t1.val.equals("multop") || t1.val.equals("addop")) {
+					t1 =t1.children.get(1);
+				}
+				if(t1.val.equals("ArithExpr") || (t1.val.equals("Factor") && t1.conTemp)) {
+//					containing expression at t1
+					if(t2.val.equals("ArithExpr") || (t2.val.equals("Factor") && t2.conTemp)) {
+						code += "\tlw r2,"+tempList.pop()+"(r0)\n"
+								+ "\tlw r1,"+tempList.pop()+"(r0)\n";
+					}
+					else {
+						code += "\tlw r1,"+tempList.pop()+"(r0)\n";
+						if(t2.val.equals("Factor")) {
+							code += "\tlw r2,"+funcName + t2.children.get(0).name+"(r0)\n";
 						}
 						else {
 							code += "\taddi r2,r0,"+t2.name+"\n";
 						}
-						code += "\t"+op+" r1,r1,r2\n";
-						if(!temp.contains("temp"+numb)) {
-							temp.add("temp"+numb);
-							decs += "temp"+numb+" res 4\n";
-						}
-						code += "\tsw temp"+numb+"(r0),r1\n";
-						tempList.push("temp"+numb);
-						numb++;
+						
 					}
-					else {
-						String tem = tempList.pop();
-						if(t1.val.equals("id")) {
-							if(t1.parent.children.get(1).children.size()!=0) {
-								getArray(t1);
-								code += "\tlw r1,"+funcName+t1.name+"(r3)\n";
-							}
-							else code += "\tlw r1,"+funcName+t1.name+"(r0)\n";
-						}
-						else {
-							code += "\taddi r1,r0,"+t1.name+"\n";
-						}
-						code += "\tlw r2,"+tem+"(r0)\n";
-						code += "\t"+op+" r1,r1,r2\n";
-						if(!temp.contains("temp"+numb)) {
-							temp.add("temp"+numb);
-							decs += "temp"+numb+" res 4\n";
-						}
-						code += "\tsw temp"+numb+"(r0),r1\n";
-						tempList.push("temp"+numb);
-						numb++;
-					}
+
 				}
 				else {
-					if(!contains(t2,"addop")) {
-						String tem = tempList.pop();
-						if(t2.val.equals("id")) {
-							if(t2.parent.children.get(1).children.size()!=0) {
-								getArray(t2);
-								code += "\tlw r1,"+funcName+t2.name+"(r3)\n";
-							}
-							else {
-								code += "\tlw r1,"+funcName+t2.name+"(r0)\n";
-							}
-						}
-						else {
-							code += "\taddi r1,r0,"+t2.name+"\n";
-						}
-						code += "\tlw r2,"+tem+"(r0)\n";
-						code += "\t"+op+" r1,r1,r2\n";
-						if(!temp.contains("temp"+numb)) {
-							temp.add("temp"+numb);
-							decs += "temp"+numb+" res 4\n";
-						}
-						code += "\tsw temp"+numb+"(r0),r1\n";
-						tempList.push("temp"+numb);
-						numb++;
+					if(t1.val.equals("Factor")) {
+						code += "\tlw r1,"+funcName + t1.children.get(0).name+"(r0)\n";
 					}
 					else {
-						String tem = tempList.pop();
-						String tem2 = tempList.pop();
-						code += "\tlw r1,"+tem+"(r0)\n";
-						code += "\tlw r2,"+tem2+"(r0)\n";
-						code += "\t"+op+" r1,r1,r2\n";
-						if(!temp.contains("temp"+numb)) {
-							temp.add("temp"+numb);
-							decs += "temp"+numb+" res 4\n";
-						}
-						code += "\tsw temp"+numb+"(r0),r1\n";
-						tempList.push("temp"+numb);
-						numb++;
+						code += "\taddi r1,r0,"+t1.name+"\n";
 					}
+//					not containing exp at t1
+					if(t2.val.equals("ArithExpr") || (t2.val.equals("Factor") && t2.conTemp)) {
+						code += "\tlw r2,"+tempList.pop()+"(r0)\n";
+					}
+					else {
+						if(t2.val.equals("Factor")) {
+							code += "\tlw r2,"+funcName + t2.children.get(0).name+"(r0)\n";
+						}
+						else {
+							code += "\taddi r2,r0,"+t2.name+"\n";
+						}
+					}
+					
 				}
+				code += "\t"+op+" r1,r1,r2\n";
+				if(!temp.contains("temp"+numb)) {
+					temp.add("temp"+numb);
+					decs += "temp"+numb+" res 4\n";
+				}
+				code += "\tsw temp"+numb+"(r0),r1\n";
+				tempList.push("temp"+numb);
+				numb++;
+				if(x.parent.parent.val.equals("ArithExpr")) {
+					x.parent.parent.conTemp=true;
+					x.parent.parent.parent.conTemp= true;
+				}
+				x.conTemp=true;
+				x.parent.conTemp = true;
+				y.conTemp = true;
+				y.parent.conTemp = true;
+				
 			}
-			
 //			ADD OPERATION
 			if(t.children.get(i).val.equals("addop")) {
 				code += "\t%ADD OR SUB VALUES\n";
-				TreeNode t1 = t.children.get(i-1).children.get(0);
-				TreeNode t2 = t.children.get(i).children.get(1).children.get(0);
+				TreeNode t1 = t.children.get(i-1);
+				TreeNode t2 = t.children.get(i).children.get(1);
 				String op = t.children.get(i).children.get(0).name;
+				if(!t1.val.equals("Term")) {
+					t1 = t1.children.get(1);
+				}
+				TreeNode x = t1,y=t2;
 				
 				if(op.equals("+")) {
 					op = "add";
 				}
 				else op="sub";
-				if(!(contains(t1.parent,"multop") || contains(t1.parent,"addop"))) {
-					if(!contains(t2.parent,"multop")) {
-						while(!(t1.val.equals("id") || t1.val.equals("intLit") || t1.val.equals("floatLit")) && t1.children.size()>0) {
-							t1 = t1.children.get(0);
-						}
+				if(t1.conTemp) {
+					if(t2.conTemp) {
+						code += "\tlw r2,"+tempList.pop()+"(r0)\n"
+								+ "\tlw r1,"+tempList.pop()+"(r0)\n";
+					}
+					else {
 						while(!(t2.val.equals("id") || t2.val.equals("intLit") || t2.val.equals("floatLit")) && t2.children.size()>0) {
 							t2 = t2.children.get(0);
 						}
-						if(t1.val.equals("id")) {
-							if(t1.parent.children.get(1).children.size()!=0) {
-								getArray(t1);
-								code += "\tlw r1,"+funcName+t1.name+"(r3)\n";
-							}
-							else code += "\tlw r1,"+funcName+t1.name+"(r0)\n";
-						}
-						else {
-							code += "\taddi r1,r0,"+t1.name+"\n";
-						}
+						code += "\tlw r1,"+tempList.pop()+"(r0)\n";
 						if(t2.val.equals("id")) {
-							if(t2.parent.children.get(1).children.size()!=0) {
-								getArray(t2);
-								code += "\tlw r2,"+funcName+t2.name+"(r3)\n";
-							}
-							else code += "\tlw r2,"+funcName+t2.name+"(r0)\n";
+							code += "\tlw r2,"+funcName+t2.name+"(r0)\n";
 						}
 						else {
 							code += "\taddi r2,r0,"+t2.name+"\n";
 						}
-						code += "\t"+op+" r1,r1,r2\n";
-						if(!temp.contains("temp"+numb)) {
-							temp.add("temp"+numb);
-							decs += "temp"+numb+" res 4\n";
+					}
+					code += "\t"+op+" r1,r1,r2\n";
+					if(!temp.contains("temp"+numb)) {
+						temp.add("temp"+numb);
+						decs += "temp"+numb+" res 4\n";
+					}
+					code += "\tsw temp"+numb+"(r0),r1\n";
+					tempList.push("temp"+numb);
+					numb++;
+				}
+				else {
+					while(!(t1.val.equals("id") || t1.val.equals("intLit") || t1.val.equals("floatLit")) && t1.children.size()>0) {
+						t1 = t1.children.get(0);
+					}
+					if(t2.conTemp) {
+						code += "\tlw r2,"+tempList.pop()+"(r0)\n";
+						if(t1.val.equals("id")) {
+							code += "\tlw r1,"+funcName +t1.name+"(r0)\n";
 						}
-						code += "\tsw temp"+numb+"(r0),r1\n";
-						tempList.push("temp"+numb);
-						numb++;
+						else code += "\taddi r1,r0,"+t1.name+"\n";
+						
 					}
 					else {
 						
-						while(!(t1.val.equals("id") || t1.val.equals("intLit") || t1.val.equals("floatLit")) && t1.children.size()>0) {
-							t1 = t1.children.get(0);
-						}
 						while(!(t2.val.equals("id") || t2.val.equals("intLit") || t2.val.equals("floatLit")) && t2.children.size()>0) {
 							t2 = t2.children.get(0);
 						}
-						String tem = tempList.pop();
 						if(t1.val.equals("id")) {
-							if(t1.parent.children.get(1).children.size()!=0) {
-								getArray(t1);
-								code += "\tlw r1,"+funcName+t1.name+"(r3)\n";
-							}
-							else code += "\tlw r1,"+funcName+t1.name+"(r0)\n";
+							code += "\tlw r1,"+funcName +t1.name+"(r0)\n";
 						}
-						else {
-							code += "\taddi r1,r0,"+t1.name+"\n";
-						}
-						code += "\tlw r2,"+tem+"(r0)\n";
-						code += "\t"+op+" r1,r1,r2\n";
-						if(!temp.contains("temp"+numb)) {
-							temp.add("temp"+numb);
-							decs += "temp"+numb+" res 4\n";
-						}
-						code += "\tsw temp"+numb+"(r0),r1\n";
-						tempList.push("temp"+numb);
-						numb++;
-					}
-				}
-				else {
-					if(!contains(t2.parent,"multop")) {
-						if(t1.val.equals("add")) {
-							t1=t1.parent.children.get(1);
-						}
-						while(!(t1.val.equals("id") || t1.val.equals("intLit") || t1.val.equals("floatLit")) && t1.children.size()>0) {
-							t1 = t1.children.get(0);
-						}
-						while(!(t2.val.equals("id") || t2.val.equals("intLit") || t2.val.equals("floatLit")) && t2.children.size()>0) {
-							t2 = t2.children.get(0);
-						}
-						String tem = tempList.pop();
-						if(t1.val.equals("id")) {
-							if(t1.parent.children.get(1).children.size()>0) {
-								getArray(t1);
-								code += "\tlw r1,"+funcName+t1.name+"(r3)\n";
-							}
-							else code += "\tlw r2,"+tem+"(r0)\n";
-						}
-						else code += "\tlw r2,"+tem+"(r0)\n";
+						else code += "\taddi r1,r0,"+t1.name+"\n";
 						if(t2.val.equals("id")) {
-							if(t2.parent.children.get(1).children.size()!=0) {
-								getArray(t2);
-								code += "\tlw r1,"+funcName+t2.name+"(r3)\n";
-							}
-							else code += "\tlw r1,"+funcName+t2.name+"(r0)\n";
+							code += "\tlw r2,"+funcName +t2.name+"(r0)\n";
 						}
-						else {
-							code += "\taddi r1,r0,"+t2.name+"\n";
-						}
-						code += "\t"+op+" r1,r2,r1\n";
-						if(!temp.contains("temp"+numb)) {
-							temp.add("temp"+numb);
-							decs += "temp"+numb+" res 4\n";
-						}
-						code += "\tsw temp"+numb+"(r0),r1\n";
-						tempList.push("temp"+numb);
-						numb++;
+						else code += "\taddi r2,r0,"+t2.name+"\n";
 					}
-					else {
-						String tem = tempList.pop();
-						String tem2 = tempList.pop();
-						code += "\tlw r1,"+tem+"(r0)\n";
-						code += "\tlw r2,"+tem2+"(r0)\n";
-						code += "\t"+op+" r1,r1,r2\n";
-						if(!temp.contains("temp"+numb)) {
-							temp.add("temp"+numb);
-							decs += "temp"+numb+" res 4\n";
-						}
-						code += "\tsw temp"+numb+"(r0),r1\n";
-						tempList.push("temp"+numb);
-						numb++;
+					code += "\t"+op+" r1,r1,r2\n";
+					if(!temp.contains("temp"+numb)) {
+						temp.add("temp"+numb);
+						decs += "temp"+numb+" res 4\n";
 					}
+					code += "\tsw temp"+numb+"(r0),r1\n";
+					tempList.push("temp"+numb);
+					numb++;
+				}
+				if(x.parent.val.equals("ArithExpr")) {
+					x.parent.conTemp=true;
+					x.parent.parent.conTemp= true;
 				}
 				
-			}
+				x.conTemp=true;
+				x.parent.conTemp = true;
+				y.conTemp = true;
+				y.parent.conTemp = true;
+				}
 			if(t.children.get(i).val.equals("=")) {
 				code += "\t%ASSIGN VALUE\n";
 				TreeNode tmp1 = t.children.get(i);
@@ -458,7 +385,6 @@ public class CompilerDriver {
 				}
 //				ALL MEMBERS WITH x = .....
 				if(t.children.get(i-1).val.equals("id")) {
-					if(!t.children.get(i-1).parent.val.equals("dot")) {
 						if(tempList.isEmpty()) {
 							if(!tmp1.val.equals("id")) {
 								code += "\taddi r1,r0,"+tmp1.name+"\n";
@@ -472,7 +398,7 @@ public class CompilerDriver {
 							}
 						}
 						else {
-							if(!tmp1.val.equals("intLit") && tmp1.parent.children.get(1).children.size()>0) {
+							if(!tmp1.val.equals("intLit") && tmp1.parent.children.get(1).children.size()>0 && !(contains(tmp1.parent, "multop") ||contains(tmp1.parent.parent, "addop"))) {
 								getArray(tmp1);
 								if(tempList.isEmpty()) {
 								code += "\tlw r1,"+funcName+tmp1.name+"(r3)\n";
@@ -485,10 +411,50 @@ public class CompilerDriver {
 								code += "\tlw r1,"+tempList.pop()+"(r0)\n";
 							}
 						}
+						if(!t.children.get(i-1).parent.val.equals("dot")) {
 						code += "\tsw "+funcName+t.children.get(i-1).name+"(r0),r1\n";
-					}
-					else {
-						code += "code here for assign class.variable!\n";
+						}
+						else {
+							if(t.parent.children.get(0).name!=null && t.parent.children.get(0).name.equals("self")) {
+								String clsName = funcName.replace("constructor", "");
+								int x = getClass(clsName);
+								for(int k=0;k<mainTable.get(x).size();k++) {
+									if(mainTable.get(x).get(k).name.equals(t.children.get(0).name)) {
+										code += "\tsw "+funcName+t.children.get(0).name+"(r0),r1\n";
+									}
+								}
+							}
+							else {
+								boolean found = false;
+								if(t.parent.children.get(0).val.equals("id")) {
+									int cls = getClass(t.parent.children.get(0).type);
+									for(int a=0;a<mainTable.get(cls).size();a++) {
+										
+										if(mainTable.get(cls).get(a).name.equals(t.children.get(i-1).name)) {
+											found=true;
+											code += "\taddi r3,r0,"+mainTable.get(cls).get(a).store +"\n"
+													+ "\tsw "+funcName +t.parent.children.get(0).name+"(r3),r1\n";
+										}
+									}
+									if(!found) {
+										System.out.println("defined member is not available" + t.lineNumber);
+									}
+								}
+								else {
+									int cls = getClass(t.children.get(0).type);
+									for(int a=0;a<mainTable.get(cls).size();a++) {
+										if(mainTable.get(cls).get(a).name.equals(t.children.get(1).children.get(0).name)) {
+											found=true;
+											code += "\taddi r3,r0,"+mainTable.get(cls).get(a).store +"\n"
+													+ "\tsw "+funcName +t.parent.children.get(0).name+"(r3),r1\n";
+										}
+									}
+									if(!found) {
+										System.out.println("defined member is not available");
+									}
+								}
+							}
+//						code += "code here for assign class.variable!\n";
 					}
 					
 				}
@@ -513,34 +479,23 @@ public class CompilerDriver {
 						}
 					}
 					else {
-						TreeNode x = t.children.get(i-1).parent;
+//						x is LHS and v is RHS
+						TreeNode x = t;
 						getArray2(x);
 						TreeNode v = x;
-						x=x.parent.children.get(0);
 						v=v.children.get(1);
-						while(!(v.val.equals("id") || v.val.equals("intLit") || v.val.equals("floatLit")) && v.children.size()>0) {
+						while(!(v.val.equals("Term") || v.val.equals("Factor"))) {
 							v = v.children.get(0);
 						}
-						if(!tempList.isEmpty()) {
-							if(v.val.equals("id")) {
-								if(v.parent.children.get(1).children.size()>0) {
-									code +="\tadd r7,r0,r3\n";
-									getArray(v);
-									
-									code += "\tlw r1,"+funcName+ v.name+"(r3)\n"
-											+ "\tsw "+funcName+x.name+"(r7),r1\n";
-								}
-								else {
-									code += "\tlw r1,"+tempList.pop()+"(r0)\n"
-											+ "\tsw "+funcName+x.name+"(r3),r1\n";
-								}
-							}
-							else {
-								code += "\taddi r1,r0,"+v.name+"\n"
-										+ "\tsw "+funcName+x.name+"(r3),r1\n";
-							}		
+						x = x.parent.children.get(0);
+						if(v.conTemp) {
+							code += "\tlw r1,"+tempList.pop()+"(r0)\n"
+									+ "\tsw "+funcName+x.name+"(r3),r1\n";
 						}
 						else {
+							while(!(v.val.equals("id")|| v.val.equals("intLit") || v.val.equals("floatLit"))) {
+								v=v.children.get(0);
+							}
 							if(v.val.equals("id")) {
 								code += "\tlw r1,"+funcName +v.name+"(r0)\n"
 										+ "\tsw "+funcName+x.name+"(r3),r1\n";
@@ -553,6 +508,9 @@ public class CompilerDriver {
 					}
 				}
 				numb=0;
+				tempList.clear();
+			}
+			if(t.children.get(i).val.equals("statment")) {
 				tempList.clear();
 			}
 			if(t.children.get(i).val.equals("ifTree")) {
@@ -582,6 +540,8 @@ public class CompilerDriver {
 				iLoop.pop();
 			}
 //			RELATIONAL OPERATIONS
+			
+//			we have stored arr[x] in temp but relop is taking only x as temp and computing arr[arr[x]]. change it....
 			if(t.children.get(i).val.equals("relop")) {
 				code += "\t%RELATIONAL OPERATIONAL\n";
 				TreeNode t1,t2;
@@ -595,11 +555,21 @@ public class CompilerDriver {
 				}
 				t1= t.children.get(i).children.get(0).children.get(0).children.get(0);
 				t2= t.children.get(i).children.get(2).children.get(0).children.get(0);
-				if(contains(t1.parent.parent,"addop") || contains(t1.parent.parent,"multop")) {
-					if(!t1.val.equals("intLit")) {
-						t1 =t1.children.get(0);
+				if(t2.parent.conTemp) {
+					code += "\tlw r3,"+tempList.pop()+"(r0)\n";
+				}
+				else {
+					if(!t2.val.equals("intLit")) {
+						t2 =t2.children.get(0);
 					}
-					code += "\tlw r2,"+tempList.pop()+"(r0)\n";
+					if(t2.val.equals("id"))
+						code += "\tlw r3,"+funcName+t2.name+"(r0)\n";
+					else {
+						code += "\taddi r3,r0,"+t2.name+"\n";
+					}
+				}
+				if(t1.conTemp) {
+						code += "\tlw r2,"+tempList.pop()+"(r0)\n";
 				}
 				else {
 					if(!t1.val.equals("intLit")) {
@@ -608,7 +578,7 @@ public class CompilerDriver {
 					if(t1.val.equals("intLit")) {
 						code += "\taddi r2,r0,"+t1.name+"\n";
 					}
-					else if(t1.val.equals("id") && t1.parent.children.get(1).children.size()==0) {
+					else if(t1.val.equals("id")) {
 						code += "\tlw r2,"+funcName+t1.name+"(r0)\n";
 					}
 					else {
@@ -616,27 +586,167 @@ public class CompilerDriver {
 						code += "\tlw r2,"+funcName+t1.name+"(r3)\n";
 					}
 				}
-				if(contains(t2.parent.parent,"addop") || contains(t2.parent.parent,"multop")) {
-					if(!t2.val.equals("intLit")) {
-						t2 =t2.children.get(0);
+				code +="\t"+op+" r1,r2,r3\n";
+			}
+			
+			
+			if(t.children.get(i).val.equals("id")) {
+				if(t.children.get(i).name.equals("self")) {
+				}
+				else if(!decs.contains(funcName+t.children.get(i).name)) {
+					int space =0;
+					String name =funcName+t.children.get(0).name;
+					if(t.val.equals("FParm") || t.val.equals("FParms")) {
+						parmList.add(name);
 					}
-					if(!t2.val.equals("intLit") && t2.parent.children.get(1).children.size()>0) {
-						getArray(t2);
-						code += "\tlw r3,"+funcName+t2.name+"(r3)\n";
+					if(t.children.get(0).type.equals("integer")) {
+						space=4;
+						if(t.children.get(0).dim.size()>0) {
+							for(int k=0;k<t.children.get(2).children.size();k++) {
+								space*=Integer.parseInt(t.children.get(2).children.get(k).name);
+							}
+						}
+					}
+					else if(t.children.get(0).type.equals("float")) {
+						space=8;
+						if(t.children.get(0).dim.size()>0) {
+							for(int k=0;k<t.children.get(2).children.size();k++) {
+								space*=Integer.parseInt(t.children.get(2).children.get(k).name);
+							}
+						}
 					}
 					else {
-						code += "\tlw r3,"+tempList.pop()+"(r0)\n";
+						for(int k=0;k<symbolTable.size();k++) {
+							if(symbolTable.get(k).get(0).name.equals(t.children.get(0).type)) {
+								space = symbolTable.get(k).get(0).store;
+								if(t.children.get(0).dim.size()>0) {
+									for(int j=0;j<t.children.get(2).children.size();j++) {
+										space*=Integer.parseInt(t.children.get(2).children.get(j).name);
+									}
+								}
+								name = t.children.get(0).type +t.children.get(0).name;
+							}
+						}
+					}
+					if(!decs.contains(name+" res ")) {
+						decs += "\t%DECLARE VARIABLE\n";
+						decs += name+" res "+ space +"\n";
+					}
+						
+				}
+			}
+//			Member function call
+			if(t.children.get(i).val.equals("dot")) {
+				int x=0;
+				for(x=0;x<parmList.size();x++) {
+					if(parmList.get(x).contains(t.children.get(i).children.get(0).name)) {
+						break;
+					}
+				}
+				if(t.children.get(i).children.get(1).val.equals("AParmList")) {
+					for(x=0;x<parmList.size();x++) {
+						if(parmList.get(x).contains(t.parent.children.get(0).type+t.children.get(i).children.get(0).name)) {
+							break;
+						}
+					}
+					alignFunction(t.parent,t.parent.children.get(0).type);
+					getParams(t,t.children.get(i).name,x);
+					countPm=0;
+					tempList.clear();
+					code +="jl r15,"+t.parent.children.get(0).type+t.children.get(i).children.get(0).name+"\n";
+					for(int s=0;s<statmt.size();s++) {
+						code += statmt.get(s);
+					}
+					statmt.clear();
+					if(decs.contains(t.parent.children.get(0).type+t.children.get(i).children.get(0).name+"ret res")) {
+						if(!temp.contains("temp"+numb)) {
+							temp.add("temp"+numb);
+							decs += "temp"+numb+" res 4\n";
+						}
+						code += "\tlw r1,"+t.parent.children.get(0).type+t.children.get(i).children.get(0).name+"ret(r0)\n";
+						code += "\tsw temp"+numb+"(r0),r1\n";
+						tempList.push("temp"+numb);
+						numb++;
 					}
 				}
 				else {
-					if(!t2.val.equals("intLit")) {
-						t2 =t2.children.get(0);
+					if(t.children.get(0).name!=null && t.children.get(0).name.equals("self")) {
+						
 					}
-					if(t2.val.equals("id"))
-						code += "\tlw r3,"+funcName+t2.name+"(r0)\n";
-					else code += "\taddi r3,r0,"+t2.name+"\n";
+					else {
+						boolean found = false;
+						if(t.parent.children.get(0).val.equals("id")) {
+							int cls = getClass(t.parent.children.get(0).type);
+							for(int a=0;a<mainTable.get(cls).size();a++) {
+								if(mainTable.get(cls).get(a).name.equals(t.children.get(0).children.get(0).name)) {
+									found=true;
+									code += "\taddi r3,r0,"+mainTable.get(cls).get(a).store +"\n"
+											+ "\tlw r1,"+funcName +t.parent.children.get(0).name+"(r3)\n";
+									if(!contains(t,"=")) {
+										if(!temp.contains("temp"+numb)) {
+											temp.add("temp"+numb);
+											decs += "temp"+numb+" res 4\n";
+										}
+										code += "\tsw temp"+numb+"(r0),r1\n";
+										tempList.push("temp"+numb);
+										numb++;
+									}
+								}
+							}
+							if(!found) {
+								System.out.println("defined member is not available");
+							}
+						}
+						else {
+							int cls = getClass(t.children.get(0).type);
+							for(int a=0;a<mainTable.get(cls).size();a++) {
+								if(mainTable.get(cls).get(a).name.equals(t.children.get(1).children.get(0).name)) {
+									found=true;
+									code += "\taddi r3,r0,"+mainTable.get(cls).get(a).store +"\n"
+											+ "\tlw r1,"+funcName + t.children.get(0).name+"(r3)\n";
+									if(!contains(t,"=")) {
+										if(!temp.contains("temp"+numb)) {
+											temp.add("temp"+numb);
+											decs += "temp"+numb+" res 4\n";
+										}
+										code += "\tsw temp"+numb+"(r0),r1\n";
+										tempList.push("temp"+numb);
+										numb++;
+									}
+								}
+							}
+							if(!found) {
+								System.out.println("defined member is not available");
+							}
+						}
+					}
 				}
-				code +="\t"+op+" r1,r2,r3\n";
+			}
+			
+			
+			if(i>0 && t.children.get(i-1).val.equals("id")) {
+				if(t.children.get(i).children.size()>0) {
+					if(t.children.get(i).val.equals("IndiceList")) {
+						getArray(t.children.get(i-1));
+						code += "\tlw r1,"+funcName+t.children.get(i-1).name+"(r3)\n";
+						if(!temp.contains("temp"+numb)) {
+							temp.add("temp"+numb);
+							decs += "temp"+numb+" res 4\n";
+						}
+						code += "\tsw temp"+numb+"(r0),r1\n";
+						tempList.push("temp"+numb);
+						numb++;
+						TreeNode x = t;
+						while(!x.val.equals("Factor")) {
+							
+							x=x.parent;
+							
+						}
+						x.conTemp = true;
+						x.parent.conTemp = true;
+						t.children.get(i-1).conTemp =true;
+					}
+				}
 			}
 //			WRITE OPERATION
 			if(t.children.get(i).val.equals("write")) {
@@ -693,6 +803,7 @@ public class CompilerDriver {
 				else {
 //					write(1+x)
 					if(x.children.get(0).val.equals("intLit")) {
+//						System.out.println(tempList + "here7");
 						code += "\tlw r13,"+tempList.pop()+"(r0)\n"
 								+ "	sw -8(r14),r13\n"
 								+ "    addi r1,r0, buf\n"
@@ -750,19 +861,27 @@ public class CompilerDriver {
 		for(int i=0;i<t.children.size();i++) {
 			if(t.children.get(i).val.equals("Term")) {
 				if(contains(t.parent,"addop") || contains(t.parent,"multop")) {
+//					System.out.println(tempList + "here8");
 					code += "\t lw r1,"+tempList.pop()+"(r0)\n"
 							+ "\t sw "+parmList.get(x+countPm)+"(r0),r1\n";
 					countPm++;
 				}
 				else {
-					while(t.children.size()>0 && !(t.children.get(0).val.equals("id") ||t.children.get(0).val.equals("intLit") || t.children.get(0).val.equals("floatLit"))) {
-						t=t.children.get(0);
+					while(t.children.size()>0 && !(t.val.equals("id") ||t.val.equals("intLit") || t.val.equals("floatLit"))) {
+						if(t.children.get(0).val.equals("sign")) {
+							t=t.children.get(1);
+							t.name = t.parent.children.get(0).name + t.name;
+						}
+						else {
+							t=t.children.get(0);
+						}
 					}
-					t = t.children.get(0);
-					if(t.val.equals("id")) {
+					if((t.val.equals("id") || t.val.equals("param")) && t.parent.children.size()>1) {
 						if(t.parent.children.get(1).children.size()==0) {
-						code += "\taddi r1,r0,"+funcName+t.name+"\n"
+						code += "\tlw r1,"+funcName+t.name+"(r0)\n"
 								+ "\tsw "+parmList.get(x+countPm)+"(r0),r1\n";
+						statmt.add("\tlw r1,"+parmList.get(x+countPm)+"(r0)\n"
+								+ "\tsw "+funcName+t.name+"(r0),r1\n");
 						countPm++;
 						}
 						else {
@@ -809,6 +928,14 @@ public class CompilerDriver {
 		}
 		return true;
 	}
+	public static int getClass(String name) {
+		for(int i=0;i<mainTable.size();i++) {
+			if(mainTable.get(i).get(0).name.equals(name)) {
+				return i;
+			}
+		}
+		return -1;
+	}
 	public static boolean contains(TreeNode t,String s) {
 		if(t==null || t.children==null) return true;
 		if(t.val.equals(s)) {
@@ -837,19 +964,9 @@ public class CompilerDriver {
 			}
 			if(contains(tem.parent, "addop") || contains(tem.parent,"multop")) {
 				
-				String st="";
-				if(tempList.size()>1) {
-					st=tempList.pop();
 					code += "\taddi r6,r0,0\n";
 					code += "\tlw r4,"+tempList.pop()+"(r0)\n";
 					code += "\tadd r6,r6,r4\n";
-					tempList.push(st);
-				}
-				else {
-					code += "\taddi r6,r0,0\n";
-					code += "\tlw r4,"+tempList.pop()+"(r0)\n";
-					code += "\tadd r6,r6,r4\n";
-				}
 			}
 			else {
 				if(tem.val.equals("Term")) {
@@ -895,7 +1012,6 @@ public class CompilerDriver {
 					tempList.push(st);
 				}
 				else {
-					
 					code += "\taddi r6,r0,0\n";
 					code += "\tlw r4,"+tempList.pop()+"(r0)\n";
 					code += "\tadd r6,r6,r4\n";
@@ -930,13 +1046,52 @@ public class CompilerDriver {
 			}
 		}
 	}
+	static void alignConst(TreeNode constr,String clsName) {
+		int x = getClass(clsName);
+		for(int i=0;i<mainTable.get(x).size();i++) {
+			if(mainTable.get(x).get(i).val.equals("data")) {
+				code += "\taddi r3,r0,"+mainTable.get(x).get(i).store+"\n"
+						+ "\tlw r1,"+mainTable.get(x).get(0).name+"constructor"+mainTable.get(x).get(i).name+"(r0)\n"
+								+ "\tsw "+funcName+constr.children.get(0).name+"(r3),r1\n";
+			}
+		}
+	}
+	static void alignFunction(TreeNode constr,String clsName) {
+		int x = getClass(clsName);
+		for(int i=0;i<mainTable.get(x).size();i++) {
+			if(mainTable.get(x).get(i).val.equals("data")) {
+				code += "\taddi r3,r0,"+mainTable.get(x).get(i).store+"\n"
+						+ "\tlw r1,"+funcName+constr.children.get(0).name+"(r3)\n"
+						+ "\tsw "+mainTable.get(x).get(0).name+constr.children.get(2).children.get(0).children.get(0).name+mainTable.get(x).get(i).name+"(r0),r1\n";
+			}
+		}
+	}
 	static void getMainNode(TreeNode t){
 		if(t==null || t.children==null) return;
 		if(t.val.equals("function") && t.name!=null && t.name.equals("main")) {
 			main = t;
 		}
 		else if(t.val.equals("function") && t.name!=null && !t.name.equals("main") && !t.name.equals("function")) {
-			code += t.name+" add r12,r0,r15\n";
+			if(!t.parent.val.equals("FunctionDec")) {
+				if(t.parent.parent.val.equals("FunctionDec")) {
+					if(contains(t.parent.parent,"class")) {
+						code += t.parent.parent.children.get(1).name;
+					}
+					code += t.parent.children.get(0).name+" add r12,r0,r15\n";
+					traverseNodes(t.parent.parent);
+					code+="\tadd r15,r0,r12\n"
+							+ "\tjr r15\n\n";
+				}
+			}
+			else {
+				code += t.name+" add r12,r0,r15\n";
+				traverseNodes(t.parent);
+				code+="\tadd r15,r0,r12\n"
+						+ "\tjr r15\n\n";
+			}
+		}
+		else if(t.val.equals("constructor") && t.parent.children.size()>1 && t.parent.children.get(0).val.equals("function")) {
+			code += t.parent.children.get(1).name+"constructor add r12,r0,r15\n";
 			traverseNodes(t.parent);
 			code+="\tadd r15,r0,r12\n"
 					+ "\tjr r15\n\n";

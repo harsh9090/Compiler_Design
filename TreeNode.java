@@ -6,10 +6,9 @@ class TreeNode{
     String type;
     String name;
     String lineNumber;
-    int value;
     int store;
     String funName="";
-    String tag="";
+    boolean conTemp = false;
     ArrayList<Integer> dim=new ArrayList<>();
     TreeNode parent;
     ArrayList<TreeNode> children = new ArrayList<>();
@@ -49,7 +48,6 @@ class TreeNode{
         this.lineNumber = line;
         this.funName = funName;
         this.parent =t;
-        this.tag = this.funName+this.name;
     }
     TreeNode(String data,String name,String type){
         val = data;

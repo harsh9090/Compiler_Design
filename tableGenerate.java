@@ -168,7 +168,7 @@ public class tableGenerate {
 			System.out.println("The defined class is not available. Line number -" + classNam.lineNumber);
 		}
 		int ak=0;
-		if(t.children.size()!= typeList.size()) {
+		if(t.val.equals("AParmList") && t.children.size()!= typeList.size()) {
 			System.out.println("please enter correct number of parameters to pass in constructor. Line number -" + t.parent.children.get(0).lineNumber);
 			return;
 		}
@@ -188,6 +188,7 @@ public class tableGenerate {
 		if(t.children.get(2).val.equals("FunctionMemberTail")) {
 			t.children.get(1).val="class";
 			t.children.get(1).type="class";
+			t.children.get(2).children.get(0).val = "function";
 			temp.add(new TreeNode("function",t.children.get(2).children.get(0).name,"function",t.children.get(2).children.get(0).vis,t.children.get(2).children.get(0).lineNumber,"",t));
 			temp.add(new TreeNode("class",t.children.get(1).name,"class",t.children.get(0).vis,t.children.get(1).lineNumber,temp.get(0).name,t));
 			getFunctionParameters(t.children.get(2));
@@ -771,10 +772,17 @@ public class tableGenerate {
 				for(int j=0;j<arr.get(i).size();j++) {
 					if(arr.get(i).get(j).val.equals("local") || arr.get(i).get(j).val.equals("param")) {
 						if(arr.get(i).get(j).dim.size()==0) {
-							if(arr.get(i).get(j).type.equals("integer")) size+=4;
-							else size+=8;
+							if(arr.get(i).get(j).type.equals("integer")) {
+								arr.get(i).get(j).store = size;
+								size+=4;
+							}
+							else {
+								arr.get(i).get(j).store = size;
+								size+=8;
+							}
 						}
 						else {
+							arr.get(i).get(j).store = size;
 							int cnt =1;
 							for(int x=0;x<arr.get(i).get(j).dim.size();x++) {
 								cnt*=arr.get(i).get(j).dim.get(x);
@@ -792,6 +800,7 @@ public class tableGenerate {
 				int size=0;
 				for(int j=0;j<arr.get(i).size();j++) {
 					if(arr.get(i).get(j).val.equals("data")) {
+						arr.get(i).get(j).store = size;
 						if(arr.get(i).get(j).dim.size()==0) {
 							if(arr.get(i).get(j).type.equals("integer")) size+=4;
 							else size+=8;

@@ -18,8 +18,8 @@ gowhile0 	%ADD OR SUB VALUES
 	sub r1,r1,r2
 	sw temp0(r0),r1
 	%RELATIONAL OPERATIONAL
-	lw r2,bubbleSorti(r0)
 	lw r3,temp0(r0)
+	lw r2,bubbleSorti(r0)
 	clt r1,r2,r3
 	bz r1,endwhile0
 	%ASSIGN VALUE
@@ -32,40 +32,15 @@ gowhile1 	%ADD OR SUB VALUES
 	sub r1,r1,r2
 	sw temp0(r0),r1
 	%ADD OR SUB VALUES
-	lw r2,temp0(r0)
-	addi r1,r0,1
-	sub r1,r2,r1
+	lw r1,temp0(r0)
+	addi r2,r0,1
+	sub r1,r1,r2
 	sw temp1(r0),r1
 	%RELATIONAL OPERATIONAL
-	lw r2,bubbleSortj(r0)
 	lw r3,temp1(r0)
+	lw r2,bubbleSortj(r0)
 	clt r1,r2,r3
 	bz r1,endwhile1
-	%ADD OR SUB VALUES
-	lw r1,bubbleSortj(r0)
-	addi r2,r0,1
-	add r1,r1,r2
-	sw temp2(r0),r1
-	%RELATIONAL OPERATIONAL
-	add r5,r0,r0
-	addi r6,r0,0
-	lw r4,bubbleSortj(r0)
-	add r6,r6,r4
-	muli r6,r6,1
-	add r5,r5,r6
-	muli r3,r5,4
-	lw r2,bubbleSortarr(r3)
-	add r5,r0,r0
-	addi r6,r0,0
-	lw r4,temp2(r0)
-	add r6,r6,r4
-	muli r6,r6,1
-	add r5,r5,r6
-	muli r3,r5,4
-	lw r3,bubbleSortarr(r3)
-	cgt r1,r2,r3
-	bz r1,else0
-	%ASSIGN VALUE
 	add r5,r0,r0
 	addi r6,r0,0
 	lw r4,bubbleSortj(r0)
@@ -74,12 +49,35 @@ gowhile1 	%ADD OR SUB VALUES
 	add r5,r5,r6
 	muli r3,r5,4
 	lw r1,bubbleSortarr(r3)
-	sw bubbleSorttemp(r0),r1
+	sw temp2(r0),r1
 	%ADD OR SUB VALUES
 	lw r1,bubbleSortj(r0)
 	addi r2,r0,1
 	add r1,r1,r2
-	sw temp0(r0),r1
+	sw temp3(r0),r1
+	add r5,r0,r0
+	addi r6,r0,0
+	lw r4,temp3(r0)
+	add r6,r6,r4
+	muli r6,r6,1
+	add r5,r5,r6
+	muli r3,r5,4
+	lw r1,bubbleSortarr(r3)
+	sw temp4(r0),r1
+	%RELATIONAL OPERATIONAL
+	lw r3,temp4(r0)
+	lw r2,temp2(r0)
+	cgt r1,r2,r3
+	bz r1,else0
+	add r5,r0,r0
+	addi r6,r0,0
+	lw r4,bubbleSortj(r0)
+	add r6,r6,r4
+	muli r6,r6,1
+	add r5,r5,r6
+	muli r3,r5,4
+	lw r1,bubbleSortarr(r3)
+	sw temp5(r0),r1
 	%ASSIGN VALUE
 	add r5,r0,r0
 	addi r6,r0,0
@@ -88,7 +86,13 @@ gowhile1 	%ADD OR SUB VALUES
 	muli r6,r6,1
 	add r5,r5,r6
 	muli r3,r5,4
-	add r7,r0,r3
+	lw r1,temp5(r0)
+	sw bubbleSorttemp(r0),r1
+	%ADD OR SUB VALUES
+	lw r1,bubbleSortj(r0)
+	addi r2,r0,1
+	add r1,r1,r2
+	sw temp0(r0),r1
 	add r5,r0,r0
 	addi r6,r0,0
 	lw r4,temp0(r0)
@@ -97,7 +101,17 @@ gowhile1 	%ADD OR SUB VALUES
 	add r5,r5,r6
 	muli r3,r5,4
 	lw r1,bubbleSortarr(r3)
-	sw bubbleSortarr(r7),r1
+	sw temp1(r0),r1
+	%ASSIGN VALUE
+	add r5,r0,r0
+	addi r6,r0,0
+	lw r4,bubbleSortj(r0)
+	add r6,r6,r4
+	muli r6,r6,1
+	add r5,r5,r6
+	muli r3,r5,4
+	lw r1,temp1(r0)
+	sw bubbleSortarr(r3),r1
 	%ADD OR SUB VALUES
 	lw r1,bubbleSortj(r0)
 	addi r2,r0,1
@@ -146,10 +160,19 @@ printArray add r12,r0,r15
 	sw printArrayi(r0),r1
 	%WHILE LOOP STARTS 
 gowhile2 	%RELATIONAL OPERATIONAL
-	lw r2,printArrayi(r0)
 	lw r3,printArrayn(r0)
+	lw r2,printArrayi(r0)
 	clt r1,r2,r3
 	bz r1,endwhile2
+	add r5,r0,r0
+	addi r6,r0,0
+	lw r4,printArrayi(r0)
+	add r6,r6,r4
+	muli r6,r6,1
+	add r5,r5,r6
+	muli r3,r5,4
+	lw r1,printArrayarr(r3)
+	sw temp0(r0),r1
 	%WRITE EXPRESSION
 	add r5,r0,r0
 	addi r6,r0,0
@@ -173,9 +196,9 @@ gowhile2 	%RELATIONAL OPERATIONAL
 	lw r1,printArrayi(r0)
 	addi r2,r0,1
 	add r1,r1,r2
-	sw temp0(r0),r1
+	sw temp1(r0),r1
 	%ASSIGN VALUE
-	lw r1,temp0(r0)
+	lw r1,temp1(r0)
 	sw printArrayi(r0),r1
 	j gowhile2
 	%WHILE LOOP ENDS
@@ -398,6 +421,9 @@ bubbleSorttemp res 4
 temp0 res 4
 temp1 res 4
 temp2 res 4
+temp3 res 4
+temp4 res 4
+temp5 res 4
 	%DECLARE VARIABLE
 printArrayarr res 28
 	%DECLARE VARIABLE
