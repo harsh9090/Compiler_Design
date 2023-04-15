@@ -16,30 +16,8 @@ class TreeNode{
         val = data;
         this.type = type;
     }
-    TreeNode(TreeNode t){
-        val = t.val;
-        this.name = t.name;
-        this.type = t.type;
-        this.vis = t.vis;
-        this.lineNumber = t.lineNumber;
-        this.funName = t.funName;
-    }
-    TreeNode(String data,String name,String type,String vis,String line){
-        val = data;
-        this.name = name;
-        this.type = type;
-        this.vis = vis;
-        this.lineNumber = line;
-    }
 
-    TreeNode(String data,String name,String type,String vis,String line,String funName){
-        val = data;
-        this.name = name;
-        this.type = type;
-        this.vis = vis;
-        this.lineNumber = line;
-        this.funName = funName;
-    }
+
     TreeNode(String data,String name,String type,String vis,String line,String funName,TreeNode t){
         val = data;
         this.name = name;
@@ -54,16 +32,10 @@ class TreeNode{
         this.name = name;
         this.type = type;
     }
-    TreeNode(String data,ArrayList<TreeNode> child,String type){
-        val = data;
-        children = child;
-    }
-    TreeNode(){
 
+    TreeNode(){
     }
-    void removeNode(TreeNode n1){
-        this.children.remove(n1);
-    }
+
 
     @Override
     public String toString() {

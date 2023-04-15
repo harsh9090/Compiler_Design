@@ -2,10 +2,7 @@
 | MAIN TABLE MAIN TABLE
 | TreeNode [val=class, name=POLYNOMIAL ]
 | TreeNode [val=class, name=LINEAR ]
-| TreeNode [val=class, name=QUADRATIC ]
 | TreeNode [val=function, name=evaluate ]
-| TreeNode [val=function, name=evaluate ]
-| TreeNode [val=constructor, name=build ]
 | TreeNode [val=constructor, name=build ]
 | TreeNode [val=function, name=evaluate ]
 | TreeNode [val=function, name=main ]
@@ -32,41 +29,10 @@
 ------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------
-| class QUADRATIC
-| TreeNode [val=inherit, name=POLYNOMIAL ]
-| TreeNode [val=data, name=a ]
-| TreeNode [val=data, name=b ]
-| TreeNode [val=data, name=c ]
-| TreeNode [val=constructor, name=build ]
-| TreeNode [val=param, name=A ]
-| TreeNode [val=param, name=B ]
-| TreeNode [val=param, name=C ]
-| TreeNode [val=function, name=evaluate ]
-| TreeNode [val=param, name=x ]
-| TreeNode [val=param, name=return ]
-------------------------------------------------------------------------------
-
-------------------------------------------------------------------------------
 | function EVALUATE
 | TreeNode [val=class, name=POLYNOMIAL ]
 | TreeNode [val=param, name=x ]
 | TreeNode [val=return, name=return ]
-------------------------------------------------------------------------------
-
-------------------------------------------------------------------------------
-| function EVALUATE
-| TreeNode [val=class, name=QUADRATIC ]
-| TreeNode [val=param, name=x ]
-| TreeNode [val=return, name=return ]
-| TreeNode [val=local, name=result ]
-------------------------------------------------------------------------------
-
-------------------------------------------------------------------------------
-| constructor BUILD
-| TreeNode [val=class, name=QUADRATIC ]
-| TreeNode [val=param, name=A ]
-| TreeNode [val=param, name=B ]
-| TreeNode [val=param, name=C ]
 ------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------

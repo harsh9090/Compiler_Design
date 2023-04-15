@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Stack;
 public class CompilerDriver {
     static TreeNode root=null;
@@ -19,11 +20,15 @@ public class CompilerDriver {
     private static String funcName= "";
 
     private static void traverseNodes(TreeNode t) {
+
         if(t ==null || t.children== null) return;
         if(t.val.equals("function") && t.name!=null && t.name.equals("main")) {
             code+="\t%INITIALIZE CODE FROM MAIN \n\tentry\n\taddi r14,r0,topaddr\n";
-            decs += "\t%TAG LIST\nbuf res 20\n"
-                    + "tm db \" , \",0\n";
+            decs += """
+                    \t%TAG LIST
+                    buf res 20
+                    tm db " , ",0
+                    """;
         }
         if(t.val.equals("FunctionDec")) {
 
@@ -45,34 +50,19 @@ public class CompilerDriver {
                 parmList.add(name);
             }
             if(t.children.get(0).type.equals("integer")) {
-                space=4;
-                if(t.children.get(0).dim.size()>0) {
-                    for(int i=0;i<t.children.get(2).children.size();i++) {
-                        space*=Integer.parseInt(t.children.get(2).children.get(i).name);
-                    }
-                }
+                space = getSpace(t,4);
             }
             else if(t.children.get(0).type.equals("float")) {
-                space=8;
-                if(t.children.get(0).dim.size()>0) {
-                    for(int i=0;i<t.children.get(2).children.size();i++) {
-                        space*=Integer.parseInt(t.children.get(2).children.get(i).name);
-                    }
-                }
+               space = getSpace(t,8);
             }
             else {
-                for(int i=0;i<symbolTable.size();i++) {
-                    if(symbolTable.get(i).get(0).name.equals(t.children.get(0).type)) {
-                        space = symbolTable.get(i).get(0).store;
-                        if(t.children.get(0).dim.size()>0) {
-                            for(int j=0;j<t.children.get(2).children.size();j++) {
-                                space*=Integer.parseInt(t.children.get(2).children.get(j).name);
-                            }
-                        }
-                        name = funcName +t.children.get(0).name;
-                        for(int x=0;x<mainTable.get(mainPin).size();x++) {
-                            if(mainTable.get(mainPin).get(x).name.equals(t.children.get(0).name)) {
-                                mainTable.get(mainPin).get(x).store = symbolTable.get(i).get(0).store;
+                for (ArrayList<TreeNode> treeNodes : symbolTable) {
+                    if (treeNodes.get(0).name.equals(t.children.get(0).type)) {
+                        space = getSpace(t,treeNodes.get(0).store);
+                        name = funcName + t.children.get(0).name;
+                        for (int x = 0; x < mainTable.get(mainPin).size(); x++) {
+                            if (mainTable.get(mainPin).get(x).name.equals(t.children.get(0).name)) {
+                                mainTable.get(mainPin).get(x).store = treeNodes.get(0).store;
                             }
                         }
                     }
@@ -82,7 +72,7 @@ public class CompilerDriver {
             if(!decs.contains(name + " res"))
                 decs += name+" res "+ space +"\n";
             if(t.children.get(2).val.equals("AParmList")) {
-                int x=0;
+                int x;
                 for(x=0;x<parmList.size();x++) {
                     if(parmList.get(x).contains(t.children.get(0).type+"constructor")) {
                         break;
@@ -94,8 +84,8 @@ public class CompilerDriver {
                 code +="jl r15,"+t.children.get(1).name+"constructor\n";
                 code += "\taddi r4,r0,0\n";
                 alignConst(t.children.get(0).name,t.children.get(1).name);
-                for(int s=0;s<statmt.size();s++) {
-                    code += statmt.get(s);
+                for (String value : statmt) {
+                    code += value;
                 }
                 statmt.clear();
             }
@@ -129,7 +119,7 @@ public class CompilerDriver {
                     }
                     if(x.parent.children.get(0).val.equals("IndiceList")) {
                         x = x.parent.parent.children.get(0);
-                        int y=0;
+                        int y;
                         for(y=0;y<parmList.size();y++) {
                             if(parmList.get(y).contains(x.type+"constructor")) {
                                 break;
@@ -143,19 +133,20 @@ public class CompilerDriver {
                         getArray2(x);
                         code+= "\tadd r4,r0,r3\n";
                         alignConst(x.name,x.type);
-                        for(int s=0;s<statmt.size();s++) {
-                            code += statmt.get(s);
+                        for (String value : statmt) {
+                            code += value;
                         }
                         statmt.clear();
                         return;
                     }
                     else {
+                        System.out.println("here"+t.lineNumber);
 //						write code for f1 = build();
                     }
 
                     return;
                 }
-                int x=0;
+                int x;
                 for(x=0;x<parmList.size();x++) {
                     if(parmList.get(x).contains(t.children.get(i).name)) {
                         break;
@@ -165,8 +156,8 @@ public class CompilerDriver {
                 countPm=0;
                 tempList.clear();
                 code +="jl r15,"+t.children.get(i).name+"\n";
-                for(int s=0;s<statmt.size();s++) {
-                    code += statmt.get(s);
+                for (String value : statmt) {
+                    code += value;
                 }
                 statmt.clear();
                 if(code.contains("%return from "+t.children.get(i).name)) {
@@ -199,8 +190,6 @@ public class CompilerDriver {
                         x=x.children.get(0);
                         code += "\tlw r1,"+funcName+x.name +"(r0)\n";
                         code += "\tsw "+funcName+"ret(r0),r1\n";
-                    }
-                    else {
                     }
 
                 }
@@ -260,7 +249,7 @@ public class CompilerDriver {
             if(t.children.get(i).val.equals("multop")) {
 
                 code += "\t%MULTIPLY OR DIVIDE\n";
-                String op = "";
+                String op;
                 if(t.children.get(i).children.get(0).name.equals("*")) {
                     op = "mul";
                 }
@@ -269,7 +258,7 @@ public class CompilerDriver {
                 }
                 TreeNode t1 = t.children.get(i-1);
                 TreeNode t2 = t.children.get(i).children.get(1);
-                TreeNode x=t1,y=t2;
+                TreeNode x=t1;
                 if(t1.val.equals("multop") || t1.val.equals("addop")) {
                     t1 =t1.children.get(1);
                 }
@@ -312,22 +301,15 @@ public class CompilerDriver {
                     }
 
                 }
-                code += "\t"+op+" r1,r1,r2\n";
-                if(!temp.contains("temp"+numb)) {
-                    temp.add("temp"+numb);
-                    decs += "temp"+numb+" res 4\n";
-                }
-                code += "\tsw temp"+numb+"(r0),r1\n";
-                tempList.push("temp"+numb);
-                numb++;
+                arithOpration(op);
                 if(x.parent.parent.val.equals("ArithExpr")) {
                     x.parent.parent.conTemp=true;
                     x.parent.parent.parent.conTemp= true;
                 }
                 x.conTemp=true;
                 x.parent.conTemp = true;
-                y.conTemp = true;
-                y.parent.conTemp = true;
+                t2.conTemp = true;
+                t2.parent.conTemp = true;
 
             }
 //			ADD OPERATION
@@ -362,14 +344,7 @@ public class CompilerDriver {
                             code += "\taddi r2,r0,"+t2.name+"\n";
                         }
                     }
-                    code += "\t"+op+" r1,r1,r2\n";
-                    if(!temp.contains("temp"+numb)) {
-                        temp.add("temp"+numb);
-                        decs += "temp"+numb+" res 4\n";
-                    }
-                    code += "\tsw temp"+numb+"(r0),r1\n";
-                    tempList.push("temp"+numb);
-                    numb++;
+                    arithOpration(op);
                 }
                 else {
                     while(!(t1.val.equals("id") || t1.val.equals("intLit") || t1.val.equals("floatLit")) && t1.children.size()>0) {
@@ -397,17 +372,9 @@ public class CompilerDriver {
                         }
                         else code += "\taddi r2,r0,"+t2.name+"\n";
                     }
-                    code += "\t"+op+" r1,r1,r2\n";
-                    if(!temp.contains("temp"+numb)) {
-                        temp.add("temp"+numb);
-                        decs += "temp"+numb+" res 4\n";
-                    }
-                    code += "\tsw temp"+numb+"(r0),r1\n";
-                    tempList.push("temp"+numb);
-                    numb++;
+                    arithOpration(op);
                 }
                 if(x.parent.val.equals("ArithExpr")) {
-                    x.parent.conTemp=true;
                     x.parent.parent.conTemp= true;
                 }
 
@@ -434,7 +401,7 @@ public class CompilerDriver {
                             code += "\taddi r1,r0,"+tmp1.name+"\n";
                         }
                         else {
-                            if(!tmp1.val.equals("intLit") && tmp1.parent.children.get(1).children.size()>0 && !tmp1.parent.children.get(1).val.equals("AParmList")) {
+                            if(tmp1.parent.children.get(1).children.size() > 0 && !tmp1.parent.children.get(1).val.equals("AParmList")) {
                                 getArray(tmp1);
                                 code += "\tlw r1,"+funcName+tmp1.name+"(r3)\n";
                             }
@@ -632,54 +599,36 @@ public class CompilerDriver {
                 code +="\t"+op+" r1,r2,r3\n";
             }
 
-            if(t.children.get(i).val.equals("id")) {
-                if(t.children.get(i).name.equals("self")) {
-                }
-                else if(!decs.contains(funcName+t.children.get(i).name)) {
-                    int space =0;
-                    String name =funcName+t.children.get(0).name;
-                    if(t.val.equals("FParm") || t.val.equals("FParms")) {
+            if(t.children.get(i).val.equals("id")) if (!t.children.get(i).name.equals("self")) {
+                if (!decs.contains(funcName + t.children.get(i).name)) {
+                    int space = 0;
+                    String name = funcName + t.children.get(0).name;
+                    if (t.val.equals("FParm") || t.val.equals("FParms")) {
                         parmList.add(name);
                     }
-                    if(t.children.get(0).type.equals("integer")) {
-                        space=4;
-                        if(t.children.get(0).dim.size()>0) {
-                            for(int k=0;k<t.children.get(2).children.size();k++) {
-                                space*=Integer.parseInt(t.children.get(2).children.get(k).name);
+                    if (t.children.get(0).type.equals("integer")) {
+                        space = getSpace(t,4);
+                    } else if (t.children.get(0).type.equals("float")) {
+                        space = getSpace(t,8);
+                    } else {
+                        for (ArrayList<TreeNode> treeNodes : symbolTable) {
+                            if (treeNodes.get(0).name.equals(t.children.get(0).type)) {
+
+                                space = getSpace(t,treeNodes.get(0).store);
+                                name = t.children.get(0).type + t.children.get(0).name;
                             }
                         }
                     }
-                    else if(t.children.get(0).type.equals("float")) {
-                        space=8;
-                        if(t.children.get(0).dim.size()>0) {
-                            for(int k=0;k<t.children.get(2).children.size();k++) {
-                                space*=Integer.parseInt(t.children.get(2).children.get(k).name);
-                            }
-                        }
-                    }
-                    else {
-                        for(int k=0;k<symbolTable.size();k++) {
-                            if(symbolTable.get(k).get(0).name.equals(t.children.get(0).type)) {
-                                space = symbolTable.get(k).get(0).store;
-                                if(t.children.get(0).dim.size()>0) {
-                                    for(int j=0;j<t.children.get(2).children.size();j++) {
-                                        space*=Integer.parseInt(t.children.get(2).children.get(j).name);
-                                    }
-                                }
-                                name = t.children.get(0).type +t.children.get(0).name;
-                            }
-                        }
-                    }
-                    if(!decs.contains(name+" res ")) {
+                    if (!decs.contains(name + " res ")) {
                         decs += "\t%DECLARE VARIABLE\n";
-                        decs += name+" res "+ space +"\n";
+                        decs += name + " res " + space + "\n";
                     }
 
                 }
             }
 //			Member function call
             if(t.children.get(i).val.equals("dot")) {
-                int x=0;
+                int x;
                 for(x=0;x<parmList.size();x++) {
                     if(parmList.get(x).contains(t.children.get(i).children.get(0).name)) {
                         break;
@@ -703,8 +652,8 @@ public class CompilerDriver {
                     countPm=0;
                     tempList.clear();
                     code +="jl r15,"+t.parent.children.get(0).type+t.children.get(i).children.get(0).name+"\n";
-                    for(int s=0;s<statmt.size();s++) {
-                        code += statmt.get(s);
+                    for (String value : statmt) {
+                        code += value;
                     }
                     statmt.clear();
                     if(decs.contains(t.parent.children.get(0).type+t.children.get(i).children.get(0).name+"ret res")) {
@@ -719,55 +668,33 @@ public class CompilerDriver {
                     }
                 }
                 else {
-                    if(t.children.get(0).name!=null && t.children.get(0).name.equals("self")) {
-
-                    }
-                    else {
-
+                    if (t.children.get(0).name == null || !t.children.get(0).name.equals("self")) {
                         boolean found = false;
+                        int cls;
                         if(t.parent.children.get(0).val.equals("id")) {
-                            int cls = getClass(t.parent.children.get(0).type);
+                            cls = getClass(t.parent.children.get(0).type);
                             for(int a=0;a<mainTable.get(cls).size();a++) {
                                 if(mainTable.get(cls).get(a).name.equals(t.children.get(0).children.get(0).name)) {
                                     found=true;
                                     code += "\taddi r3,r0,"+mainTable.get(cls).get(a).store +"\n"
                                             + "\tlw r1,"+funcName +t.parent.children.get(0).name+"(r3)\n";
-                                    if(!contains(t,"=")) {
-                                        if(!temp.contains("temp"+numb)) {
-                                            temp.add("temp"+numb);
-                                            decs += "temp"+numb+" res 4\n";
-                                        }
-                                        code += "\tsw temp"+numb+"(r0),r1\n";
-                                        tempList.push("temp"+numb);
-                                        numb++;
-                                    }
+                                    checkAssign(t);
                                 }
-                            }
-                            if(!found) {
-                                System.out.println("defined member is not available");
                             }
                         }
                         else {
-                            int cls = getClass(t.children.get(0).type);
+                            cls = getClass(t.children.get(0).type);
                             for(int a=0;a<mainTable.get(cls).size();a++) {
                                 if(mainTable.get(cls).get(a).name.equals(t.children.get(1).children.get(0).name)) {
                                     found=true;
                                     code += "\taddi r3,r0,"+mainTable.get(cls).get(a).store +"\n"
                                             + "\tlw r1,"+funcName + t.children.get(0).name+"(r3)\n";
-                                    if(!contains(t,"=")) {
-                                        if(!temp.contains("temp"+numb)) {
-                                            temp.add("temp"+numb);
-                                            decs += "temp"+numb+" res 4\n";
-                                        }
-                                        code += "\tsw temp"+numb+"(r0),r1\n";
-                                        tempList.push("temp"+numb);
-                                        numb++;
-                                    }
+                                    checkAssign(t);
                                 }
                             }
-                            if(!found) {
-                                System.out.println("defined member is not available");
-                            }
+                        }
+                        if(!found) {
+                            System.out.println("defined member is not available");
                         }
                     }
                 }
@@ -852,38 +779,55 @@ public class CompilerDriver {
                 }
                 else {
 //					write(1+x)
-                    if(x.children.get(0).val.equals("intLit")) {
-                        code += "\tlw r13,"+tempList.pop()+"(r0)\n"
-                                + "	sw -8(r14),r13\n"
-                                + "    addi r1,r0, buf\n"
-                                + "    sw -12(r14),r1\n"
-                                + "    jl r15, intstr\n"
-                                +	"\tadd r1,r0,r13\n"
-                                + "    sw -8(r14),r1\r\n"
-                                + "    jl r15,putstr\n"
-                                + "\taddi r1,r0,tm\n"
-                                + "\tsw -8(r14),r1\n"
-                                + "\tjl r15,putstr\n";
-                    }
-                    else {
-                        x=x.children.get(0).children.get(1);
-                        code += "\tlw r13,"+tempList.pop()+"(r0)\n"
-                                + "	sw -8(r14),r13\n"
-                                + "    addi r1,r0, buf\n"
-                                + "    sw -12(r14),r1\n"
-                                + "    jl r15, intstr\n"
-                                +	"\tadd r1,r0,r13\n"
-                                + "    sw -8(r14),r1\r\n"
-                                + "    jl r15,putstr\n"
-                                + "\taddi r1,r0,tm\n"
-                                + "\tsw -8(r14),r1\n"
-                                + "\tjl r15,putstr\n";
-                    }
+                    code += "\tlw r13,"+tempList.pop()+"(r0)\n"
+                            + "	sw -8(r14),r13\n"
+                            + "    addi r1,r0, buf\n"
+                            + "    sw -12(r14),r1\n"
+                            + "    jl r15, intstr\n"
+                            +	"\tadd r1,r0,r13\n"
+                            + "    sw -8(r14),r1\r\n"
+                            + "    jl r15,putstr\n"
+                            + "\taddi r1,r0,tm\n"
+                            + "\tsw -8(r14),r1\n"
+                            + "\tjl r15,putstr\n";
                 }
                 tempList.clear();
             }
         }
     }
+
+    private static void arithOpration(String op) {
+        code += "\t"+op+" r1,r1,r2\n";
+        if(!temp.contains("temp"+numb)) {
+            temp.add("temp"+numb);
+            decs += "temp"+numb+" res 4\n";
+        }
+        code += "\tsw temp"+numb+"(r0),r1\n";
+        tempList.push("temp"+numb);
+        numb++;
+    }
+
+    private static int getSpace(TreeNode t,int space) {
+        if(t.children.get(0).dim.size()>0) {
+            for(int i=0;i<t.children.get(2).children.size();i++) {
+                space*=Integer.parseInt(t.children.get(2).children.get(i).name);
+            }
+        }
+        return space;
+    }
+
+    private static void checkAssign(TreeNode t) {
+        if(!contains(t,"=")) {
+            if(!temp.contains("temp"+numb)) {
+                temp.add("temp"+numb);
+                decs += "temp"+numb+" res 4\n";
+            }
+            code += "\tsw temp"+numb+"(r0),r1\n";
+            tempList.push("temp"+numb);
+            numb++;
+        }
+    }
+
     static int countPm=0;
     static ArrayList<String> statmt = new ArrayList<>();
     static void getParams(TreeNode t,int x) {
@@ -893,7 +837,6 @@ public class CompilerDriver {
                 if(contains(t.parent,"addop") || contains(t.parent,"multop")) {
                     code += "\t lw r1,"+tempList.pop()+"(r0)\n"
                             + "\t sw "+parmList.get(x+countPm)+"(r0),r1\n";
-                    countPm++;
                 }
                 else {
                     while(t.children.size()>0 && !(t.val.equals("id") ||t.val.equals("intLit") || t.val.equals("floatLit"))) {
@@ -911,7 +854,6 @@ public class CompilerDriver {
                                     + "\tsw "+parmList.get(x+countPm)+"(r0),r1\n";
                             statmt.add("\tlw r1,"+parmList.get(x+countPm)+"(r0)\n"
                                     + "\tsw "+funcName+t.name+"(r0),r1\n");
-                            countPm++;
                         }
                         else {
                             t=t.parent.children.get(1);
@@ -929,16 +871,15 @@ public class CompilerDriver {
 
                                 }
                             }
-                            countPm++;
                         }
                     }
                     else {
 
                         code += "\taddi r1,r0,"+t.name+"\n"
                                 + "\tsw "+parmList.get(x+countPm)+"(r0),r1\n";
-                        countPm++;
                     }
                 }
+                countPm++;
                 return;
             }
             getParams(t.children.get(i),x);
@@ -946,7 +887,7 @@ public class CompilerDriver {
     }
     private static boolean checkChild(TreeNode t) {
         if(t==null ||t.children==null) return true;
-        boolean x=true;
+        boolean x;
         for(int i=0;i<t.children.size();i++) {
 
             if(t.children.get(i).val.equals("id")|| t.children.get(i).val.equals("intLit")) {
@@ -981,12 +922,14 @@ public class CompilerDriver {
     static void getArray(TreeNode x) {
         TreeNode dim = null;
         int stor = 4;
-        for(int j=0;j<mainTable.get(mainPin).size();j++) {
+        int j=0;
+        while (j < mainTable.get(mainPin).size()) {
             if(mainTable.get(mainPin).get(j).name.equals(x.name)) {
                 dim = mainTable.get(mainPin).get(j);
-                stor = dim.store;
+                stor=dim.store;
                 if(stor<4) stor=4;
             }
+            j++;
         }
         code += "\tadd r5,r0,r0\n";
         for(int k=0;k<x.parent.children.get(1).children.size();k++) {
@@ -1004,18 +947,10 @@ public class CompilerDriver {
                 if(tem.val.equals("Term")) {
                     tem=tem.children.get(0);
                 }
-                if(tem.val.equals("intLit")) {
-                    code += "\taddi r6,r0,"+tem.name+"\n";
-                }
-                else {
-                    tem = tem.children.get(0);
-                    code += "\taddi r6,r0,0\n";
-                    code += "\tlw r4,"+funcName+tem.name+"(r0)\n";
-                    code += "\tadd r6,r6,r4\n";
-                }
+                checkIntLit(tem);
             }
             int col=1;
-            for(int c=k+1;c<dim.dim.size();c++) {
+            for(int c =k+1; c < Objects.requireNonNull(dim).dim.size(); c++) {
                 col*= dim.dim.get(c);
             }
             code +="\tmuli r6,r6,"+col+"\n";
@@ -1038,7 +973,7 @@ public class CompilerDriver {
         for(int k=0;k<x.parent.children.get(1).children.get(0).children.size();k++) {
             TreeNode tem= x.parent.children.get(1).children.get(k).children.get(0).children.get(0);
             if(contains(tem.parent, "addop") || contains(tem.parent,"multop")) {
-                String st="";
+                String st;
                 if(tempList.size()>1) {
                     st=tempList.pop();
                     code += "\taddi r6,r0,0\n";
@@ -1054,18 +989,10 @@ public class CompilerDriver {
             }
             else {
                 tem= tem.children.get(0);
-                if(tem.val.equals("intLit")) {
-                    code += "\taddi r6,r0,"+tem.name+"\n";
-                }
-                else {
-                    tem=tem.children.get(0);
-                    code += "\taddi r6,r0,0\n";
-                    code += "\tlw r4,"+funcName+tem.name+"(r0)\n";
-                    code += "\tadd r6,r6,r4\n";
-                }
+                checkIntLit(tem);
             }
             int col=1;
-            for(int c=k+1;c<dim.dim.size();c++) {
+            for(int c =k+1; c < Objects.requireNonNull(dim).dim.size(); c++) {
                 col*= dim.dim.get(c);
             }
             code +="\tmuli r6,r6,"+col+"\n";
@@ -1073,6 +1000,19 @@ public class CompilerDriver {
         }
         code +="\tmuli r3,r5,"+stor+"\n";
     }
+
+    private static void checkIntLit(TreeNode tem) {
+        if(tem.val.equals("intLit")) {
+            code += "\taddi r6,r0,"+tem.name+"\n";
+        }
+        else {
+            tem=tem.children.get(0);
+            code += "\taddi r6,r0,0\n";
+            code += "\tlw r4,"+funcName+tem.name+"(r0)\n";
+            code += "\tadd r6,r6,r4\n";
+        }
+    }
+
     static int mainPin = 0;
     static void findMain() {
         for(int i=0;i<symbolTable.size();i++) {
@@ -1106,7 +1046,7 @@ public class CompilerDriver {
         if(t.val.equals("function") && t.name!=null && t.name.equals("main")) {
             main = t;
         }
-        else if(t.val.equals("function") && t.name!=null && !t.name.equals("main") && !t.name.equals("function")) {
+        else if(t.val.equals("function") && t.name != null && !t.name.equals("function")) {
             if(!t.parent.val.equals("FunctionDec")) {
                 if(t.parent.parent.val.equals("FunctionDec")) {
                     if(contains(t.parent.parent,"class")) {
@@ -1114,34 +1054,24 @@ public class CompilerDriver {
                     }
                     code += t.parent.children.get(0).name+" add r12,r0,r15\n";
                     traverseNodes(t.parent.parent);
-                    code+="\tadd r15,r0,r12\n"
-                            + "\tjr r15\n\n";
+                    code+= "\tadd r15,r0,r12\n\tjr r15\n\n";
                 }
             }
             else {
                 code += t.name+" add r12,r0,r15\n";
                 traverseNodes(t.parent);
-                code+="\tadd r15,r0,r12\n"
-                        + "\tjr r15\n\n";
+                code+= "\tadd r15,r0,r12\n\tjr r15\n\n";
             }
         }
         else if(t.val.equals("constructor") && t.parent.children.size()>1 && t.parent.children.get(0).val.equals("function")) {
             code += t.parent.children.get(1).name+"constructor add r12,r0,r15\n";
             traverseNodes(t.parent);
-            code+="\tadd r15,r0,r12\n"
-                    + "\tjr r15\n\n";
+            code+= "\tadd r15,r0,r12\n\tjr r15\n\n";
         }
         for(int i=0;i<t.children.size();i++)
             getMainNode(t.children.get(i));
     }
-    static boolean containMem(String s) {
-        for(int i=1;i<symbolTable.get(mainPin).size();i++) {
-            if(symbolTable.get(mainPin).get(i).name.equals(s)) {
-                return true;
-            }
-        }
-        return false;
-    }
+
     public static TreeNode main;
     static void getFunctions(TreeNode t) {
         if(t==null || t.children==null) return;

@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Stack;
 
 
@@ -15,10 +16,10 @@ public class Parser {
         return rev;
     }
     private static TreeNode fNode = new TreeNode();
-    private static Stack<TreeNode> astSt = new Stack<>();
+    private static final Stack<TreeNode> astSt = new Stack<>();
     private static String tok = "";
     private static String inp = "";
-    private static Stack<String> st = new Stack<>();
+    private static final Stack<String> st = new Stack<>();
     private static int numb=-1;
     private static String[][] token;
     static String[][] rules = {{"ST $","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","","ST $","","","","","","","","ST $","",""},
@@ -99,16 +100,16 @@ public class Parser {
         return -1;
     }
     private static boolean isAST(String s) {
-        String[] st = {"D1","D2","C1","C2","C3","C4","C5","C6","C7","C8","C9","C10","C11","C12","C13","C14","V1","V2","V3","V4","V5","V6","V7","V8","V9","V10","V11","V12","V13","V14","V15","V16","V17","V18","V19","B1","B2","B3","B4","B5","B6","B7","B8","B9","A1","A3","A4","A5","A6","A7","A8","A9","A10","A11","D3","D4","A2","D5","D6","A12","D8","D9","E1","E2","E3","E4","E5","E6","E7","F1","F2","F3","A13","F4","A14","A15","A16","A17"};
-        for(int i=0;i<st.length;i++) {
-            if(st[i].equals(s)) {
+        String[] st = StringList();
+        for (String value : st) {
+            if (value.equals(s)) {
                 return true;
             }
         }
         return false;
     }
     private static int getAST(String s) {
-        String[] st = {"D1","D2","C1","C2","C3","C4","C5","C6","C7","C8","C9","C10","C11","C12","C13","C14","V1","V2","V3","V4","V5","V6","V7","V8","V9","V10","V11","V12","V13","V14","V15","V16","V17","V18","V19","B1","B2","B3","B4","B5","B6","B7","B8","B9","A1","A3","A4","A5","A6","A7","A8","A9","A10","A11","D3","D4","A2","D5","D6","A12","D8","D9","E1","E2","E3","E4","E5","E6","E7","F1","F2","F3","A13","F4","A14","A15","A16","A17"};
+        String[] st = StringList();
         for(int i=0;i<st.length;i++) {
             if(st[i].equals(s)) {
                 return i;
@@ -116,6 +117,11 @@ public class Parser {
         }
         return 0;
     }
+
+    private static String[] StringList() {
+        return new String[]{"D1","D2","C1","C2","C3","C4","C5","C6","C7","C8","C9","C10","C11","C12","C13","C14","V1","V2","V3","V4","V5","V6","V7","V8","V9","V10","V11","V12","V13","V14","V15","V16","V17","V18","V19","B1","B2","B3","B4","B5","B6","B7","B8","B9","A1","A3","A4","A5","A6","A7","A8","A9","A10","A11","D3","D4","A2","D5","D6","A12","D8","D9","E1","E2","E3","E4","E5","E6","E7","F1","F2","F3","A13","F4","A14","A15","A16","A17"};
+    }
+
     private static void giveNode(TreeNode t) {
         for(int i=0;i<t.children.size();i++) {
             if(t.children.get(i).type.equals("integer") || t.children.get(i).type.equals("float")) {
@@ -146,7 +152,7 @@ public class Parser {
             String[] part = s.split(",");
             fNode = new TreeNode(part[0],part[0]);
             if(part[1].contains("popuntillEPS")) {
-                while(astSt.peek().val!="EPS"){
+                while(!Objects.equals(astSt.peek().val, "EPS")){
                     TreeNode temp = astSt.pop();
                     temp.parent = fNode;
                     fNode.children.add(temp);
@@ -183,7 +189,7 @@ public class Parser {
         }
     }
     private static int getLine(String s) {
-        String[] st = {"$","id",";","while","(",")","read","write","return","if","then","else",".","=","neq","lt","gt","leq","geq","{","}","*","/","and","+","-","or",",","intLit","floatLit","not","[","]","localvar",":","integer","float","lsqbr","intlit","rsqbr","function","sr","arrow","constructor","void","public","private","attribute","class","isa","eq"};
+        String[] st =tokenList();
         for(int i=0;i<st.length;i++) {
             if(st[i].equalsIgnoreCase(s)) {
                 return i;
@@ -192,19 +198,19 @@ public class Parser {
         return -1;
     }
     private static boolean isTerminal(String s) {
-        String[] st = {"$","id",";","while","(",")","read","write","return","if","then","else",".","=","neq","lt","gt","leq","geq","{","}","*","/","and","+","-","or",",","intLit","floatLit","not","[","]","localvar",":","integer","float","lsqbr","intlit","rsqbr","function","sr","arrow","constructor","void","public","private","attribute","class","isa","eq"};
+        String[] st = tokenList();
 
-        for(int i=0;i<st.length;i++) {
-            if(st[i].equalsIgnoreCase(s)) {
+        for (String value : st) {
+            if (value.equalsIgnoreCase(s)) {
                 return true;
             }
         }
         return false;
     }
     private static String nextToken() {
-        String[] st = {"$","id",";","while","(",")","read","write","return","if","then","else",".","=","neq","lt","gt","leq","geq","{","}","*","/","and","+","-","or",",","intLit","floatLit","not","[","]","localvar",":","integer","float","lsqbr","intlit","rsqbr","function","sr","arrow","constructor","void","public","private","attribute","class","isa","eq"};
+        String[] st = tokenList();
         numb++;
-        while(numb<token.length && token[numb][0] != null && (token[numb][0].toLowerCase().equalsIgnoreCase("inlinecmt") || token[numb][0].toLowerCase().equalsIgnoreCase("blockcmt"))) {
+        while(numb<token.length && token[numb][0] != null && (token[numb][0].equalsIgnoreCase("inlinecmt") || token[numb][0].equalsIgnoreCase("blockcmt"))) {
             numb++;
             try {
                 BufferedWriter out = new BufferedWriter(
@@ -219,13 +225,20 @@ public class Parser {
             }
         }
         if(numb>=token.length || token[numb][0]==null) return null;
-        for(int i=0;i<st.length;i++) {
-            if(st[i].equalsIgnoreCase(token[numb][1])) {
+        for (String s : st) {
+            if (s.equalsIgnoreCase(token[numb][1])) {
                 return token[numb][1];
             }
         }
         return token[numb][0];
     }
+
+    private static String[] tokenList() {
+        String[] st;
+        st = new String[]{"$","id",";","while","(",")","read","write","return","if","then","else",".","=","neq","lt","gt","leq","geq","{","}","*","/","and","+","-","or",",","intLit","floatLit","not","[","]","localvar",":","integer","float","lsqbr","intlit","rsqbr","function","sr","arrow","constructor","void","public","private","attribute","class","isa","eq"};
+        return st;
+    }
+
     private static String getLines(int s) {
         String[] st = {"$","id",";","while","(",")","read","write","return","if","then","else",".","=","neq","lt","gt","leq","geq","{","}","*","/","and","+","-","or",",","intLit","floatLit","not","[","]","localvar",":","integer","float","lsqbr","intlit","rsqbr","function","sr","arrow","constructor","void","private","private","attribute","class","isa","eq"};
         return st[s];
@@ -234,7 +247,7 @@ public class Parser {
         String xa="";
         int c = getCol(s);
         for(int i=0;i<rules[0].length;i++) {
-            if(rules[c][i]!="" && rules[c][i]!="EPS") {
+            if(rules[c][i].equals("") && rules[c][i].equals("EPS")) {
                 xa+=getLines(i)+" ";
             }
         }
@@ -260,8 +273,6 @@ public class Parser {
                         System.out.println("exception occurred" + e);
                     }
                     st.pop();
-                    prev = token[numb];
-                    a = nextToken();
                 }
                 else {
                     if(a==null) break;
@@ -277,10 +288,10 @@ public class Parser {
                     }
                     System.out.println("Error in line " + token[numb][2]+ " Expected : " + x + ", got : "+ a);
                     k=1;
-                    prev = token[numb];
-                    a=nextToken();
 
                 }
+                prev = token[numb];
+                a = nextToken();
             }
             else if(isAST(x)){
                 addRule(x);
@@ -348,14 +359,14 @@ public class Parser {
         while(!st.isEmpty()) {
             a = st.pop();
             int b = getCol(a);
-            if(b!=-1 && rules[b][0].equals("EPS")) {
-                continue;
+            if (b == -1 || !rules[b][0].equals("EPS")) {
+                if(isAST(a)) {
+                    addRule(a);
+                }
+                else break;
             }
-            else if(isAST(a)) {
-                addRule(a);
-            }
-            else break;
         }
+        assert a != null;
         if (!(a.equals("$")) || k==1){
             System.out.println("Parsing Failed! ");
         }
