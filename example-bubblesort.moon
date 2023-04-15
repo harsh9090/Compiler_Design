@@ -174,14 +174,7 @@ gowhile2 	%RELATIONAL OPERATIONAL
 	lw r1,printArrayarr(r3)
 	sw temp0(r0),r1
 	%WRITE EXPRESSION
-	add r5,r0,r0
-	addi r6,r0,0
-	lw r4,printArrayi(r0)
-	add r6,r6,r4
-	muli r6,r6,1
-	add r5,r5,r6
-	muli r3,r5,4
-	lw r13,printArrayarr(r3)
+	lw r13,temp0(r0)
 	sw -8(r14),r13
     addi r1,r0, buf
     sw -12(r14),r1
