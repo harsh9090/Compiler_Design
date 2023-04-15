@@ -4,13 +4,6 @@ Program, null
 | | id, POLYNOMIAL
 | | MemberList, null
 | | | Member, null
-| | | | visiblity, private
-| | | | VarDec, null
-| | | | | attribute, attribute
-| | | | | id, d
-| | | | | type, integer
-| | | | | ARRSIZE, null
-| | | Member, null
 | | | | type, public
 | | | | function, null
 | | | | | id, evaluate
@@ -148,15 +141,6 @@ Program, null
 | | | | id, result
 | | | | type, integer
 | | | | ARRSIZE, null
-| | | Statment, null
-| | | | id, self
-| | | | dot, null
-| | | | | id, d
-| | | | | =, null
-| | | | | | EXPR, null
-| | | | | | | ArithExpr, null
-| | | | | | | | Term, null
-| | | | | | | | | intLit, 1
 | | | Statment, null
 | | | | id, result
 | | | | =, null
@@ -301,6 +285,10 @@ Program, null
 | | | | | | | | | | id, A
 | | | | | | | | | | IndiceList, null
 | | | | | | | | | | IDNEST, null
+| | | | | | | | addop, null
+| | | | | | | | | add, +
+| | | | | | | | | Term, null
+| | | | | | | | | | intLit, 4
 | | | Statment, null
 | | | | id, self
 | | | | dot, null
@@ -313,6 +301,10 @@ Program, null
 | | | | | | | | | | id, B
 | | | | | | | | | | IndiceList, null
 | | | | | | | | | | IDNEST, null
+| | | | | | | | addop, null
+| | | | | | | | | add, +
+| | | | | | | | | Term, null
+| | | | | | | | | | intLit, 4
 | FunctionDec, null
 | | function, function
 | | id, LINEAR

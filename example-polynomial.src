@@ -90,8 +90,8 @@ function QUADRATIC::constructor(A: integer, B: integer, C: integer)     // 2.1, 
 
 function LINEAR::constructor(A: integer, B: integer)                  // 2.1, 2.2
 {
-  self.a = A;                                                     // 3.1, 5.3
-  self.b = B;                                                     // 3.1, 5.3
+  self.a = A+4;                                                     // 3.1, 5.3
+  self.b = B+4;                                                     // 3.1, 5.3
 }
 
 function LINEAR::evaluate(x: integer) => integer                      // 2.1, 2.2

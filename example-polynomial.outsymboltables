@@ -13,7 +13,6 @@
 
 ------------------------------------------------------------------------------
 | class POLYNOMIAL
-| TreeNode [val=data, name=d ]
 | TreeNode [val=function, name=evaluate ]
 | TreeNode [val=param, name=x ]
 | TreeNode [val=param, name=return ]

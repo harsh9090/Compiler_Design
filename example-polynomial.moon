@@ -57,11 +57,21 @@ QUADRATICconstructor add r12,r0,r15
 	jr r15
 
 LINEARconstructor add r12,r0,r15
-	%ASSIGN VALUE
+	%ADD OR SUB VALUES
 	lw r1,LINEARconstructorA(r0)
-	sw LINEARconstructora(r0),r1
+	addi r2,r0,4
+	add r1,r1,r2
+	sw temp4(r0),r1
 	%ASSIGN VALUE
+	lw r1,temp4(r0)
+	sw LINEARconstructora(r0),r1
+	%ADD OR SUB VALUES
 	lw r1,LINEARconstructorB(r0)
+	addi r2,r0,4
+	add r1,r1,r2
+	sw temp5(r0),r1
+	%ASSIGN VALUE
+	lw r1,temp5(r0)
 	sw LINEARconstructorb(r0),r1
 	add r15,r0,r12
 	jr r15
@@ -74,14 +84,14 @@ LINEARevaluate add r12,r0,r15
 	lw r1,LINEARevaluatea(r0)
 	lw r2,LINEARevaluatex(r0)
 	mul r1,r1,r2
-	sw temp4(r0),r1
+	sw temp6(r0),r1
 	%ADD OR SUB VALUES
-	lw r1,temp4(r0)
+	lw r1,temp6(r0)
 	lw r2,LINEARevaluateb(r0)
 	add r1,r1,r2
-	sw temp5(r0),r1
+	sw temp7(r0),r1
 	%ASSIGN VALUE
-	lw r1,temp5(r0)
+	lw r1,temp7(r0)
 	sw LINEARevaluateresult(r0),r1
 	%RETURN EXPRESSION
 	lw r1,LINEARevaluateresult(r0)
@@ -173,7 +183,7 @@ jl r15,LINEARconstructor
 	add r5,r5,r6
 	muli r3,r5,8
 	lw r1,mainf1(r3)
-	sw temp6(r0),r1
+	sw temp8(r0),r1
 	add r5,r0,r0
 	addi r6,r0,2
 	muli r6,r6,1
@@ -192,9 +202,9 @@ jl r15,LINEARevaluate
 	lw r1,LINEARevaluatex(r0)
 	sw maincounter(r0),r1
 	lw r1,LINEARevaluateret(r0)
-	sw temp7(r0),r1
+	sw temp9(r0),r1
 	%WRITE EXPRESSION
-	lw r13,temp7(r0)
+	lw r13,temp9(r0)
 	sw -8(r14),r13
     addi r1,r0, buf
     sw -12(r14),r1
@@ -221,9 +231,9 @@ jl r15,QUADRATICevaluate
 	lw r1,QUADRATICevaluatex(r0)
 	sw maincounter(r0),r1
 	lw r1,QUADRATICevaluateret(r0)
-	sw temp8(r0),r1
+	sw temp10(r0),r1
 	%WRITE EXPRESSION
-	lw r13,temp8(r0)
+	lw r13,temp10(r0)
 	sw -8(r14),r13
     addi r1,r0, buf
     sw -12(r14),r1
@@ -275,18 +285,20 @@ LINEARconstructorA res 4
 LINEARconstructorB res 4
 	%DECLARE VARIABLE
 LINEARconstructora res 4
+temp4 res 4
 	%DECLARE VARIABLE
 LINEARconstructorb res 4
+temp5 res 4
 	%DECLARE VARIABLE
 LINEARevaluatex res 4
 	%DECLARE VARIABLE
 LINEARevaluateresult res 4
 	%DECLARE VARIABLE
 LINEARevaluatea res 0
-temp4 res 4
+temp6 res 4
 	%DECLARE VARIABLE
 LINEARevaluateb res 0
-temp5 res 4
+temp7 res 4
 LINEARevaluateret res 4
 	%TAG LIST
 buf res 20
@@ -297,6 +309,6 @@ mainf1 res 24
 mainf2 res 12
 	%DECLARE VARIABLE
 maincounter res 4
-temp6 res 4
-temp7 res 4
 temp8 res 4
+temp9 res 4
+temp10 res 4
