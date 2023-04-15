@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 class TreeNode{
-	String vis= "public";
+    String vis= "public";
     String val;
     String type;
     String name;
@@ -17,7 +17,7 @@ class TreeNode{
         this.type = type;
     }
     TreeNode(TreeNode t){
-    	val = t.val;
+        val = t.val;
         this.name = t.name;
         this.type = t.type;
         this.vis = t.vis;
@@ -31,7 +31,7 @@ class TreeNode{
         this.vis = vis;
         this.lineNumber = line;
     }
-    
+
     TreeNode(String data,String name,String type,String vis,String line,String funName){
         val = data;
         this.name = name;
@@ -59,36 +59,36 @@ class TreeNode{
         children = child;
     }
     TreeNode(){
-    	
+
     }
     void removeNode(TreeNode n1){
-    	this.children.remove(n1);
+        this.children.remove(n1);
     }
 
-	@Override
-	public String toString() {
-		return "TreeNode [val=" + val + ", name=" + name + " ]";
-	}
-	public static String ast = "";
-	public static int index =0;
-	public static String printList(TreeNode root) {
-		if(root==null) {
-			return "";
-		}
-		else {
-			if(!root.val.equals("EPS")) {
-				for(int i=0;i<index;i++) {
-					ast+= "| ";
-				}
-				ast+= root.val+", " + root.name +"\n";
+    @Override
+    public String toString() {
+        return "TreeNode [val=" + val + ", name=" + name + " ]";
+    }
+    public static String ast = "";
+    public static int index =0;
+    public static String printList(TreeNode root) {
+        if(root==null) {
+            return "";
+        }
+        else {
+            if(!root.val.equals("EPS")) {
+                for(int i=0;i<index;i++) {
+                    ast+= "| ";
+                }
+                ast+= root.val+", " + root.name +"\n";
 //				ast+= root.val + root.name+"\n";
-			}
-			index++;
-			for(int i=0;i<root.children.size();i++){
+            }
+            index++;
+            for(int i=0;i<root.children.size();i++){
                 printList(root.children.get(i));
             }
-			index--;
+            index--;
             return ast;
-		}
-	}
+        }
+    }
 }
