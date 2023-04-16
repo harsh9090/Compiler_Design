@@ -94,6 +94,19 @@ jl r15,LINEARconstructor
 	lw r1,LINEARconstructorb(r0)
 	sw mainf1(r3),r1
 	%ASSIGN VALUE
+	addi r1,r0,3
+	sw LINEARconstructorA(r0),r1
+	addi r1,r0,3
+	sw LINEARconstructorB(r0),r1
+jl r15,LINEARconstructor
+	add r4,r0,r0
+	addi r3,r4,0
+	lw r1,LINEARconstructora(r0)
+	sw mainf3(r3),r1
+	addi r3,r4,4
+	lw r1,LINEARconstructorb(r0)
+	sw mainf3(r3),r1
+	%ASSIGN VALUE
 	%WHILE LOOP STARTS 
 gowhile0 	%RELATIONAL OPERATIONAL
 	addi r3,r0,10
@@ -161,7 +174,7 @@ jl r15,LINEARevaluate
 	sw -8(r14),r1
 	jl r15,putstr
 	addi r3,r0,0
-	lw r1,mainf2(r3)
+	lw r1,mainf3(r3)
 	sw temp5(r0),r1
 	%WRITE EXPRESSION
 	lw r13,temp5(r0)
@@ -176,7 +189,7 @@ jl r15,LINEARevaluate
 	sw -8(r14),r1
 	jl r15,putstr
 	addi r3,r0,4
-	lw r1,mainf2(r3)
+	lw r1,mainf3(r3)
 	sw temp6(r0),r1
 	%WRITE EXPRESSION
 	lw r13,temp6(r0)
@@ -192,10 +205,10 @@ jl r15,LINEARevaluate
 	jl r15,putstr
 	addi r4,r0,0
 	addi r3,r4,0
-	lw r1,mainf2(r3)
+	lw r1,mainf3(r3)
 	sw LINEARevaluatea(r0),r1
 	addi r3,r4,4
-	lw r1,mainf2(r3)
+	lw r1,mainf3(r3)
 	sw LINEARevaluateb(r0),r1
 	addi r1,r0,5
 	sw LINEARevaluatex(r0),r1
@@ -284,6 +297,8 @@ buf res 20
 tm db " , ",0
 	%DECLARE VARIABLE
 mainf1 res 40
+	%DECLARE VARIABLE
+mainf3 res 8
 	%DECLARE VARIABLE
 mainf2 res 8
 	%DECLARE VARIABLE

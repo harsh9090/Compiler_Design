@@ -54,6 +54,7 @@
 | function MAIN
 | TreeNode [val=return, name=return ]
 | TreeNode [val=local, name=f1 ]
+| TreeNode [val=local, name=f3 ]
 | TreeNode [val=local, name=f2 ]
 | TreeNode [val=local, name=counter ]
 ------------------------------------------------------------------------------

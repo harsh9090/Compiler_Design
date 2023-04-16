@@ -176,6 +176,10 @@ Program, null
 | | | | ARRSIZE, null
 | | | | | intLit, 5
 | | | localvar, null
+| | | | id, f3
+| | | | type, LINEAR
+| | | | ARRSIZE, null
+| | | localvar, null
 | | | | id, f2
 | | | | type, LINEAR
 | | | | AParmList, null
@@ -244,6 +248,24 @@ Program, null
 | | | | | | | | | | | | | Term, null
 | | | | | | | | | | | | | | intLit, 4
 | | | | | | | | | | IDNEST, null
+| | | Statment, null
+| | | | id, f3
+| | | | =, null
+| | | | | EXPR, null
+| | | | | | ArithExpr, null
+| | | | | | | Term, null
+| | | | | | | | Factor, null
+| | | | | | | | | id, build
+| | | | | | | | | AParmList, null
+| | | | | | | | | | EXPR, null
+| | | | | | | | | | | ArithExpr, null
+| | | | | | | | | | | | Term, null
+| | | | | | | | | | | | | intLit, 3
+| | | | | | | | | | EXPR, null
+| | | | | | | | | | | ArithExpr, null
+| | | | | | | | | | | | Term, null
+| | | | | | | | | | | | | intLit, 3
+| | | | | | | | | IDNEST, null
 | | | while, null
 | | | | whileTree, null
 | | | | | relop, null
@@ -306,7 +328,7 @@ Program, null
 | | | | | ArithExpr, null
 | | | | | | Term, null
 | | | | | | | Factor, null
-| | | | | | | | id, f2
+| | | | | | | | id, f3
 | | | | | | | | IndiceList, null
 | | | | | | | | IDNEST, null
 | | | | | | | | | dot, null
@@ -317,7 +339,7 @@ Program, null
 | | | | | ArithExpr, null
 | | | | | | Term, null
 | | | | | | | Factor, null
-| | | | | | | | id, f2
+| | | | | | | | id, f3
 | | | | | | | | IndiceList, null
 | | | | | | | | IDNEST, null
 | | | | | | | | | dot, null
@@ -328,7 +350,7 @@ Program, null
 | | | | | ArithExpr, null
 | | | | | | Term, null
 | | | | | | | Factor, null
-| | | | | | | | id, f2
+| | | | | | | | id, f3
 | | | | | | | | IndiceList, null
 | | | | | | | | IDNEST, null
 | | | | | | | | | dot, null

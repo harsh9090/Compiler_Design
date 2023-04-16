@@ -140,11 +140,26 @@ public class CompilerDriver {
                         return;
                     }
                     else {
-                        System.out.println("here"+t.lineNumber);
-//						write code for f1 = build();
+                        x = x.parent.children.get(0);
+                        int y;
+                        for(y=0;y<parmList.size();y++) {
+                            if(parmList.get(y).contains(x.type+"constructor")) {
+                                break;
+                            }
+                        }
+                        getParams(t,y);
+                        countPm=0;
+                        tempList.clear();
+                        code +="jl r15,"+x.type+"constructor\n";
+                        code+= "\tadd r4,r0,r0\n";
+                        alignConst(x.name,x.type);
+                        for (String value : statmt) {
+                            code += value;
+                        }
+                        statmt.clear();
+                        return;
                     }
 
-                    return;
                 }
                 int x;
                 for(x=0;x<parmList.size();x++) {
