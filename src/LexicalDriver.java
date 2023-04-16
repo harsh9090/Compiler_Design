@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class LexicalDriver {
@@ -39,7 +40,9 @@ public class LexicalDriver {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        while (myReader.hasNextLine()) {
+        while (true) {
+            assert myReader != null;
+            if (!myReader.hasNextLine()) break;
             s += myReader.nextLine()+'\n';
         }
         inp = inp.substring(0,inp.length()-4);
@@ -61,9 +64,9 @@ public class LexicalDriver {
         catch (IOException e) {
             System.out.println("exception occurred" + e);
         }
-        while(s!="") {
+        while(!Objects.equals(s, "")) {
             String[] str = Lex_Analyzer.nextToken(s,errorFile,tokenFile);
-            if(str[0]!="" && str[2]!=null) {
+            if(!Objects.equals(str[0], "") && str[2]!=null) {
                 int x = Integer.parseInt(str[2]);
                 while(x>(line+1)) {
                     if(line==x-2) {

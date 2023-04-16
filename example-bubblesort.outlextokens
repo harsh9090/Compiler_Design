@@ -46,7 +46,7 @@
 [id, arr, 48], [Opensqbr, [, 48], [intLit, 3, 48], [Closesqbr, ], 48], [assign, =, 48], [intLit, 12, 48], [Semi, ;, 48], 
 [id, arr, 49], [Opensqbr, [, 49], [intLit, 4, 49], [Closesqbr, ], 49], [assign, =, 49], [intLit, 22, 49], [Semi, ;, 49], 
 [id, arr, 50], [Opensqbr, [, 50], [intLit, 5, 50], [Closesqbr, ], 50], [assign, =, 50], [intLit, 11, 50], [Semi, ;, 50], 
-[id, arr, 51], [Opensqbr, [, 51], [intLit, 6, 51], [Closesqbr, ], 51], [assign, =, 51], [intLit, 90, 51], [Semi, ;, 51], 
+[id, arr, 51], [Opensqbr, [, 51], [intLit, 6, 51], [Closesqbr, ], 51], [assign, =, 51], [intLit, 1, 51], [Semi, ;, 51], 
 [id, printArray, 52], [Openpar, (, 52], [id, arr, 52], [Opensqbr, [, 52], [intLit, 7, 52], [Closesqbr, ], 52], [Comma, ,, 52], [intLit, 7, 52], [Closepar, ), 52], [Semi, ;, 52], 
 [id, bubbleSort, 53], [Openpar, (, 53], [id, arr, 53], [Opensqbr, [, 53], [intLit, 7, 53], [Closesqbr, ], 53], [Comma, ,, 53], [intLit, 7, 53], [Closepar, ), 53], [Semi, ;, 53], 
 [id, printArray, 54], [Openpar, (, 54], [id, arr, 54], [Opensqbr, [, 54], [intLit, 7, 54], [Closesqbr, ], 54], [Comma, ,, 54], [intLit, 7, 54], [Closepar, ), 54], [Semi, ;, 54], 

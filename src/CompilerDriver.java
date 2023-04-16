@@ -119,46 +119,25 @@ public class CompilerDriver {
                     }
                     if(x.parent.children.get(0).val.equals("IndiceList")) {
                         x = x.parent.parent.children.get(0);
-                        int y;
-                        for(y=0;y<parmList.size();y++) {
-                            if(parmList.get(y).contains(x.type+"constructor")) {
-                                break;
-                            }
-                        }
-                        getParams(t,y);
-                        countPm=0;
-                        tempList.clear();
-
-                        code +="jl r15,"+x.type+"constructor\n";
+                        getConstructor(t, x);
                         getArray2(x);
                         code+= "\tadd r4,r0,r3\n";
                         alignConst(x.name,x.type);
                         for (String value : statmt) {
                             code += value;
                         }
-                        statmt.clear();
-                        return;
                     }
                     else {
                         x = x.parent.children.get(0);
-                        int y;
-                        for(y=0;y<parmList.size();y++) {
-                            if(parmList.get(y).contains(x.type+"constructor")) {
-                                break;
-                            }
-                        }
-                        getParams(t,y);
-                        countPm=0;
-                        tempList.clear();
-                        code +="jl r15,"+x.type+"constructor\n";
+                        getConstructor(t, x);
                         code+= "\tadd r4,r0,r0\n";
                         alignConst(x.name,x.type);
                         for (String value : statmt) {
                             code += value;
                         }
-                        statmt.clear();
-                        return;
                     }
+                    statmt.clear();
+                    return;
 
                 }
                 int x;
@@ -811,6 +790,20 @@ public class CompilerDriver {
         }
     }
 
+    private static void getConstructor(TreeNode t, TreeNode x) {
+        int y;
+        for(y=0;y<parmList.size();y++) {
+            if(parmList.get(y).contains(x.type+"constructor")) {
+                break;
+            }
+        }
+        getParams(t,y);
+        countPm=0;
+        tempList.clear();
+
+        code +="jl r15,"+x.type+"constructor\n";
+    }
+
     private static void arithOpration(String op) {
         code += "\t"+op+" r1,r1,r2\n";
         if(!temp.contains("temp"+numb)) {
@@ -964,15 +957,20 @@ public class CompilerDriver {
                 }
                 checkIntLit(tem);
             }
-            int col=1;
-            for(int c =k+1; c < Objects.requireNonNull(dim).dim.size(); c++) {
-                col*= dim.dim.get(c);
-            }
-            code +="\tmuli r6,r6,"+col+"\n";
-            code +="\tadd r5,r5,r6\n";
+            getDimOfVar(dim, k);
         }
         code +="\tmuli r3,r5,"+stor+"\n";
     }
+
+    private static void getDimOfVar(TreeNode dim, int k) {
+        int col=1;
+        for(int c = k+1; c < Objects.requireNonNull(dim).dim.size(); c++) {
+            col*= dim.dim.get(c);
+        }
+        code +="\tmuli r6,r6,"+col+"\n";
+        code +="\tadd r5,r5,r6\n";
+    }
+
     static void getArray2(TreeNode x) {
         TreeNode dim = null;
         int stor= 4;
@@ -1006,12 +1004,7 @@ public class CompilerDriver {
                 tem= tem.children.get(0);
                 checkIntLit(tem);
             }
-            int col=1;
-            for(int c =k+1; c < Objects.requireNonNull(dim).dim.size(); c++) {
-                col*= dim.dim.get(c);
-            }
-            code +="\tmuli r6,r6,"+col+"\n";
-            code +="\tadd r5,r5,r6\n";
+            getDimOfVar(dim, k);
         }
         code +="\tmuli r3,r5,"+stor+"\n";
     }

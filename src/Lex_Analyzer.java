@@ -1,7 +1,8 @@
 public class Lex_Analyzer {
 
     static int comment=0;
-    static int lineNumber = 1,already=0;
+    static int lineNumber = 1;
+    static int already=0;
     static String s="",errorFile=".outlexerrors",tokenFile=".outlextokens";
     static char[] symbols = new char[] {'<','>','(',')','{','}','[',']','+','-','/','*','=',';',':',',','.'};
     static String[] reserved = new String[] {"==","+","or","(",";","integer","while","localvar","<>","-","and",")",",","float","if","constructor","<","*","not","{",".","void","then","attribute",">","/","}",":","class","else","function","<=","=","[","=>","read","public",">=","]","::","isa","write","private","return"};
@@ -12,108 +13,157 @@ public class Lex_Analyzer {
     public static String[] addOperators(String word) {
 
         String[] stans = new String[3];
-        if(word.equals("==")){
-            s = s.substring(1);
-            stans[0] = "eq"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
-            return stans;
-        }
-        else if(word.equals("+")) {
-            stans[0] = "Plus"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
-            return stans;
-        }
-        else if(word.equals("(")) {
-            stans[0] = "Openpar"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
-            return stans;
-        }
-        else if(word.equals(";")) {
-            stans[0] = "Semi"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
-            return stans;
-        }
-        else if(word.equals(":")) {
-            stans[0] = "Colon"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
-            return stans;
-
-        }
-        else if(word.equals("<>"))	  {
-            s = s.substring(1);
-            stans[0] = "NotEq"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
-            return stans;
-        }
-        else if(word.equals("-")) {
-            stans[0] = "Minus"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
-            return stans;
-        }
-        else if(word.equals(")")) {
-            stans[0] = "Closepar"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
-            return stans;
-        }
-        else if(word.equals(",")) {
-            stans[0] = "Comma"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
-            return stans;
-        }
-        else if(word.equals(".")) {
-            stans[0] = "dot"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
-            return stans;
-        }
-        else if(word.equals("{")) {
-            stans[0] = "Opencubr"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
-            return stans;
-        }
-        else if(word.equals("}")) {
-            stans[0] = "Closecubr"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
-            return stans;
-        }
-        else if(word.equals("[")) {
-            stans[0] = "Opensqbr"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
-            return stans;
-        }
-        else if(word.equals("]")) {
-            stans[0] = "Closesqbr"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
-            return stans;
-        }
-        else if(word.equals("<")) {
-            stans[0] = "Lt"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
-            return stans;
-        }
-        else if(word.equals(">")) {
-            stans[0] = "gt"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
-            return stans;
-        }
-        else if(word.equals("<=")) 	  {
-            s = s.substring(1);
-            stans[0] = "leq"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
-            return stans;
-        }
-        else if(word.equals(">=")) 	  {
-            s = s.substring(1);
-            stans[0] = "geq"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
-            return stans;
-        }
-        else if(word.equals("=")) 	  {
-            stans[0] = "assign"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
-            return stans;
-        }
-        else if(word.equals("::")) 	  {
-            s = s.substring(1);
-            stans[0] = "sr"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
-            return stans;
-        }
-        else if(word.equals("=>")) 	  {
-            s = s.substring(1);
-            stans[0] = "arrow"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
-            return stans;
-        }
-        else if(word.equals("*")) {
-            stans[0] = "Mult"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
-            return stans;
-        }
-        else if(word.equals("/")) {
-            stans[0] = "Div"; stans[1]=word;stans[2] = String.valueOf(lineNumber);
-            return stans;
-        }
-        else {
-            stans[0] = word; stans[1]=word;stans[2] = String.valueOf(lineNumber);
-            return stans;
+        switch (word) {
+            case "==" -> {
+                s = s.substring(1);
+                stans[0] = "eq";
+                stans[1] = word;
+                stans[2] = String.valueOf(lineNumber);
+                return stans;
+            }
+            case "+" -> {
+                stans[0] = "Plus";
+                stans[1] = word;
+                stans[2] = String.valueOf(lineNumber);
+                return stans;
+            }
+            case "(" -> {
+                stans[0] = "Openpar";
+                stans[1] = word;
+                stans[2] = String.valueOf(lineNumber);
+                return stans;
+            }
+            case ";" -> {
+                stans[0] = "Semi";
+                stans[1] = word;
+                stans[2] = String.valueOf(lineNumber);
+                return stans;
+            }
+            case ":" -> {
+                stans[0] = "Colon";
+                stans[1] = word;
+                stans[2] = String.valueOf(lineNumber);
+                return stans;
+            }
+            case "<>" -> {
+                s = s.substring(1);
+                stans[0] = "NotEq";
+                stans[1] = word;
+                stans[2] = String.valueOf(lineNumber);
+                return stans;
+            }
+            case "-" -> {
+                stans[0] = "Minus";
+                stans[1] = word;
+                stans[2] = String.valueOf(lineNumber);
+                return stans;
+            }
+            case ")" -> {
+                stans[0] = "Closepar";
+                stans[1] = word;
+                stans[2] = String.valueOf(lineNumber);
+                return stans;
+            }
+            case "," -> {
+                stans[0] = "Comma";
+                stans[1] = word;
+                stans[2] = String.valueOf(lineNumber);
+                return stans;
+            }
+            case "." -> {
+                stans[0] = "dot";
+                stans[1] = word;
+                stans[2] = String.valueOf(lineNumber);
+                return stans;
+            }
+            case "{" -> {
+                stans[0] = "Opencubr";
+                stans[1] = word;
+                stans[2] = String.valueOf(lineNumber);
+                return stans;
+            }
+            case "}" -> {
+                stans[0] = "Closecubr";
+                stans[1] = word;
+                stans[2] = String.valueOf(lineNumber);
+                return stans;
+            }
+            case "[" -> {
+                stans[0] = "Opensqbr";
+                stans[1] = word;
+                stans[2] = String.valueOf(lineNumber);
+                return stans;
+            }
+            case "]" -> {
+                stans[0] = "Closesqbr";
+                stans[1] = word;
+                stans[2] = String.valueOf(lineNumber);
+                return stans;
+            }
+            case "<" -> {
+                stans[0] = "Lt";
+                stans[1] = word;
+                stans[2] = String.valueOf(lineNumber);
+                return stans;
+            }
+            case ">" -> {
+                stans[0] = "gt";
+                stans[1] = word;
+                stans[2] = String.valueOf(lineNumber);
+                return stans;
+            }
+            case "<=" -> {
+                s = s.substring(1);
+                stans[0] = "leq";
+                stans[1] = word;
+                stans[2] = String.valueOf(lineNumber);
+                return stans;
+            }
+            case ">=" -> {
+                s = s.substring(1);
+                stans[0] = "geq";
+                stans[1] = word;
+                stans[2] = String.valueOf(lineNumber);
+                return stans;
+            }
+            case "=" -> {
+                stans[0] = "assign";
+                stans[1] = word;
+                stans[2] = String.valueOf(lineNumber);
+                return stans;
+            }
+            case "::" -> {
+                s = s.substring(1);
+                stans[0] = "sr";
+                stans[1] = word;
+                stans[2] = String.valueOf(lineNumber);
+                return stans;
+            }
+            case "=>" -> {
+                s = s.substring(1);
+                stans[0] = "arrow";
+                stans[1] = word;
+                stans[2] = String.valueOf(lineNumber);
+                return stans;
+            }
+            case "*" -> {
+                stans[0] = "Mult";
+                stans[1] = word;
+                stans[2] = String.valueOf(lineNumber);
+                return stans;
+            }
+            case "/" -> {
+                stans[0] = "Div";
+                stans[1] = word;
+                stans[2] = String.valueOf(lineNumber);
+                return stans;
+            }
+            default -> {
+                stans[0] = word;
+                stans[1] = word;
+                stans[2] = String.valueOf(lineNumber);
+                return stans;
+            }
         }
 
     }
@@ -136,19 +186,10 @@ public class Lex_Analyzer {
             i=0;
         }
         s = s.substring(i);
-        i=0;
         if(s.equals("")) {
             return an;
         }
-        while(i<s.length() && !s.equals("") && s.charAt(i)=='\n' || s.charAt(i)==' ') {
-            if(s.charAt(i)=='\n') {
-                lineNumber++;
-            }
-            i++;
-            s = s.substring(i);
-            i=0;
-        }
-        s = s.substring(i);
+        i = getI(i);
         if(i<s.length()-1 && s.charAt(0)=='/' && s.charAt(1)=='/') {
             i=2;
             while(s.charAt(i)!='\n') {
@@ -164,15 +205,7 @@ public class Lex_Analyzer {
 
         }
         str="";
-        while(i<s.length() && !s.equals("") && s.charAt(i)=='\n' || s.charAt(i)==' ') {
-            if(s.charAt(i)=='\n') {
-                lineNumber++;
-            }
-            i++;
-            s = s.substring(i);
-            i=0;
-        }
-        s = s.substring(i);
+        i = getI(i);
         int xa=0;
         if(i<s.length()-2 && s.charAt(i)=='/' && s.charAt(i+1)=='*') {
             xa = lineNumber;
@@ -214,43 +247,37 @@ public class Lex_Analyzer {
             i=0;
         }
         while(i<s.length() && (s.charAt(i)!=' ' && s.charAt(i)!= '\t' && s.charAt(i)!='\n')){
-            for(int j=0;j<symbols.length;j++) {
-                if(s.charAt(i)==symbols[j]) {
-                    if((s.charAt(i)=='-' ||s.charAt(i)=='+') && i>0 && s.charAt(i-1)=='e') {
+            for (char symbol : symbols) {
+                if (s.charAt(i) == symbol) {
+                    if ((s.charAt(i) == '-' || s.charAt(i) == '+') && i > 0 && s.charAt(i - 1) == 'e') {
                         break;
                     }
-                    if(s.charAt(i)=='.' && str.length()>0 && isDigit(str.charAt(0))) {
+                    if (s.charAt(i) == '.' && str.length() > 0 && isDigit(str.charAt(0))) {
                         break;
                     }
-                    if(str.length()>0) {
-                        s = s.substring(str.length()-1);
+                    if (str.length() > 0) {
+                        s = s.substring(str.length() - 1);
                         return isToken(str);
                     }
-                    if(i<s.length()-1 && s.charAt(i)=='=' && s.charAt(i+1)=='=') {
+                    if (i < s.length() - 1 && s.charAt(i) == '=' && s.charAt(i + 1) == '=') {
                         i++;
                         return addOperators("==");
-                    }
-                    else if(i<s.length()-1 && s.charAt(i)=='<' && s.charAt(i+1)=='>') {
+                    } else if (i < s.length() - 1 && s.charAt(i) == '<' && s.charAt(i + 1) == '>') {
                         i++;
                         return addOperators("<>");
-                    }
-                    else if(i<s.length()-1 && s.charAt(i)=='<' && s.charAt(i+1)=='=') {
+                    } else if (i < s.length() - 1 && s.charAt(i) == '<' && s.charAt(i + 1) == '=') {
                         i++;
                         return addOperators("<=");
-                    }
-                    else if(i<s.length()-1 && s.charAt(i)=='>' && s.charAt(i+1)=='=') {
+                    } else if (i < s.length() - 1 && s.charAt(i) == '>' && s.charAt(i + 1) == '=') {
                         i++;
                         return addOperators(">=");
-                    }
-                    else if(i<s.length()-1 && s.charAt(i)=='=' && s.charAt(i+1)=='>') {
+                    } else if (i < s.length() - 1 && s.charAt(i) == '=' && s.charAt(i + 1) == '>') {
                         i++;
                         return addOperators("=>");
-                    }
-                    else if(i<s.length()-1 && s.charAt(i)==':' && s.charAt(i+1)==':') {
+                    } else if (i < s.length() - 1 && s.charAt(i) == ':' && s.charAt(i + 1) == ':') {
                         i++;
                         return addOperators("::");
-                    }
-                    else {
+                    } else {
                         return addOperators(String.valueOf(s.charAt(i)));
                     }
                 }
@@ -258,7 +285,7 @@ public class Lex_Analyzer {
             str+=s.charAt(i);
             i++;
         }
-        if(already!=1 && str.length()>0) {
+        if(str.length()>0) {
             s = s.substring(str.length());
             return isToken(str);
         }
@@ -266,6 +293,19 @@ public class Lex_Analyzer {
         an[1]=str;
         an[2]=String.valueOf(lineNumber);
         return an;
+    }
+
+    private static int getI(int i) {
+        while(i < s.length() && s.charAt(i) == '\n' || s.charAt(i) == ' ') {
+            if(s.charAt(i)=='\n') {
+                lineNumber++;
+            }
+            i++;
+            s = s.substring(i);
+            i=0;
+        }
+        s = s.substring(i);
+        return i;
     }
 
     public static String[] nextToken(String s1,String error,String token) {
@@ -293,32 +333,28 @@ public class Lex_Analyzer {
         return ret;
     }
     public static boolean isDigit(char x) {
-        if(x>=48 && x<59) return true;
-        return false;
+        return x >= 48 && x < 59;
 
     }
     public static boolean isLetter(char x) {
-        if((x>=97 && x<123) || (x>=65 && x<92)) {
-            return true;
-        }
-        return false;
+        return (x >= 97 && x < 123) || (x >= 65 && x < 92);
     }
 
 
     public static String[] isToken(String word) {
         String[] an = new String[3];
-        for(int ab=0;ab<reserved.length;ab++) {
-            if(reserved[ab].equals(word)) {
+        for (String value : reserved) {
+            if (value.equals(word)) {
 
-                if(word.equals(".")) {
-                    an[0]="dot";
-                    an[1]=word;
-                    an[2]=String.valueOf(lineNumber);
+                if (word.equals(".")) {
+                    an[0] = "dot";
+                    an[1] = word;
+                    an[2] = String.valueOf(lineNumber);
                     return an;
                 }
-                an[0]=word;
-                an[1]=word;
-                an[2]=String.valueOf(lineNumber);
+                an[0] = word;
+                an[1] = word;
+                an[2] = String.valueOf(lineNumber);
                 return an;
             }
         }
@@ -332,7 +368,7 @@ public class Lex_Analyzer {
                 else {
                     an[0]="Lexical error: Invalid id:";
                     an[1]=word;
-                    an[2]=String.valueOf(lineNumber)+".\n";
+                    an[2]= lineNumber +".\n";
                     return an;
                 }
                 i++;
@@ -372,17 +408,11 @@ public class Lex_Analyzer {
             }
             if(inte==0) {
                 an[0]="intLit";
-                an[1]=word;
-                an[2]=String.valueOf(lineNumber);
-                return an;
             }
             else {
 
                 if((word.charAt(0)=='0' && word.charAt(1)!='.') || word.charAt(0)=='.') {
                     an[0]="Lexical error: Invalid Float Number:";
-                    an[1]=word;
-                    an[2]=String.valueOf(lineNumber);
-                    return an;
                 }
                 else {
                     i=0;
@@ -415,17 +445,14 @@ public class Lex_Analyzer {
                     if(i>=word.length()) {
                         if(word.charAt(i-1)=='0') {
                             an[0]="Lexical error: Invalid Float Number:";
-                            an[1]=word;
-                            an[2]=String.valueOf(lineNumber);
-                            return an;
                         }
                         else {
                             an[0]="floatLit";
-                            an[1]=word;
-                            an[2]=String.valueOf(lineNumber);
-                            return an;
                         }
-                    };
+                        an[1]=word;
+                        an[2]=String.valueOf(lineNumber);
+                        return an;
+                    }
                     if(i>1 && word.charAt(i-1)=='0' && word.charAt(i-2)!='.') {
                         an[0]="Lexical error: Invalid Float Number:";
                         an[1]=word;
@@ -454,11 +481,11 @@ public class Lex_Analyzer {
                         i++;
                     }
                     an[0]="floatLit";
-                    an[1]=word;
-                    an[2]=String.valueOf(lineNumber);
-                    return an;
                 }
             }
+            an[1]=word;
+            an[2]=String.valueOf(lineNumber);
+            return an;
         }
         else {
             an[0]="Lexical error: Invalid id:";

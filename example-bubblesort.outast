@@ -427,7 +427,7 @@ Program, null
 | | | | | | EXPR, null
 | | | | | | | ArithExpr, null
 | | | | | | | | Term, null
-| | | | | | | | | intLit, 90
+| | | | | | | | | intLit, 1
 | | | Statment, null
 | | | | id, printArray
 | | | | StatmentIdnest, null

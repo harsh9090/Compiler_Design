@@ -255,7 +255,7 @@ endwhile2 	add r15,r0,r12
 	muli r6,r6,1
 	add r5,r5,r6
 	muli r3,r5,4
-	addi r1,r0,90
+	addi r1,r0,1
 	sw mainarr(r3),r1
 	addi r6,r0,0
 	lw r1,mainarr(r6)

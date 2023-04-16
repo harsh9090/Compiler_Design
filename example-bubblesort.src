@@ -48,7 +48,7 @@ function main() => void
   arr[3] = 12;
   arr[4] = 22;
   arr[5] = 11;
-  arr[6] = 90;
+  arr[6] = 1;
   printArray(arr[7], 7); 
   bubbleSort(arr[7], 7);
   printArray(arr[7], 7); 
