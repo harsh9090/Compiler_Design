@@ -18,6 +18,23 @@ Program, null
 | | | | id, x
 | | | | type, integer
 | | | | ARRSIZE, null
+| | | read, null
+| | | | id, x
+| | | | Variable, null
+| | | | | IndiceList, null
+| | | | | VariableList, null
+| | | write, null
+| | | | EXPR, null
+| | | | | ArithExpr, null
+| | | | | | Term, null
+| | | | | | | Factor, null
+| | | | | | | | id, x
+| | | | | | | | IndiceList, null
+| | | | | | | | IDNEST, null
+| | | | | | addop, null
+| | | | | | | add, +
+| | | | | | | Term, null
+| | | | | | | | intLit, 100
 | | | Statment, null
 | | | | id, x
 | | | | =, null
@@ -61,14 +78,47 @@ Program, null
 | | | | | | | | Term, null
 | | | | | | | | | ArithExpr, null
 | | | | | | | | | | Term, null
-| | | | | | | | | | | intLit, 2
+| | | | | | | | | | | Factor, null
+| | | | | | | | | | | | id, arr
+| | | | | | | | | | | | IndiceList, null
+| | | | | | | | | | | | | ArithExpr, null
+| | | | | | | | | | | | | | Term, null
+| | | | | | | | | | | | | | | intLit, 3
+| | | | | | | | | | | | IDNEST, null
 | | | | | | | | | | | multop, null
 | | | | | | | | | | | | mult, *
-| | | | | | | | | | | | intLit, 3
+| | | | | | | | | | | | Factor, null
+| | | | | | | | | | | | | id, arr
+| | | | | | | | | | | | | IndiceList, null
+| | | | | | | | | | | | | | ArithExpr, null
+| | | | | | | | | | | | | | | Term, null
+| | | | | | | | | | | | | | | | intLit, 2
+| | | | | | | | | | | | | IDNEST, null
 | | | | | | | addop, null
 | | | | | | | | add, +
 | | | | | | | | Term, null
 | | | | | | | | | intLit, 4
+| | | | | | | | | multop, null
+| | | | | | | | | | mult, *
+| | | | | | | | | | ArithExpr, null
+| | | | | | | | | | | Term, null
+| | | | | | | | | | | | Factor, null
+| | | | | | | | | | | | | id, arr
+| | | | | | | | | | | | | IndiceList, null
+| | | | | | | | | | | | | | ArithExpr, null
+| | | | | | | | | | | | | | | Term, null
+| | | | | | | | | | | | | | | | intLit, 3
+| | | | | | | | | | | | | IDNEST, null
+| | | | | | | | | | | addop, null
+| | | | | | | | | | | | add, +
+| | | | | | | | | | | | Term, null
+| | | | | | | | | | | | | Factor, null
+| | | | | | | | | | | | | | id, arr
+| | | | | | | | | | | | | | IndiceList, null
+| | | | | | | | | | | | | | | ArithExpr, null
+| | | | | | | | | | | | | | | | Term, null
+| | | | | | | | | | | | | | | | | intLit, 2
+| | | | | | | | | | | | | | IDNEST, null
 | | | write, null
 | | | | EXPR, null
 | | | | | ArithExpr, null

@@ -1,5 +1,8 @@
 bubbleSort add r12,r0,r15
 	%ASSIGN VALUE
+	addi r1,r0,10
+	sw bubbleSortbubble(r0),r1
+	%ASSIGN VALUE
 	lw r1,bubbleSortsize(r0)
 	sw bubbleSortn(r0),r1
 	%ASSIGN VALUE
@@ -153,6 +156,9 @@ endwhile0 	add r15,r0,r12
 
 printArray add r12,r0,r15
 	%ASSIGN VALUE
+	addi r1,r0,10
+	sw printArraybubble(r0),r1
+	%ASSIGN VALUE
 	lw r1,printArraysize(r0)
 	sw printArrayn(r0),r1
 	%ASSIGN VALUE
@@ -196,6 +202,22 @@ gowhile2 	%RELATIONAL OPERATIONAL
 	j gowhile2
 	%WHILE LOOP ENDS
 endwhile2 	add r15,r0,r12
+	jr r15
+
+checking add r12,r0,r15
+	%WRITE EXPRESSION
+	lw r13,checkingx(r0)
+	sw -8(r14),r13
+    addi r1,r0, buf
+    sw -12(r14),r1
+    jl r15, intstr
+	add r1,r0,r13
+    sw -8(r14),r1
+    jl r15,putstr
+	addi r1,r0,tm
+	sw -8(r14),r1
+	jl r15,putstr
+	add r15,r0,r12
 	jr r15
 
 	%INITIALIZE CODE FROM MAIN 
@@ -255,8 +277,19 @@ endwhile2 	add r15,r0,r12
 	muli r6,r6,1
 	add r5,r5,r6
 	muli r3,r5,4
-	addi r1,r0,1
+	addi r1,r0,156
 	sw mainarr(r3),r1
+	%ASSIGN VALUE
+	add r5,r0,r0
+	addi r6,r0,7
+	muli r6,r6,1
+	add r5,r5,r6
+	muli r3,r5,4
+	addi r1,r0,-1
+	sw mainarr(r3),r1
+	addi r1,r0,-100
+	sw checkingx(r0),r1
+jl r15,checking
 	addi r6,r0,0
 	lw r1,mainarr(r6)
 	sw printArrayarr(r6),r1
@@ -279,7 +312,10 @@ endwhile2 	add r15,r0,r12
 	lw r1,mainarr(r6)
 	sw printArrayarr(r6),r1
 	addi r6,r6,4
-	addi r1,r0,7
+	lw r1,mainarr(r6)
+	sw printArrayarr(r6),r1
+	addi r6,r6,4
+	addi r1,r0,8
 	sw printArraysize(r0),r1
 jl r15,printArray
 	addi r6,r0,0
@@ -304,6 +340,9 @@ jl r15,printArray
 	lw r1,printArrayarr(r6)
 	sw mainarr(r6),r1
 	addi r6,r6,4
+	lw r1,printArrayarr(r6)
+	sw mainarr(r6),r1
+	addi r6,r6,4
 	addi r6,r0,0
 	lw r1,mainarr(r6)
 	sw bubbleSortarr(r6),r1
@@ -326,7 +365,10 @@ jl r15,printArray
 	lw r1,mainarr(r6)
 	sw bubbleSortarr(r6),r1
 	addi r6,r6,4
-	addi r1,r0,7
+	lw r1,mainarr(r6)
+	sw bubbleSortarr(r6),r1
+	addi r6,r6,4
+	addi r1,r0,8
 	sw bubbleSortsize(r0),r1
 jl r15,bubbleSort
 	addi r6,r0,0
@@ -351,6 +393,9 @@ jl r15,bubbleSort
 	lw r1,bubbleSortarr(r6)
 	sw mainarr(r6),r1
 	addi r6,r6,4
+	lw r1,bubbleSortarr(r6)
+	sw mainarr(r6),r1
+	addi r6,r6,4
 	addi r6,r0,0
 	lw r1,mainarr(r6)
 	sw printArrayarr(r6),r1
@@ -373,7 +418,10 @@ jl r15,bubbleSort
 	lw r1,mainarr(r6)
 	sw printArrayarr(r6),r1
 	addi r6,r6,4
-	addi r1,r0,7
+	lw r1,mainarr(r6)
+	sw printArrayarr(r6),r1
+	addi r6,r6,4
+	addi r1,r0,8
 	sw printArraysize(r0),r1
 jl r15,printArray
 	addi r6,r0,0
@@ -398,9 +446,12 @@ jl r15,printArray
 	lw r1,printArrayarr(r6)
 	sw mainarr(r6),r1
 	addi r6,r6,4
+	lw r1,printArrayarr(r6)
+	sw mainarr(r6),r1
+	addi r6,r6,4
 	hlt
 	%DECLARE VARIABLE
-bubbleSortarr res 28
+bubbleSortarr res 32
 	%DECLARE VARIABLE
 bubbleSortsize res 4
 	%DECLARE VARIABLE
@@ -411,6 +462,8 @@ bubbleSorti res 4
 bubbleSortj res 4
 	%DECLARE VARIABLE
 bubbleSorttemp res 4
+	%DECLARE VARIABLE
+bubbleSortbubble res 4
 temp0 res 4
 temp1 res 4
 temp2 res 4
@@ -424,17 +477,21 @@ temp9 res 4
 temp10 res 4
 temp11 res 4
 	%DECLARE VARIABLE
-printArrayarr res 28
+printArrayarr res 32
 	%DECLARE VARIABLE
 printArraysize res 4
+	%DECLARE VARIABLE
+printArraybubble res 4
 	%DECLARE VARIABLE
 printArrayn res 4
 	%DECLARE VARIABLE
 printArrayi res 4
 temp12 res 4
 temp13 res 4
+	%DECLARE VARIABLE
+checkingx res 4
 	%TAG LIST
 buf res 20
 tm db " , ",0
 	%DECLARE VARIABLE
-mainarr res 28
+mainarr res 32

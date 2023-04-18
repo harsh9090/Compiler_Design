@@ -1,4 +1,5 @@
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -308,7 +309,7 @@ public class tableGenerate {
                                 }
                             }
                             if (!checkInherit(an.get(0), ans.get(i).get(0))) {
-                                String er = "Cycle in class\n";
+                                String er = "Cycle in class "+ans.get(i).get(0).lineNumber  +"\n";
                                 try {
                                     BufferedWriter out = new BufferedWriter(
                                             new FileWriter(error, true));
@@ -317,7 +318,7 @@ public class tableGenerate {
                                 } catch (IOException e) {
                                     System.out.println("exception occurred" + e);
                                 }
-                                System.out.println("Cycle in class");
+                                System.out.println("Cycle in class. Line Number :  "+ans.get(i).get(0).lineNumber);
                             }
                         }
                     }
@@ -399,7 +400,7 @@ public class tableGenerate {
         if(t==null) return;
         if(t.val.equals("id") || t.val.equals("intLit") || t.val.equals("floatLit")) {
             if(paramCount>=params.size() ) {
-                System.out.println("passing more parameters!" + t.lineNumber);
+                System.out.println("passing more parameters! Line Number : " + t.lineNumber);
             }
             else if(!t.type.equals(params.get(paramCount).type)) {
                 System.out.println("param type is not matching ! on line - " + t.parent.lineNumber + "\n");
@@ -558,10 +559,10 @@ public class tableGenerate {
                     String er;
                     if (an.get(0).name != null) {
                         er = an.get(0).name + " is not available in " + an.get(1).name + " class. Definition provided for undeclared member function.\n";
-                        System.out.println(an.get(0).name + " is not available in " + an.get(1).name + " class. Definition provided for undeclared member function");
+                        System.out.println(an.get(0).name + " is not available in " + an.get(1).name + " class. Definition provided for undeclared member function. Line Number : " + an.get(1).lineNumber);
                     } else {
                         er = an.get(1).name + " is not available. Definition provided for undeclared member function";
-                        System.out.println(an.get(1).name + " is not available. Definition provided for undeclared member function");
+                        System.out.println(an.get(1).name + " is not available. Definition provided for undeclared member function. Line Number : " + an.get(1).lineNumber);
                     }
                     try {
                         BufferedWriter out = new BufferedWriter(
@@ -660,7 +661,7 @@ public class tableGenerate {
             }
             if((t.children.get(i).type.equals("integer") || t.children.get(i).type.equals("float"))) {
                 if(!t.children.get(i).type.equals(t.type)) {
-                    String er = "type doesn't match on line - " + t.children.get(i).lineNumber + ". " +t.children.get(i).name + " and " + t.type +"\n";
+                    String er = "type doesn't match on line - " + t.children.get(i).lineNumber + ". Types :" +t.children.get(i).name + " and " + t.type +"\n";
                     try {
                         BufferedWriter out = new BufferedWriter(
                                 new FileWriter(error,true));
@@ -670,7 +671,7 @@ public class tableGenerate {
                     catch (IOException e) {
                         System.out.println("exception occurred" + e);
                     }
-                    System.out.println("type doesn't match on line - " + t.children.get(i).lineNumber);
+                    System.out.print("type doesn't match on line - " + t.children.get(i).lineNumber + ".  Types : ");
                     System.out.println(t.children.get(i).type + " and " + t.type);
                     return false;
                 }
@@ -812,8 +813,27 @@ public class tableGenerate {
     public static ArrayList<Object> tableGenerator() {
         ArrayList<Object> array = new ArrayList<>();
         ArrayList<Object> list = Parserdriver.parseDriver();
-        root = ((Stack<TreeNode>) list.get(1)).peek();
+
         String inps = ((String) list.get(2));
+        File file = new File(inps+".outsyntaxerrors");
+        if(file.length()>0) {
+            error = inps + ".outsemanticerrors";
+            try {
+                BufferedWriter out = new BufferedWriter(
+                        new FileWriter(error,true));
+                out.write("Error in syntex! Parsing failed!");
+                out.close();
+            }
+            catch (IOException e) {
+                System.out.println("exception occurred" + e);
+            }
+            array.add("1");
+            array.add("2");
+            array.add("3");
+            array.add(inps);
+            return array;
+        }
+        root = ((Stack<TreeNode>) list.get(1)).peek();
         try {
             BufferedWriter out = new BufferedWriter(
                     new FileWriter(inps +".outast"));

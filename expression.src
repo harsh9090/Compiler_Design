@@ -3,10 +3,12 @@ function main() => void                                           // 2.1, 2.2
   localvar arr : integer[7];
   localvar counter:integer;
   localvar x:integer;
+  read(x);
+  write(x+100);
   x=1;
   arr[3]=4;
   arr[2] = 10;
-  counter = 1+(2*3)+4;
+  counter = 1+(arr[3]*arr[2])+4*(arr[3]+arr[2]);
   write(counter);
   counter = 1;
    arr[2+1] = arr[x+1]*arr[x*3]+100*(arr[x+1]+arr[x*3]);

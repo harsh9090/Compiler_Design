@@ -1,10 +1,12 @@
 /* sort the array */
-function bubbleSort(arr: integer[7], size: integer) => void 
+function bubbleSort(arr: integer[8], size: integer) => void 
 {
   localvar n    : integer;
   localvar i    : integer;
   localvar j    : integer;
   localvar temp : integer; 
+  localvar bubble :integer;
+  bubble=10;
   n = size;
   i = 0;
   j = 0;
@@ -26,8 +28,10 @@ function bubbleSort(arr: integer[7], size: integer) => void
 }
    
 /* print the array */
-function printArray(arr: integer[7], size: integer) => void 
+function printArray(arr: integer[8], size: integer) => void 
 {
+localvar bubble :integer;
+  bubble=10;
   localvar n: integer;
   localvar i: integer; 
   n = size;
@@ -37,21 +41,25 @@ function printArray(arr: integer[7], size: integer) => void
       i = i+1;
   };
 } 
-
+function checking(x : integer) => void{
+write(x);
+}
 // main funtion to test above
 function main() => void
 {
-  localvar arr: integer[7]; 
+  localvar arr: integer[8];
   arr[0] = 64;
   arr[1] = 34;
   arr[2] = 25;
   arr[3] = 12;
   arr[4] = 22;
   arr[5] = 11;
-  arr[6] = 1;
-  printArray(arr[7], 7); 
-  bubbleSort(arr[7], 7);
-  printArray(arr[7], 7); 
+  arr[6] = 156;
+  arr[7] = -1;
+  checking(-100);
+  printArray(arr[8], 8); 
+  bubbleSort(arr[8], 8);
+  printArray(arr[8], 8);
 }
 
 /*

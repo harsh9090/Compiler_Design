@@ -31,7 +31,6 @@ public class CompilerDriver {
                     """;
         }
         if(t.val.equals("FunctionDec")) {
-
             funcName = t.children.get(1).name;
             if(t.children.get(2).val.equals("FunctionMemberTail")) {
                 funcName += t.children.get(2).children.get(0).name;
@@ -224,24 +223,25 @@ public class CompilerDriver {
                 }
                 else {
                     TreeNode x=t.children.get(i).children.get(1);
+
+                    code += "\t%READ VARIABLE VALUE\n";
                     getArray2(x);
                     x=x.parent.children.get(0);
-                    code += "\t%READ VARIABLE VALUE\n";
-                    code +="\tlw r1,"+funcName+x.name+"(r3)\n"
+                    code+= "\tadd r8,r0,r3\n";
+                    code +="\tlw r1,"+funcName+x.name+"(r8)\n"
                             + "\tsw -8(r14),r1\r\n"
                             + "\tjl r15,getstr\n"
-                            + "\tlw r13,"+funcName+x.name +"(r3)\n"
+                            + "\tlw r13,"+funcName+x.name +"(r8)\n"
                             + "\tsw -8(r14),r13\n"
                             + "    addi r1,r0, buf\n"
                             + "    sw -12(r14),r1\n"
                             + "    jl r15, strint\n"
-                            + "    sw "+funcName+t.children.get(i).children.get(0).name+"(r3),r13\n";
+                            + "    sw "+funcName+t.children.get(i).children.get(0).name+"(r8),r13\n";
                 }
             }
 
 
             if(t.children.get(i).val.equals("multop")) {
-
                 code += "\t%MULTIPLY OR DIVIDE\n";
                 String op;
                 if(t.children.get(i).children.get(0).name.equals("*")) {
@@ -392,7 +392,10 @@ public class CompilerDriver {
                 if(t.children.get(i-1).val.equals("id")) {
                     if(tempList.isEmpty()) {
                         if(!tmp1.val.equals("id")) {
-                            code += "\taddi r1,r0,"+tmp1.name+"\n";
+                            if(tmp1.val.equals("sign")){
+                                code += "\taddi r1,r0,-"+tmp1.parent.children.get(1).name+"\n";
+                            }
+                            else code += "\taddi r1,r0,"+tmp1.name+"\n";
                         }
                         else {
                             if(tmp1.parent.children.get(1).children.size() > 0 && !tmp1.parent.children.get(1).val.equals("AParmList")) {
@@ -480,8 +483,14 @@ public class CompilerDriver {
                                     + "\tsw "+funcName+x.name+"(r3),r1\n";
                         }
                         else {
-                            code += "\taddi r1,r0,"+v.name+"\n"
-                                    + "\tsw "+funcName+x.name+"(r3),r1\n";
+                            if(v.val.equals("sign")){
+                                code += "\taddi r1,r0,"+v.name+ v.parent.children.get(1).name+"\n"
+                                        + "\tsw "+funcName+x.name+"(r3),r1\n";
+                            }
+                            else {
+                                code += "\taddi r1,r0," + v.name + "\n"
+                                        + "\tsw " + funcName + x.name + "(r3),r1\n";
+                            }
                         }
                     }
                     else {
@@ -1057,7 +1066,11 @@ public class CompilerDriver {
         else if(t.val.equals("function") && t.name != null && !t.name.equals("function")) {
             if(!t.parent.val.equals("FunctionDec")) {
                 if(t.parent.parent.val.equals("FunctionDec")) {
+
                     if(contains(t.parent.parent,"class")) {
+                        if(code.contains(t.parent.parent.children.get(1).name+t.parent.children.get(0).name+" add r12,r0,r15\n")){
+                            t.parent.children.get(0).name = t.parent.children.get(0).name+ "2";
+                        }
                         code += t.parent.parent.children.get(1).name;
                     }
                     code += t.parent.children.get(0).name+" add r12,r0,r15\n";
@@ -1094,6 +1107,11 @@ public class CompilerDriver {
         tokens=new ArrayList<>();
         ArrayList<Object> arr = tableGenerate.tableGenerator();
         String inp = (String) arr.get(3);
+        File file = new File(inp+".outsemanticerrors");
+        if(file.length()>0) {
+            System.out.println("error in program. cannot generate code for it");
+            return;
+        }
         root = (TreeNode) arr.get(1);
         symbolTable = (ArrayList<ArrayList<TreeNode>>) arr.get(2);
         mainTable = new ArrayList<>(symbolTable);
@@ -1101,11 +1119,7 @@ public class CompilerDriver {
         className = (String) arr.get(5);
         findMain();
 
-        File file = new File(inp+".outsemanticerrors");
-        if(file.length()>0) {
-            System.out.println("error in program. cannot generate code for it");
-            return;
-        }
+
         getMainNode(root);
         getFunctions(main.parent);
         traverseNodes(main.parent);

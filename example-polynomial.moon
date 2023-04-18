@@ -40,6 +40,54 @@ LINEARevaluate add r12,r0,r15
 	add r15,r0,r12
 	jr r15
 
+LINEARoverload add r12,r0,r15
+	%ASSIGN VALUE
+	addi r1,r0,0
+	sw LINEARoverloadresult(r0),r1
+	%MULTIPLY OR DIVIDE
+	lw r1,LINEARoverloada(r0)
+	lw r2,LINEARoverloadx(r0)
+	mul r1,r1,r2
+	sw temp2(r0),r1
+	%ADD OR SUB VALUES
+	lw r1,temp2(r0)
+	lw r2,LINEARoverloadb(r0)
+	add r1,r1,r2
+	sw temp3(r0),r1
+	%ASSIGN VALUE
+	lw r1,temp3(r0)
+	sw LINEARoverloadresult(r0),r1
+	%RETURN EXPRESSION
+	lw r1,LINEARoverloadresult(r0)
+	sw LINEARoverloadret(r0),r1
+%return from LINEARoverload
+	add r15,r0,r12
+	jr r15
+
+LINEARoverload2 add r12,r0,r15
+	%ASSIGN VALUE
+	addi r1,r0,0
+	sw LINEARoverload2result(r0),r1
+	%MULTIPLY OR DIVIDE
+	lw r1,LINEARoverload2a(r0)
+	lw r2,LINEARoverload2x(r0)
+	mul r1,r1,r2
+	sw temp4(r0),r1
+	%ADD OR SUB VALUES
+	lw r1,temp4(r0)
+	lw r2,LINEARoverload2b(r0)
+	add r1,r1,r2
+	sw temp5(r0),r1
+	%ASSIGN VALUE
+	lw r1,temp5(r0)
+	sw LINEARoverload2result(r0),r1
+	%RETURN EXPRESSION
+	lw r1,LINEARoverload2result(r0)
+	sw LINEARoverload2ret(r0),r1
+%return from LINEARoverload2
+	add r15,r0,r12
+	jr r15
+
 	%INITIALIZE CODE FROM MAIN 
 	entry
 	addi r14,r0,topaddr
@@ -107,6 +155,21 @@ jl r15,LINEARconstructor
 	lw r1,LINEARconstructorb(r0)
 	sw mainf3(r3),r1
 	%ASSIGN VALUE
+	addi r3,r0,4
+	lw r1,mainf2(r3)
+	sw temp6(r0),r1
+	%WRITE EXPRESSION
+	lw r13,temp6(r0)
+	sw -8(r14),r13
+    addi r1,r0, buf
+    sw -12(r14),r1
+    jl r15, intstr
+	add r1,r0,r13
+    sw -8(r14),r1
+    jl r15,putstr
+	addi r1,r0,tm
+	sw -8(r14),r1
+	jl r15,putstr
 	%WHILE LOOP STARTS 
 gowhile0 	%RELATIONAL OPERATIONAL
 	addi r3,r0,10
@@ -129,9 +192,9 @@ gowhile0 	%RELATIONAL OPERATIONAL
 	lw r1,maincounter(r0)
 	addi r2,r0,1
 	add r1,r1,r2
-	sw temp2(r0),r1
+	sw temp7(r0),r1
 	%ASSIGN VALUE
-	lw r1,temp2(r0)
+	lw r1,temp7(r0)
 	sw maincounter(r0),r1
 	j gowhile0
 	%WHILE LOOP ENDS
@@ -141,7 +204,7 @@ endwhile0 	add r5,r0,r0
 	add r5,r5,r6
 	muli r3,r5,8
 	lw r1,mainf1(r3)
-	sw temp3(r0),r1
+	sw temp8(r0),r1
 	add r5,r0,r0
 	addi r6,r0,2
 	muli r6,r6,1
@@ -160,9 +223,9 @@ jl r15,LINEARevaluate
 	lw r1,LINEARevaluatex(r0)
 	sw maincounter(r0),r1
 	lw r1,LINEARevaluateret(r0)
-	sw temp4(r0),r1
+	sw temp9(r0),r1
 	%WRITE EXPRESSION
-	lw r13,temp4(r0)
+	lw r13,temp9(r0)
 	sw -8(r14),r13
     addi r1,r0, buf
     sw -12(r14),r1
@@ -175,9 +238,9 @@ jl r15,LINEARevaluate
 	jl r15,putstr
 	addi r3,r0,0
 	lw r1,mainf3(r3)
-	sw temp5(r0),r1
+	sw temp10(r0),r1
 	%WRITE EXPRESSION
-	lw r13,temp5(r0)
+	lw r13,temp10(r0)
 	sw -8(r14),r13
     addi r1,r0, buf
     sw -12(r14),r1
@@ -190,9 +253,9 @@ jl r15,LINEARevaluate
 	jl r15,putstr
 	addi r3,r0,4
 	lw r1,mainf3(r3)
-	sw temp6(r0),r1
+	sw temp11(r0),r1
 	%WRITE EXPRESSION
-	lw r13,temp6(r0)
+	lw r13,temp11(r0)
 	sw -8(r14),r13
     addi r1,r0, buf
     sw -12(r14),r1
@@ -214,9 +277,9 @@ jl r15,LINEARevaluate
 	sw LINEARevaluatex(r0),r1
 jl r15,LINEARevaluate
 	lw r1,LINEARevaluateret(r0)
-	sw temp7(r0),r1
+	sw temp12(r0),r1
 	%WRITE EXPRESSION
-	lw r13,temp7(r0)
+	lw r13,temp12(r0)
 	sw -8(r14),r13
     addi r1,r0, buf
     sw -12(r14),r1
@@ -229,34 +292,34 @@ jl r15,LINEARevaluate
 	jl r15,putstr
 	addi r3,r0,0
 	lw r1,mainf2(r3)
-	sw temp8(r0),r1
+	sw temp13(r0),r1
 	%MULTIPLY OR DIVIDE
 	lw r1,maincounter(r0)
 	addi r2,r0,3
 	mul r1,r1,r2
-	sw temp9(r0),r1
+	sw temp14(r0),r1
 	%ADD OR SUB VALUES
-	lw r2,temp9(r0)
+	lw r2,temp14(r0)
 	lw r1,mainf2(r0)
 	add r1,r1,r2
-	sw temp10(r0),r1
+	sw temp15(r0),r1
 	%ADD OR SUB VALUES
 	addi r1,r0,3
 	addi r2,r0,4
 	add r1,r1,r2
-	sw temp11(r0),r1
+	sw temp16(r0),r1
 	%MULTIPLY OR DIVIDE
 	lw r1,maincounter(r0)
-	lw r2,temp11(r0)
+	lw r2,temp16(r0)
 	mul r1,r1,r2
-	sw temp12(r0),r1
+	sw temp17(r0),r1
 	%ADD OR SUB VALUES
-	lw r2,temp12(r0)
-	lw r1,temp10(r0)
+	lw r2,temp17(r0)
+	lw r1,temp15(r0)
 	add r1,r1,r2
-	sw temp13(r0),r1
+	sw temp18(r0),r1
 	%WRITE EXPRESSION
-	lw r13,temp13(r0)
+	lw r13,temp18(r0)
 	sw -8(r14),r13
     addi r1,r0, buf
     sw -12(r14),r1
@@ -292,6 +355,30 @@ temp0 res 4
 LINEARevaluateb res 0
 temp1 res 4
 LINEARevaluateret res 4
+	%DECLARE VARIABLE
+LINEARoverloadx res 4
+	%DECLARE VARIABLE
+LINEARoverloady res 4
+	%DECLARE VARIABLE
+LINEARoverloadresult res 4
+	%DECLARE VARIABLE
+LINEARoverloada res 0
+temp2 res 4
+	%DECLARE VARIABLE
+LINEARoverloadb res 0
+temp3 res 4
+LINEARoverloadret res 4
+	%DECLARE VARIABLE
+LINEARoverload2x res 4
+	%DECLARE VARIABLE
+LINEARoverload2result res 4
+	%DECLARE VARIABLE
+LINEARoverload2a res 0
+temp4 res 4
+	%DECLARE VARIABLE
+LINEARoverload2b res 0
+temp5 res 4
+LINEARoverload2ret res 4
 	%TAG LIST
 buf res 20
 tm db " , ",0
@@ -303,19 +390,20 @@ mainf3 res 8
 mainf2 res 8
 	%DECLARE VARIABLE
 maincounter res 4
-temp2 res 4
-temp3 res 4
-temp4 res 4
-	%DECLARE VARIABLE
-maina res 0
-temp5 res 4
 	%DECLARE VARIABLE
 mainb res 0
 temp6 res 4
 temp7 res 4
 temp8 res 4
 temp9 res 4
+	%DECLARE VARIABLE
+maina res 0
 temp10 res 4
 temp11 res 4
 temp12 res 4
 temp13 res 4
+temp14 res 4
+temp15 res 4
+temp16 res 4
+temp17 res 4
+temp18 res 4

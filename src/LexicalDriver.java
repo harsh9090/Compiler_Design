@@ -17,6 +17,7 @@ public class LexicalDriver {
         }
     }
     public static void errorMsg(String[] word) {
+        System.out.println("["+word[0]+" : "+word[1]+" : Line Number :  "+word[2]+" ], ");
         try {
             BufferedWriter out = new BufferedWriter(
                     new FileWriter(errorFile, true));
@@ -82,6 +83,7 @@ public class LexicalDriver {
                     line++;
                 }
                 if(str[0].startsWith("Lexical error")) {
+
                     errorMsg(str);
                 }
                 else {

@@ -391,8 +391,26 @@ public class Parser {
     public static ArrayList<Object> parser(String inps) {
         inp = inps;
         token = LexicalDriver.lexical(inp+".src");
-        parse();
         ArrayList<Object> ans = new ArrayList<>();
+        File file = new File(inp+".outlexerrors");
+        if(file.length()>0) {
+            ans.add("1");
+            ans.add("2");
+            ans.add(inp);
+            try {
+                BufferedWriter out = new BufferedWriter(
+                        new FileWriter(inp+".outsyntaxerrors"));
+                out.write("Error in lexical analysis!");
+                out.close();
+            }
+            catch (IOException e) {
+                System.out.println("exception occurred" + e);
+            }
+            return ans;
+        }
+
+        parse();
+
         ans.add(token);
         ans.add(astSt);
         ans.add(inp);

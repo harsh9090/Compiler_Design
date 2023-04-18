@@ -2,6 +2,7 @@
 | MAIN TABLE MAIN TABLE
 | TreeNode [val=function, name=bubbleSort ]
 | TreeNode [val=function, name=printArray ]
+| TreeNode [val=function, name=checking ]
 | TreeNode [val=function, name=main ]
 ------------------------------------------------------------------------------
 
@@ -14,6 +15,7 @@
 | TreeNode [val=local, name=i ]
 | TreeNode [val=local, name=j ]
 | TreeNode [val=local, name=temp ]
+| TreeNode [val=local, name=bubble ]
 ------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------
@@ -21,8 +23,15 @@
 | TreeNode [val=param, name=arr ]
 | TreeNode [val=param, name=size ]
 | TreeNode [val=return, name=return ]
+| TreeNode [val=local, name=bubble ]
 | TreeNode [val=local, name=n ]
 | TreeNode [val=local, name=i ]
+------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------
+| function CHECKING
+| TreeNode [val=param, name=x ]
+| TreeNode [val=return, name=return ]
 ------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------
