@@ -1,5 +1,5 @@
 /* sort the array */
-function bubbleSort(arr: integer[8], size: integer) => void 
+function bubbleSort(arr: integer[8][7], size: integer) => void 
 {
   localvar n    : integer;
   localvar i    : integer;

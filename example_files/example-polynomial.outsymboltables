@@ -2,15 +2,12 @@
 | MAIN TABLE MAIN TABLE
 | TreeNode [val=class, name=POLYNOMIAL ]
 | TreeNode [val=class, name=LINEAR ]
+| TreeNode [val=class, name=QUADRATIC ]
+| TreeNode [val=function, name=evaluate ]
 | TreeNode [val=function, name=evaluate ]
 | TreeNode [val=constructor, name=build ]
+| TreeNode [val=constructor, name=build ]
 | TreeNode [val=function, name=evaluate ]
-| TreeNode [val=function, name=notImplemented ]
-| TreeNode [val=function, name=overload ]
-| TreeNode [val=function, name=overload ]
-| TreeNode [val=class, name=A ]
-| TreeNode [val=class, name=B ]
-| TreeNode [val=class, name=C ]
 | TreeNode [val=function, name=main ]
 ------------------------------------------------------------------------------
 
@@ -29,12 +26,23 @@
 | TreeNode [val=constructor, name=build ]
 | TreeNode [val=param, name=A ]
 | TreeNode [val=param, name=B ]
-| TreeNode [val=function, name=overload ]
+| TreeNode [val=function, name=evaluate ]
 | TreeNode [val=param, name=x ]
 | TreeNode [val=param, name=return ]
-| TreeNode [val=function, name=overload ]
+------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------
+| class QUADRATIC
+| TreeNode [val=inherit, name=POLYNOMIAL ]
+| TreeNode [val=data, name=a ]
+| TreeNode [val=data, name=b ]
+| TreeNode [val=data, name=c ]
+| TreeNode [val=constructor, name=build ]
+| TreeNode [val=param, name=A ]
+| TreeNode [val=param, name=B ]
+| TreeNode [val=param, name=C ]
+| TreeNode [val=function, name=evaluate ]
 | TreeNode [val=param, name=x ]
-| TreeNode [val=param, name=y ]
 | TreeNode [val=param, name=return ]
 ------------------------------------------------------------------------------
 
@@ -43,6 +51,22 @@
 | TreeNode [val=class, name=POLYNOMIAL ]
 | TreeNode [val=param, name=x ]
 | TreeNode [val=return, name=return ]
+------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------
+| function EVALUATE
+| TreeNode [val=class, name=QUADRATIC ]
+| TreeNode [val=param, name=x ]
+| TreeNode [val=return, name=return ]
+| TreeNode [val=local, name=result ]
+------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------
+| constructor BUILD
+| TreeNode [val=class, name=QUADRATIC ]
+| TreeNode [val=param, name=A ]
+| TreeNode [val=param, name=B ]
+| TreeNode [val=param, name=C ]
 ------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------
@@ -61,52 +85,10 @@
 ------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------
-| function NOTIMPLEMENTED
-| TreeNode [val=class, name=LINEAR ]
-| TreeNode [val=param, name=x ]
-| TreeNode [val=return, name=return ]
-| TreeNode [val=local, name=result ]
-------------------------------------------------------------------------------
-
-------------------------------------------------------------------------------
-| function OVERLOAD
-| TreeNode [val=class, name=LINEAR ]
-| TreeNode [val=param, name=x ]
-| TreeNode [val=param, name=y ]
-| TreeNode [val=return, name=return ]
-| TreeNode [val=local, name=result ]
-------------------------------------------------------------------------------
-
-------------------------------------------------------------------------------
-| function OVERLOAD
-| TreeNode [val=class, name=LINEAR ]
-| TreeNode [val=param, name=x ]
-| TreeNode [val=return, name=return ]
-| TreeNode [val=local, name=result ]
-------------------------------------------------------------------------------
-
-------------------------------------------------------------------------------
-| class A
-| TreeNode [val=inherit, name=C ]
-------------------------------------------------------------------------------
-
-------------------------------------------------------------------------------
-| class B
-| TreeNode [val=inherit, name=A ]
-------------------------------------------------------------------------------
-
-------------------------------------------------------------------------------
-| class C
-| TreeNode [val=inherit, name=B ]
-------------------------------------------------------------------------------
-
-------------------------------------------------------------------------------
 | function MAIN
 | TreeNode [val=return, name=return ]
 | TreeNode [val=local, name=f1 ]
-| TreeNode [val=local, name=f3 ]
 | TreeNode [val=local, name=f2 ]
-| TreeNode [val=local, name=counter ]
 | TreeNode [val=local, name=counter ]
 ------------------------------------------------------------------------------
 

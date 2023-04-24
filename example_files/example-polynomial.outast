@@ -1,0 +1,458 @@
+Program, null
+| ClassDec, null
+| | class, class
+| | id, POLYNOMIAL
+| | MemberList, null
+| | | Member, null
+| | | | type, public
+| | | | function, null
+| | | | | id, evaluate
+| | | | | FParmsList, null
+| | | | | | FParm, null
+| | | | | | | id, x
+| | | | | | | type, integer
+| | | | | | | ARRSIZE, null
+| | | | | return, integer
+| ClassDec, null
+| | class, class
+| | id, LINEAR
+| | isa, null
+| | | id, POLYNOMIAL
+| | MemberList, null
+| | | Member, null
+| | | | visiblity, private
+| | | | VarDec, null
+| | | | | attribute, attribute
+| | | | | id, a
+| | | | | type, integer
+| | | | | ARRSIZE, null
+| | | Member, null
+| | | | visiblity, private
+| | | | VarDec, null
+| | | | | attribute, attribute
+| | | | | id, b
+| | | | | type, integer
+| | | | | ARRSIZE, null
+| | | Member, null
+| | | | type, public
+| | | | constructor, null
+| | | | | FParmsList, null
+| | | | | | FParm, null
+| | | | | | | id, A
+| | | | | | | type, integer
+| | | | | | | ARRSIZE, null
+| | | | | | FParms, null
+| | | | | | | id, B
+| | | | | | | type, integer
+| | | | | | | ARRSIZE, null
+| | | Member, null
+| | | | type, public
+| | | | function, null
+| | | | | id, evaluate
+| | | | | FParmsList, null
+| | | | | | FParm, null
+| | | | | | | id, x
+| | | | | | | type, integer
+| | | | | | | ARRSIZE, null
+| | | | | return, integer
+| ClassDec, null
+| | class, class
+| | id, QUADRATIC
+| | isa, null
+| | | id, POLYNOMIAL
+| | MemberList, null
+| | | Member, null
+| | | | visiblity, private
+| | | | VarDec, null
+| | | | | attribute, attribute
+| | | | | id, a
+| | | | | type, integer
+| | | | | ARRSIZE, null
+| | | Member, null
+| | | | visiblity, private
+| | | | VarDec, null
+| | | | | attribute, attribute
+| | | | | id, b
+| | | | | type, integer
+| | | | | ARRSIZE, null
+| | | Member, null
+| | | | visiblity, private
+| | | | VarDec, null
+| | | | | attribute, attribute
+| | | | | id, c
+| | | | | type, integer
+| | | | | ARRSIZE, null
+| | | Member, null
+| | | | type, public
+| | | | constructor, null
+| | | | | FParmsList, null
+| | | | | | FParm, null
+| | | | | | | id, A
+| | | | | | | type, integer
+| | | | | | | ARRSIZE, null
+| | | | | | FParms, null
+| | | | | | | id, B
+| | | | | | | type, integer
+| | | | | | | ARRSIZE, null
+| | | | | | FParms, null
+| | | | | | | id, C
+| | | | | | | type, integer
+| | | | | | | ARRSIZE, null
+| | | Member, null
+| | | | type, public
+| | | | function, null
+| | | | | id, evaluate
+| | | | | FParmsList, null
+| | | | | | FParm, null
+| | | | | | | id, x
+| | | | | | | type, integer
+| | | | | | | ARRSIZE, null
+| | | | | return, integer
+| FunctionDec, null
+| | function, function
+| | id, POLYNOMIAL
+| | FunctionMemberTail, null
+| | | id, evaluate
+| | | FParmsList, null
+| | | | FParm, null
+| | | | | id, x
+| | | | | type, integer
+| | | | | ARRSIZE, null
+| | | return, integer
+| | Body, null
+| | | returnFromFunction, null
+| | | | EXPR, null
+| | | | | ArithExpr, null
+| | | | | | Term, null
+| | | | | | | intLit, 0
+| FunctionDec, null
+| | function, function
+| | id, QUADRATIC
+| | FunctionMemberTail, null
+| | | id, evaluate
+| | | FParmsList, null
+| | | | FParm, null
+| | | | | id, x
+| | | | | type, integer
+| | | | | ARRSIZE, null
+| | | return, integer
+| | Body, null
+| | | localvar, null
+| | | | id, result
+| | | | type, integer
+| | | | ARRSIZE, null
+| | | Statment, null
+| | | | id, result
+| | | | =, null
+| | | | | EXPR, null
+| | | | | | ArithExpr, null
+| | | | | | | Term, null
+| | | | | | | | Factor, null
+| | | | | | | | | id, a
+| | | | | | | | | IndiceList, null
+| | | | | | | | | IDNEST, null
+| | | Statment, null
+| | | | id, result
+| | | | =, null
+| | | | | EXPR, null
+| | | | | | ArithExpr, null
+| | | | | | | Term, null
+| | | | | | | | Factor, null
+| | | | | | | | | id, result
+| | | | | | | | | IndiceList, null
+| | | | | | | | | IDNEST, null
+| | | | | | | | multop, null
+| | | | | | | | | mult, *
+| | | | | | | | | Factor, null
+| | | | | | | | | | id, x
+| | | | | | | | | | IndiceList, null
+| | | | | | | | | | IDNEST, null
+| | | | | | | addop, null
+| | | | | | | | add, +
+| | | | | | | | Term, null
+| | | | | | | | | Factor, null
+| | | | | | | | | | id, b
+| | | | | | | | | | IndiceList, null
+| | | | | | | | | | IDNEST, null
+| | | Statment, null
+| | | | id, result
+| | | | =, null
+| | | | | EXPR, null
+| | | | | | ArithExpr, null
+| | | | | | | Term, null
+| | | | | | | | Factor, null
+| | | | | | | | | id, result
+| | | | | | | | | IndiceList, null
+| | | | | | | | | IDNEST, null
+| | | | | | | | multop, null
+| | | | | | | | | mult, *
+| | | | | | | | | Factor, null
+| | | | | | | | | | id, x
+| | | | | | | | | | IndiceList, null
+| | | | | | | | | | IDNEST, null
+| | | | | | | addop, null
+| | | | | | | | add, +
+| | | | | | | | Term, null
+| | | | | | | | | Factor, null
+| | | | | | | | | | id, c
+| | | | | | | | | | IndiceList, null
+| | | | | | | | | | IDNEST, null
+| | | returnFromFunction, null
+| | | | EXPR, null
+| | | | | ArithExpr, null
+| | | | | | Term, null
+| | | | | | | Factor, null
+| | | | | | | | id, result
+| | | | | | | | IndiceList, null
+| | | | | | | | IDNEST, null
+| FunctionDec, null
+| | function, function
+| | id, QUADRATIC
+| | constructor, null
+| | | FParmsList, null
+| | | | FParm, null
+| | | | | id, A
+| | | | | type, integer
+| | | | | ARRSIZE, null
+| | | | FParms, null
+| | | | | id, B
+| | | | | type, integer
+| | | | | ARRSIZE, null
+| | | | FParms, null
+| | | | | id, C
+| | | | | type, integer
+| | | | | ARRSIZE, null
+| | Body, null
+| | | Statment, null
+| | | | id, self
+| | | | dot, null
+| | | | | id, a
+| | | | | =, null
+| | | | | | EXPR, null
+| | | | | | | ArithExpr, null
+| | | | | | | | Term, null
+| | | | | | | | | Factor, null
+| | | | | | | | | | id, A
+| | | | | | | | | | IndiceList, null
+| | | | | | | | | | IDNEST, null
+| | | Statment, null
+| | | | id, self
+| | | | dot, null
+| | | | | id, b
+| | | | | =, null
+| | | | | | EXPR, null
+| | | | | | | ArithExpr, null
+| | | | | | | | Term, null
+| | | | | | | | | Factor, null
+| | | | | | | | | | id, B
+| | | | | | | | | | IndiceList, null
+| | | | | | | | | | IDNEST, null
+| | | Statment, null
+| | | | id, self
+| | | | dot, null
+| | | | | id, c
+| | | | | =, null
+| | | | | | EXPR, null
+| | | | | | | ArithExpr, null
+| | | | | | | | Term, null
+| | | | | | | | | Factor, null
+| | | | | | | | | | id, C
+| | | | | | | | | | IndiceList, null
+| | | | | | | | | | IDNEST, null
+| FunctionDec, null
+| | function, function
+| | id, LINEAR
+| | constructor, null
+| | | FParmsList, null
+| | | | FParm, null
+| | | | | id, A
+| | | | | type, integer
+| | | | | ARRSIZE, null
+| | | | FParms, null
+| | | | | id, B
+| | | | | type, integer
+| | | | | ARRSIZE, null
+| | Body, null
+| | | Statment, null
+| | | | id, self
+| | | | dot, null
+| | | | | id, a
+| | | | | =, null
+| | | | | | EXPR, null
+| | | | | | | ArithExpr, null
+| | | | | | | | Term, null
+| | | | | | | | | Factor, null
+| | | | | | | | | | id, A
+| | | | | | | | | | IndiceList, null
+| | | | | | | | | | IDNEST, null
+| | | Statment, null
+| | | | id, self
+| | | | dot, null
+| | | | | id, b
+| | | | | =, null
+| | | | | | EXPR, null
+| | | | | | | ArithExpr, null
+| | | | | | | | Term, null
+| | | | | | | | | Factor, null
+| | | | | | | | | | id, B
+| | | | | | | | | | IndiceList, null
+| | | | | | | | | | IDNEST, null
+| FunctionDec, null
+| | function, function
+| | id, LINEAR
+| | FunctionMemberTail, null
+| | | id, evaluate
+| | | FParmsList, null
+| | | | FParm, null
+| | | | | id, x
+| | | | | type, integer
+| | | | | ARRSIZE, null
+| | | return, integer
+| | Body, null
+| | | localvar, null
+| | | | id, result
+| | | | type, integer
+| | | | ARRSIZE, null
+| | | Statment, null
+| | | | id, result
+| | | | =, null
+| | | | | EXPR, null
+| | | | | | ArithExpr, null
+| | | | | | | Term, null
+| | | | | | | | intLit, 0
+| | | Statment, null
+| | | | id, result
+| | | | =, null
+| | | | | EXPR, null
+| | | | | | ArithExpr, null
+| | | | | | | Term, null
+| | | | | | | | Factor, null
+| | | | | | | | | id, a
+| | | | | | | | | IndiceList, null
+| | | | | | | | | IDNEST, null
+| | | | | | | | multop, null
+| | | | | | | | | mult, *
+| | | | | | | | | Factor, null
+| | | | | | | | | | id, x
+| | | | | | | | | | IndiceList, null
+| | | | | | | | | | IDNEST, null
+| | | | | | | addop, null
+| | | | | | | | add, +
+| | | | | | | | Term, null
+| | | | | | | | | Factor, null
+| | | | | | | | | | id, b
+| | | | | | | | | | IndiceList, null
+| | | | | | | | | | IDNEST, null
+| | | returnFromFunction, null
+| | | | EXPR, null
+| | | | | ArithExpr, null
+| | | | | | Term, null
+| | | | | | | Factor, null
+| | | | | | | | id, result
+| | | | | | | | IndiceList, null
+| | | | | | | | IDNEST, null
+| FunctionDec, null
+| | function, function
+| | id, main
+| | FunctionTail, null
+| | | return, void
+| | Body, null
+| | | localvar, null
+| | | | id, f1
+| | | | type, LINEAR
+| | | | AParmList, null
+| | | | | EXPR, null
+| | | | | | ArithExpr, null
+| | | | | | | Term, null
+| | | | | | | | intLit, 2
+| | | | | EXPR, null
+| | | | | | ArithExpr, null
+| | | | | | | Term, null
+| | | | | | | | intLit, 3
+| | | localvar, null
+| | | | id, f2
+| | | | type, QUADRATIC
+| | | | AParmList, null
+| | | | | EXPR, null
+| | | | | | ArithExpr, null
+| | | | | | | Term, null
+| | | | | | | | Factor, null
+| | | | | | | | | sign, -
+| | | | | | | | | intLit, 2
+| | | | | EXPR, null
+| | | | | | ArithExpr, null
+| | | | | | | Term, null
+| | | | | | | | intLit, 1
+| | | | | EXPR, null
+| | | | | | ArithExpr, null
+| | | | | | | Term, null
+| | | | | | | | intLit, 0
+| | | localvar, null
+| | | | id, counter
+| | | | type, integer
+| | | | ARRSIZE, null
+| | | Statment, null
+| | | | id, counter
+| | | | =, null
+| | | | | EXPR, null
+| | | | | | ArithExpr, null
+| | | | | | | Term, null
+| | | | | | | | floatLit, 1.1e-1
+| | | while, null
+| | | | whileTree, null
+| | | | | relop, null
+| | | | | | ArithExpr, null
+| | | | | | | Term, null
+| | | | | | | | Factor, null
+| | | | | | | | | id, counter
+| | | | | | | | | IndiceList, null
+| | | | | | | | | IDNEST, null
+| | | | | | relOp, <=
+| | | | | | ArithExpr, null
+| | | | | | | Term, null
+| | | | | | | | intLit, 10
+| | | | StatmentList, null
+| | | | | write, null
+| | | | | | EXPR, null
+| | | | | | | ArithExpr, null
+| | | | | | | | Term, null
+| | | | | | | | | Factor, null
+| | | | | | | | | | id, counter
+| | | | | | | | | | IndiceList, null
+| | | | | | | | | | IDNEST, null
+| | | | | write, null
+| | | | | | EXPR, null
+| | | | | | | ArithExpr, null
+| | | | | | | | Term, null
+| | | | | | | | | Factor, null
+| | | | | | | | | | id, f1
+| | | | | | | | | | IndiceList, null
+| | | | | | | | | | IDNEST, null
+| | | | | | | | | | | dot, null
+| | | | | | | | | | | | id, evaluate
+| | | | | | | | | | | | AParmList, null
+| | | | | | | | | | | | | EXPR, null
+| | | | | | | | | | | | | | ArithExpr, null
+| | | | | | | | | | | | | | | Term, null
+| | | | | | | | | | | | | | | | Factor, null
+| | | | | | | | | | | | | | | | | id, counter
+| | | | | | | | | | | | | | | | | IndiceList, null
+| | | | | | | | | | | | | | | | | IDNEST, null
+| | | | | write, null
+| | | | | | EXPR, null
+| | | | | | | ArithExpr, null
+| | | | | | | | Term, null
+| | | | | | | | | Factor, null
+| | | | | | | | | | id, f2
+| | | | | | | | | | IndiceList, null
+| | | | | | | | | | IDNEST, null
+| | | | | | | | | | | dot, null
+| | | | | | | | | | | | id, evaluate
+| | | | | | | | | | | | AParmList, null
+| | | | | | | | | | | | | EXPR, null
+| | | | | | | | | | | | | | ArithExpr, null
+| | | | | | | | | | | | | | | Term, null
+| | | | | | | | | | | | | | | | Factor, null
+| | | | | | | | | | | | | | | | | id, counter
+| | | | | | | | | | | | | | | | | IndiceList, null
+| | | | | | | | | | | | | | | | | IDNEST, null

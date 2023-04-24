@@ -9,6 +9,7 @@ Program, null
 | | | | | type, integer
 | | | | | ARRSIZE, null
 | | | | | | intLit, 8
+| | | | | | intLit, 7
 | | | | FParms, null
 | | | | | id, size
 | | | | | type, integer

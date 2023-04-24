@@ -746,7 +746,8 @@ public class tableGenerate {
                         System.out.println("same functions. Name :" +ans.get(j).get(0).name);
                     }
                     else {
-                        System.out.println("WARNING: same function name but different parameters. Name :" +ans.get(j).get(0).name);
+                        System.out.println("WARNING: same function name but different parameters. Name :" +ans.get(j).get(0).name + " " + ans.get(j).get(0).lineNumber);
+
                     }
                 }
             }
