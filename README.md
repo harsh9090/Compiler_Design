@@ -16,7 +16,7 @@ To use this compiler, follow these steps:
 - Open a terminal and navigate to the root directory of the project.
 - Run the following command to compile a file named test.cmp:
 ./fileName.src
-> This will generate a file named test.moon, which is the input for the Moon machine.
+   - This will generate a file named test.moon, which is the input for the Moon machine.
 - Run the following command to execute the generated code and produce output:
 moon test.moon lib.m
 
