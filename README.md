@@ -1,4 +1,4 @@
-##Compiler Design Project
+# Compiler Design Project
 This project is a compiler for a programming language that supports integers and floats. The compiler is capable of:
 
 - Detecting complex tokens
